@@ -1,0 +1,11 @@
+{
+    "scene2": {
+      "image": "./assets/scene2.png",
+      "description": "You have arrived at the ancient ruins...",
+      "options": [
+        "Search the ruins",
+        "Leave the ruins"
+      ]
+    }
+  }
+  

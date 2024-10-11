@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chronicles of a Forgotten Land</title>
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Press+Start+2P&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- START SCREEN -->
+    <header id="start-screen">
+      <h1>Chronicles of Forgotten Lands</h1>
+      <p id="intro">
+        Welcome to an epic journey inspired by the classic text adventure games
+        of the 80s, with a modern twist! Embark on a journey through forgotten
+        lands, where you will face challenges and gather powerful relics as you
+        make your way to victory. Will you conquer the trials ahead and restore
+        balance, or will the Forgotten Lands remain hidden in mystery forever?
+        The adventure starts now!
+      </p>
+      <button id="start-button">Start Game</button>
+    </header>
+
+    <!-- MAIN GAME AREA -->
+    <main id="main-game" style="display: none">
+      <!-- A) TOP CONTROLS -->
+      <section id="top-controls">
+        <h2>Chronicles of Forgotten Lands</h2>
+        <div id="control-buttons">
+          <button id="quit-button">Quit Game</button>
+          <button id="restart-button">Restart Game</button>
+        </div>
+      </section>
+
+      <!-- B) GAME AREA -->
+      <section id="game-area">
+        <!-- B1) Inventory -->
+        <aside id="inventory">
+          <h3>Collected Items</h3>
+          <div id="items-box">
+            <div class="inventory-item" id="item1"></div>
+            <div class="inventory-item" id="item2"></div>
+            <div class="inventory-item" id="item3"></div>
+            <div class="inventory-item" id="item4"></div>
+            <div class="inventory-item" id="item5"></div>
+            <div class="inventory-item" id="item6"></div>
+          </div>
+        </aside>
+
+        <!-- B2) Game container -->
+        <section id="game-container">
+          <!-- Scene -->
+          <section id="scene">
+            <img id="scene-image" src="./assets/1.png" alt="Shattered Temple" />
+            <p id="scene-description">
+              You begin your journey at the Shattered Temple. A vision of the Wise Elder appears, telling you that 6 relics must be gathered to restore balance to the
+              Forgotten Land. The temple is surrounded by dense trees, and a
+              faint path leads into the distance. Listen to the Wise Elder. He
+              says, “Follow the path ahead. It will take you through the forest
+              to the first relic—hidden deep within the Ruins.”
+            </p>
+            <p id="scene-question">What will you do?</p>
+          </section>
+
+          <!-- Options Buttons -->
+          <section id="options-buttons">
+            <button class="button-for-option" id="button1">Talk to Wise Elder</button>
+            <button class="button-for-option" id="button2">Follow the path</button>
+          </section>
+
+          <!-- Options Typing -->
+          <section id="options-typing">
+            >
+            <input
+              type="text"
+              id="options-typing-input"
+              placeholder="Type your choice..."
+            />
+          </section>
+
+          <!-- Feedback -->
+          <section id="feedback">
+            <p id="feedback-message">
+              I'm sure you can come up with something better.
+            </p>
+          </section>
+
+          <!-- Challenges (riddles, combats, puzzles, etc.) -->
+          <section id="challenge">
+            <!-- add challenge content here -->
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>
