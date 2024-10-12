@@ -1,11 +1,107 @@
 {
-    "scene2": {
-      "image": "./assets/scene2.png",
-      "description": "You have arrived at the ancient ruins...",
-      "options": [
-        "Search the ruins",
-        "Leave the ruins"
-      ]
+  "1": {
+    "image": "./assets/scenarios/1.png",
+    "description": "You begin your journey at the Shattered Temple. A vision of the Wise Elder appears, telling you that 6 relics must be gathered to restore balance to the Forgotten Land. The temple is surrounded by dense trees, and a faint path leads into the distance. Listen to the Wise Elder. He says, “Follow the path ahead. It will take you through the forest to the first relic—hidden deep within the Ruins.”",
+    "inputType": "options",
+    "options": ["Talk to Wise Elder", "Follow the path"],
+    "correctAnswer": "Follow the path",
+    "feedback": {
+      "wrong": "I guess you need to listen more carefully!",
+      "right": "You step onto the narrow path that disappears into the thick trees of the forest."
+    },
+    "nextScene": 2
+  },
+  "2": {
+    "image": "./assets/scenarios/2.png",
+    "description": "You follow the path deeper into the Forest of Shadows, where towering trees loom above like silent sentinels. The air grows thick with magic as the light fades, and twisted vines hang from branches. After walking for some time, you notice the outline of ancient stone structures barely visible through the dense vegetation—the ruins you've been seeking. They appear worn and overgrown but still emit a faint aura of power.",
+    "inputType": "typing",
+    "correctAnswer": "ruins",
+    "feedback": {
+      "wrong": "Think again! What are you really seeking?",
+      "right": "You push through the dense underbrush, making your way toward the hidden ruins."
+    },
+    "nextPhase": {
+      "description": "A mist rises before you, and a disembodied voice speaks: 'Answer this riddle, traveler, and the path to the ruins will reveal itself.'",
+      "challengeType": "riddle",
+      "riddle": {
+        "question": "I have keys but open no locks. I have space but no room. You can enter, but you can't go outside. What am I - a map, a keyboard or a dream?",
+        "correctAnswer": "keyboard"
+      },
+      "feedback": {
+        "wrong": "The mist remains. Try again.",
+        "right": "Correct! The mist clears, revealing the path to the ruins. You've conquered  your first magical relic, the Relic of Secrets!"
+      },
+      "relic": {
+        "name": "relic_of_secrets",
+        "image": "./assets/relics/relic-of-secrets-scene2.png"
+      }
+    },
+    "nextScene": 3
+  },
+  "3": {
+    "image": "./assets/scenarios/3.png",
+    "description": "The ruins are vast, and the once-proud fortress is now crumbling and overrun with time. At the heart of the ruins lies the Relic of Strength, but a Stone Guardian blocks your way. This powerful, ancient protector will not let anyone claim the relic without proving their might.",
+    "inputType": "options",
+    "options": ["Examine the Stone Guardian", "Fight the Stone Guardian"],
+    "correctAnswer": "Fight the Stone Guardian",
+    "feedback": {
+      "wrong": null,
+      "right": "As you approach the Relic of Strengh, the Stone Guardian awakens from its slumber. Its massive stone body creaks and groans as it moves, towering over you with a stone hammer in hand."
+    },
+    "examineOutcome": {
+      "description": "You carefully examine the Stone Guardian. It has thick stone armor, making it hard to penetrate with normal attacks. However, its joints are exposed, leaving them vulnerable to a well-placed strike.",
+      "hint": "Aim for the joints to deal extra damage during the fight!",
+      "feedbackLocation": "feedback-message"
+    },
+    "nextPhase": {
+      "description": "As you approach the relic, the Stone Guardian awakens from its slumber. Its massive stone body creaks and groans as it moves, towering over you with a stone hammer in hand.",
+      "challengeType": "combat",
+      "inputType": "options",
+      "enemy": {
+        "name": "Stone Guardian",
+        "health": 50,
+        "attack": 10,
+        "defense": 8
+      },
+      "playerActions": ["Attack", "Aim for the joints", "Defend"],
+      "feedback": {
+        "victory": "You successfully defeat the Stone Guardian, and you claim the Relic of Strength. With the new relic in hand, the ruins tremble and shift, revealing a hidden tunnel that leads you deeper into the Forgotten Land. You feel the relic's power grow stronger with each step as you enter a new area.",
+        "defeat": "The guardian proves too strong, and you are forced to retreat. After regaining your strength, you are now able to try again."
+      },
+      "relic": {
+        "name": "relic_of_strength",
+        "image": "./assets/relics/relic-of-strength-scene3.png"
+      },
+      "nextScene": 4
+    }
+  },
+  "4": {
+    "image": "./assets/scenarios/4.png",
+    "description": "The tunnel winds and twists until it brings you to the Crystal Lake, a tranquil body of water surrounded by tall mountains. The still waters of the lake reflect the sky like a mirror. At its center is a small island that holds the Relic of Wisdom, but the lake is protected by an ancient puzzle.",
+    "inputType": "options",
+    "options": ["Approach the lake", "Cross the lake"],
+    "correctAnswer": "Cross the lake",
+    "feedback": {
+      "wrong": "You hesitate, unsure of how to proceed. When you are sure, go ahead and cross the lake.",
+      "right": "You approach the Crystal Lake and find several ancient puzzle pieces scattered along the shore."
+    },
+    "nextPhase": {
+      "description": "To reach the island, you must complete the ancient puzzle. Drag the pieces of the puzzle and drop them into the correct slots to restore the image and unlock the bridge.",
+      "challengeType": "puzzle",
+      "puzzle": {
+        "description": "Rearrange the 4 puzzle pieces by dragging them into the correct positions to complete the image and unlock the magical bridge.",
+        "correctAnswer": "puzzle solved",
+        "pieces": ["piece1", "piece2", "piece3", "piece4"],
+        "feedback": {
+          "wrong": "The pieces don't fit together yet. Try again.",
+          "right": "The puzzle is complete! A shimmering bridge appears, allowing you to walk across the water to the island."
+        }
+      },
+      "relic": {
+        "name": "relic_of_wisdom",
+        "image": "./assets/relics/relic-of-wisdom-scene4.png"
+      },
+      "nextScene": 5
     }
   }
-  
+}

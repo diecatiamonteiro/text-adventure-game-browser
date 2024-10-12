@@ -1,0 +1,1 @@
+// Handles challenges, checks player input, and rewards players with relics or items.

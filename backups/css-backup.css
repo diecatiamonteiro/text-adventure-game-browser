@@ -243,7 +243,7 @@ main #game-area #game-container #options-typing input {
 
 main #game-area #game-container #feedback #feedback-message {
   margin-top: 20px;
-  color: orange;
+  color: green;
 }
 
 /* ++++++++++++++++++++++ Main - Game Area - Aside inventory ++++++++++++++++++++++ */

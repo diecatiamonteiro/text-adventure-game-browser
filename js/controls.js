@@ -1,3 +1,5 @@
+// Manages game controls like start, quit, and restart.
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Start Game
 
 export function startGame() {
