@@ -44,14 +44,13 @@
       <section id="game-area">
         <!-- B1) Inventory -->
         <aside id="inventory">
-          <h3>Collected Items</h3>
+          <h3>Collected Relics</h3>
           <div id="items-box">
             <div class="inventory-item" id="item1"></div>
             <div class="inventory-item" id="item2"></div>
             <div class="inventory-item" id="item3"></div>
             <div class="inventory-item" id="item4"></div>
             <div class="inventory-item" id="item5"></div>
-            <div class="inventory-item" id="item6"></div>
           </div>
         </aside>
 
@@ -59,31 +58,19 @@
         <section id="game-container">
           <!-- Scene -->
           <section id="scene">
-            <img id="scene-image" src="./assets/1.png" alt="Shattered Temple" />
-            <p id="scene-description">
-              You begin your journey at the Shattered Temple. A vision of the
-              Wise Elder appears, telling you that 6 relics must be gathered to
-              restore balance to the Forgotten Land. The temple is surrounded by
-              dense trees, and a faint path leads into the distance. Listen to
-              the Wise Elder. He says, “Follow the path ahead. It will take you
-              through the forest to the first relic—hidden deep within the
-              Ruins.”
-            </p>
-            <p id="scene-question">What will you do?</p>
+            <img id="scene-image" src="" alt="" />
+            <p id="scene-description"></p>
+            <p id="scene-question"></p>
           </section>
 
           <!-- Options Buttons -->
-          <section id="options-buttons">
-            <button class="button-for-option" id="button1">
-              Talk to Wise Elder
-            </button>
-            <button class="button-for-option" id="button2">
-              Follow the path
-            </button>
+          <section id="options-buttons" style="display: none;">
+            <button class="button-for-option" id="button1"></button>
+            <button class="button-for-option" id="button2"></button>
           </section>
 
           <!-- Options Typing -->
-          <section id="options-typing">
+          <section id="options-typing" style="display: none;">
             >
             <input
               type="text"
@@ -99,13 +86,35 @@
 
           <!-- Challenges (riddles, combats, puzzles, etc.) -->
           <section id="challenge">
-            <!-- add challenge content here -->
+            <!-- For riddles -->
+            <div id="riddle-challenge" style="display: none">
+              <p id="riddle-question"></p>
+              <input
+                type="text"
+                id="riddle-answer"
+                placeholder="Type your answer..."
+              />
+            </div>
+
+            <!-- For combat -->
+            <div id="combat-challenge" style="display: none">
+              <p id="combat-description"></p>
+              <button id="attack-button">Attack</button>
+              <button id="defend-button">Defend</button>
+            </div>
+
+            <!-- For puzzles -->
+            <div id="puzzle-challenge" style="display: none">
+              <p id="puzzle-description"></p>
+              <div id="puzzle-container">
+                <!-- Puzzle pieces will be dynamically added here -->
+              </div>
+            </div>
           </section>
         </section>
       </section>
     </main>
 
     <script type="module" src="./js/main.js"></script>
-
   </body>
 </html>
