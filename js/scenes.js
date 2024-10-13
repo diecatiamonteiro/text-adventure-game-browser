@@ -27,24 +27,22 @@ export async function loadScene(sceneNumber) {
 
       // "What will you do?"
       const question = document.getElementById("scene-question");
-      question.innerHTML = sceneData.question;
+      question.innerHTML = sceneData.question || "What will you do?";
 
       // clear feedback
       const feedbackMessage = document.getElementById("feedback-message");
       feedbackMessage.innerText = "";
 
-      const optionsButtons = document.getElementById("options-buttons");
-      const optionsTyping = document.getElementById("options-typing");
-
-      // check input type
-      if (sceneData.inputType === "options") {
-        addButtonOptions(sceneData, sceneNumber);
-        optionsButtons.style.display = "block";
-        optionsTyping.style.display = "none";
+      // handle input type: buttons or input
+      if (sceneData.inputType === "buttons") {
+        showButtonOptions(sceneData);
       } else if (sceneData.inputType === "typing") {
-        showTypingInput(sceneData, sceneNumber);
-        optionsTyping.style.display = "block";
-        optionsButtons.style.display = "none";
+        showTypingInput(sceneData);
+      }
+
+      // handle nextPhase (if exists)
+      if (sceneData.nextPhase) {
+        handleNextPhase(sceneData.nextPhase);
       }
     } else {
       throw new Error("Scene not found.");
@@ -58,15 +56,16 @@ export async function loadScene(sceneNumber) {
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Button based decisions
 
-// Handle buttons for option-based scenes
+// Handle buttons for button-based scenes
 
-function addButtonOptions(sceneData, sceneNumber) {
+function showButtonOptions(sceneData, sceneNumber) {
+  const optionsButtons = document.getElementById("options-buttons");
   const button1 = document.getElementById("button1");
   const button2 = document.getElementById("button2");
 
   // remove existing event listeners
-  button1.removeEventListener("click", handleChoice);
-  button2.removeEventListener("click", handleChoice);
+  button1.removeEventListener("click", handleButtonChoices);
+  button2.removeEventListener("click", handleButtonChoices);
 
   // update button text
   button1.innerText = sceneData.options[0];
@@ -74,18 +73,21 @@ function addButtonOptions(sceneData, sceneNumber) {
 
   // add new event listeners to buttons
   button1.addEventListener("click", () =>
-    handleChoice(sceneData.options[0], sceneData, sceneNumber)
+    handleButtonChoices(sceneData.options[0], sceneData)
   );
   button2.addEventListener("click", () =>
-    handleChoice(sceneData.options[1], sceneData, sceneNumber)
+    handleButtonChoices(sceneData.options[1], sceneData)
   );
+
+  // hide input field
+  document.getElementById("options-typing").style.display = "none";
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Handle right/wrong options
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Handle button choice
 
-// Handle player's choice for option-based input
+// Handle player's choice for button-based scenes
 
-function handleChoice(choice, sceneData, sceneNumber) {
+function handleButtonChoices(choice, sceneData) {
   const feedbackMessage = document.getElementById("feedback-message");
 
   if (choice === sceneData.correctAnswer) {
@@ -107,73 +109,21 @@ function handleChoice(choice, sceneData, sceneNumber) {
 
 // Handle typing input scenes (navigation or challenges)
 
-// function showTypingInput(sceneData, sceneNumber) {
-//   const input = document.getElementById("options-typing-input");
-//   const feedbackMessage = document.getElementById("feedback-message");
-
-//   input.value = "";
-
-//   // Remove any existing keydown event listeners to prevent stacking
-//   input.removeEventListener("keydown", handleTypingInput);
-
-//   input.addEventListener("keydown", function (e) {
-//     if (e.key === "Enter") {
-//       const playerInput = input.value.toLowerCase().trim();
-
-//       // Check if it's a navigation scene
-//       if (
-//         sceneData.correctAnswer &&
-//         playerInput.includes(sceneData.correctAnswer)
-//       ) {
-//         feedbackMessage.innerText = sceneData.feedback.right;
-
-//         // proceed to next scene after feedback
-//         setTimeout(() => {
-//           if (sceneData.relic) {
-//             addRelicToInventory(sceneData.relic);
-//           }
-//           loadScene(sceneNumber.nextScene); // Automatically move to the next scene
-//         }, 2000);
-//       } else if (sceneData.challengeType) {
-//         const challengeResult = handleChallenge(sceneData, playerInput);
-
-//         if (challengeResult === "success") {
-//           // proceed to next scene
-//           setTimeout(() => {
-//             if (sceneData.relic) {
-//               addRelicToInventory(sceneData.relic);
-//             }
-//             loadScene(sceneData.nextScene);
-//           }, 2000);
-//         }
-//       } else {
-//         feedbackMessage.innerText = sceneData.feedback.wrong;
-//       }
-//     } else {
-//       feedbackMessage.innerText = sceneData.feedback.wrong || "Try again.";
-//     }
-//   });
-// }
-
-function showTypingInput(sceneData, sceneNumber) {
+function showTypingInput(sceneData) {
   const input = document.getElementById("options-typing-input");
   const feedbackMessage = document.getElementById("feedback-message");
 
   input.value = "";
 
-  // Remove any existing keydown event listeners to prevent stacking
+  // remove existing keydown event listeners to prevent stacking
   input.removeEventListener("keydown", handleTypingInput);
 
-  // Define handleTypingInput inside showTypingInput to have access to sceneData and sceneNumber
+  // handle player input
   function handleTypingInput(e) {
     if (e.key === "Enter") {
       const playerInput = input.value.toLowerCase().trim();
 
-      // Check if it's a navigation scene
-      if (
-        sceneData.correctAnswer &&
-        playerInput.includes(sceneData.correctAnswer)
-      ) {
+      if (playerInput.includes(sceneData.correctAnswer)) {
         feedbackMessage.innerText = sceneData.feedback.right;
 
         // proceed to next scene after feedback
@@ -182,25 +132,36 @@ function showTypingInput(sceneData, sceneNumber) {
             addRelicToInventory(sceneData.relic);
           }
           loadScene(sceneData.nextScene); // Correctly navigate to the next scene
-        }, 2000);
-      } else if (sceneData.challengeType) {
-        const challengeResult = handleChallenge(sceneData, playerInput);
-
-        if (challengeResult === "success") {
-          // proceed to next scene
-          setTimeout(() => {
-            if (sceneData.relic) {
-              addRelicToInventory(sceneData.relic);
-            }
-            loadScene(sceneData.nextScene);
-          }, 2000);
-        }
+        }, 5000);
       } else {
         feedbackMessage.innerText = sceneData.feedback.wrong || "Try again.";
       }
     }
   }
 
-  // Add the keydown event listener back
+  // add keydown event listener back
   input.addEventListener("keydown", handleTypingInput);
+
+  // Show typing input and hide buttons
+  document.getElementById("options-typing").style.display = "block";
+  document.getElementById("options-buttons").style.display = "none";
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next phase within scene
+
+// Handle nextPhase logic
+
+function handleNextPhase(nextPhase) {
+  const nextPhaseSection = document.getElementById("next-phase");
+  const nextPhaseDescription = document.getElementById(
+    "next-phase-description"
+  );
+
+  nextPhaseDescription.innerText = nextPhase.description;
+  nextPhaseSection.style.display = "block";
+
+  // Handle different challenge types (riddle, combat, etc.)
+  if (nextPhase.challengeType) {
+    handleChallenge(nextPhase.challengeType, nextPhase.challenge);
+  }
 }
