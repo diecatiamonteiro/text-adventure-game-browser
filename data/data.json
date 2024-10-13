@@ -15,7 +15,7 @@
   "2": {
     "sceneType": "typing",
     "image": "./assets/scenes/2.png",
-    "description": "You follow the path deeper into the Forest of Shadows, where towering trees loom above like silent sentinels. The air grows thick with magic as the light fades, and twisted vines hang from branches. After walking for some time, you notice the outline of ancient stone structures barely visible through the dense vegetation—the ruins you've been seeking. They appear worn and overgrown but still emit a faint aura of power.",
+    "description": "You follow the path deeper into the Forest of Shadows, where towering trees loom above like silent sentinels. The air grows thick with magic as the light fades, and twisted vines hang from branches. After walking in the forest for some time, you notice the outline of ancient stone structures barely visible through the dense vegetation—the ruins you've been seeking are near! The ruins appear worn and overgrown but still emit a faint aura of power.",
     "question": "What will you do?",
     "correctAnswer": "ruins",
     "feedback": {
