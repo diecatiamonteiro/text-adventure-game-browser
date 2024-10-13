@@ -7,8 +7,6 @@ import {
 } from "./challenges.js";
 import { addRelicToInventory } from "./inventory.js";
 
-let isHandlingPhase = false; // Flag to track if a phase is currently being handled
-
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Load Scene
 
 // Fetch and load scene based on scene number
@@ -138,24 +136,15 @@ export async function loadScene(sceneNumber) {
       document.getElementById("scene-question").innerText =
         sceneData.question || "What will you do?";
 
-      // Clear feedback message
-      document.getElementById("feedback-message").innerText = "";
+      // Show buttons and set their text
+      showButtonOptions(sceneData);
 
-      // Handle scene types: buttons or typing
-      if (sceneData.sceneType === "buttons") {
-        showButtonOptions(sceneData);
-      } else if (sceneData.sceneType === "typing") {
-        showTypingInput(sceneData);
-      }
-
-      // Handle nextPhase (like riddle) if it exists, but do not immediately go to nextPhase
-      if (sceneData.nextPhase && !isHandlingPhase) return;
+      // Handle next phase (challenge) if correct answer is clicked
+      if (sceneData.nextPhase) return;
 
       // Direct scene transition if no nextPhase
-      if (sceneData.nextScene && !sceneData.nextPhase && !isHandlingPhase) {
-        setTimeout(() => {
-          loadScene(sceneData.nextScene);
-        }, 3000);
+      if (sceneData.nextScene && !sceneData.nextPhase) {
+        setTimeout(() => loadScene(sceneData.nextScene), 3000);
       }
     } else {
       throw new Error(`Scene ${sceneNumber} not found.`);
@@ -167,59 +156,47 @@ export async function loadScene(sceneNumber) {
   }
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Clear Previous Scene
-
-function clearPreviousScene() {
-    // Clear all content from the previous scene, including challenges
-    document.getElementById("scene-description").innerText = "";
-    document.getElementById("scene-image").src = "";
-    document.getElementById("scene-question").innerText = "";
-    document.getElementById("feedback-message").innerText = "";
-  
-    // Hide buttons and typing input
-    document.getElementById("options-buttons").style.display = "none";
-    document.getElementById("options-typing").style.display = "none";
-  
-    // Hide any challenge UI (riddle, combat, puzzle)
-    document.getElementById("riddle-challenge").style.display = "none";
-    document.getElementById("combat-challenge").style.display = "none";
-    document.getElementById("puzzle-challenge").style.display = "none";
-  
-    // Clear any challenge content (if needed)
-    document.getElementById("riddle-question").innerText = "";
-    document.getElementById("riddle-answer").value = "";
-    document.getElementById("combat-description").innerText = "";
-    document.getElementById("puzzle-description").innerText = "";
-  }
-  
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Button based decisions
 
 // Handle buttons for button-based scenes
 
-function showButtonOptions(sceneData, sceneNumber) {
-  const optionsButtons = document.getElementById("options-buttons");
+// function showButtonOptions(sceneData) {
+//   const optionsButtons = document.getElementById("options-buttons");
+//   const button1 = document.getElementById("button1");
+//   const button2 = document.getElementById("button2");
+
+//   // remove existing event listeners
+//   button1.removeEventListener("click", handleButtonChoices);
+//   button2.removeEventListener("click", handleButtonChoices);
+
+//   // update button text
+//   button1.innerText = sceneData.options[0];
+//   button2.innerText = sceneData.options[1];
+
+//   // add new event listeners to buttons
+//   button1.addEventListener("click", () =>
+//     handleButtonChoices(sceneData.options[0], sceneData)
+//   );
+//   button2.addEventListener("click", () =>
+//     handleButtonChoices(sceneData.options[1], sceneData)
+//   );
+
+//   // show buttons and hide input field
+//   optionsButtons.style.display = "block";
+//   document.getElementById("options-typing").style.display = "none";
+// }
+
+function showButtonOptions(sceneData) {
   const button1 = document.getElementById("button1");
   const button2 = document.getElementById("button2");
 
-  // remove existing event listeners
-  button1.removeEventListener("click", handleButtonChoices);
-  button2.removeEventListener("click", handleButtonChoices);
-
-  // update button text
   button1.innerText = sceneData.options[0];
   button2.innerText = sceneData.options[1];
 
-  // add new event listeners to buttons
-  button1.addEventListener("click", () =>
-    handleButtonChoices(sceneData.options[0], sceneData)
-  );
-  button2.addEventListener("click", () =>
-    handleButtonChoices(sceneData.options[1], sceneData)
-  );
+  button1.onclick = () => handleButtonChoices(sceneData.options[0], sceneData);
+  button2.onclick = () => handleButtonChoices(sceneData.options[1], sceneData);
 
-  // show buttons and hide input field
-  optionsButtons.style.display = "block";
-  document.getElementById("options-typing").style.display = "none";
+  document.getElementById("options-buttons").style.display = "block";
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Handle button choice
@@ -231,15 +208,13 @@ function handleButtonChoices(choice, sceneData) {
 
   if (choice === sceneData.correctAnswer) {
     feedbackMessage.innerText = sceneData.feedback.right;
-
-    // Proceed to nextPhase or nextScene
-    // setTimeout(() => {
-    //   if (sceneData.nextPhase) {
-    //     handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
-    //   } else {
-    //     loadScene(sceneData.nextScene);
-    //   }
-    // }, 2000);
+    setTimeout(() => {
+      if (sceneData.nextPhase) {
+        handleNextPhase(sceneData.nextPhase, sceneData.nextScene); // Handle the nextPhase first
+      } else {
+        loadScene(sceneData.nextScene); // Move directly to next scene
+      }
+    }, 2000);
   } else {
     feedbackMessage.innerText = sceneData.feedback.wrong;
   }
@@ -249,44 +224,44 @@ function handleButtonChoices(choice, sceneData) {
 
 // Handle typing input scenes (navigation or challenges)
 
-function showTypingInput(sceneData) {
-  const input = document.getElementById("options-typing-input");
-  const feedbackMessage = document.getElementById("feedback-message");
+// function showTypingInput(sceneData) {
+//   const input = document.getElementById("options-typing-input");
+//   const feedbackMessage = document.getElementById("feedback-message");
 
-  input.value = "";
+//   input.value = "";
 
-  // remove existing keydown event listeners to prevent stacking
-  input.removeEventListener("keydown", handleTypingInput);
+//   // remove existing keydown event listeners to prevent stacking
+//   input.removeEventListener("keydown", handleTypingInput);
 
-  // handle player input
-  function handleTypingInput(e) {
-    if (e.key === "Enter") {
-      const playerInput = input.value.toLowerCase().trim();
+//   // handle player input
+//   function handleTypingInput(e) {
+//     if (e.key === "Enter") {
+//       const playerInput = input.value.toLowerCase().trim();
 
-      if (playerInput.includes(sceneData.correctAnswer)) {
-        feedbackMessage.innerText = sceneData.feedback.right;
+//       if (playerInput.includes(sceneData.correctAnswer)) {
+//         feedbackMessage.innerText = sceneData.feedback.right;
 
-        // proceed to next scene after feedback
-        setTimeout(() => {
-          if (sceneData.nextPhase) {
-            handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
-          } else {
-            loadScene(sceneData.nextScene);
-          }
-        }, 5000);
-      } else {
-        feedbackMessage.innerText = sceneData.feedback.wrong;
-      }
-    }
-  }
+//         // proceed to next scene after feedback
+//         setTimeout(() => {
+//           if (sceneData.nextPhase) {
+//             handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
+//           } else {
+//             loadScene(sceneData.nextScene);
+//           }
+//         }, 5000);
+//       } else {
+//         feedbackMessage.innerText = sceneData.feedback.wrong;
+//       }
+//     }
+//   }
 
-  // Add keydown event listener
-  input.addEventListener("keydown", handleTypingInput);
+//   // Add keydown event listener
+//   input.addEventListener("keydown", handleTypingInput);
 
-  // Show typing input and hide buttons
-  document.getElementById("options-typing").style.display = "block";
-  document.getElementById("options-buttons").style.display = "none";
-}
+//   // Show typing input and hide buttons
+//   document.getElementById("options-typing").style.display = "block";
+//   document.getElementById("options-buttons").style.display = "none";
+// }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next phase within scene
 
@@ -452,23 +427,36 @@ function showTypingInput(sceneData) {
 // }
 
 function handleNextPhase(nextPhase, nextScene) {
-    // Clear previous scene content before the next phase begins
-    clearPreviousScene();
-  
-    // Show nextPhase content (riddle, combat, puzzle)
-    const nextPhaseSection = document.getElementById("next-phase");
-    nextPhaseSection.style.display = "block";
-    document.getElementById("next-phase-description").innerText = nextPhase.description;
-  
-    // Handle different challenge types (riddle, combat, puzzle)
-    if (nextPhase.challengeType === "riddle") {
-      handleRiddleChallenge(nextPhase.challenge.riddle, nextPhase, nextScene, loadScene);
-    } else if (nextPhase.challengeType === "combat") {
-      handleCombatChallenge(nextPhase, nextScene, loadScene);
-    }
-  
-    // Reset handling phase flag after challenge completes
-    setTimeout(() => {
-      isHandlingPhase = false;
-    }, 5000);
+  clearPreviousScene();
+
+  const nextPhaseSection = document.getElementById("next-phase");
+  nextPhaseSection.style.display = "block";
+  document.getElementById("next-phase-description").innerText =
+    nextPhase.description;
+
+  // Handle different challenge types (riddle, combat, puzzle)
+  if (nextPhase.challengeType === "riddle") {
+    handleRiddleChallenge(
+      nextPhase.challenge.riddle,
+      nextPhase,
+      nextScene,
+      loadScene
+    );
+  } else if (nextPhase.challengeType === "combat") {
+    handleCombatChallenge(nextPhase, nextScene, loadScene);
+  } else if (nextPhase.challengeType === "puzzle") {
+    handlePuzzleChallenge(nextPhase.challenge.puzzle, nextPhase, loadScene);
   }
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// Clear previous scene
+function clearPreviousScene() {
+  document.getElementById("scene-description").innerText = "";
+  document.getElementById("scene-image").src = "";
+  document.getElementById("scene-question").innerText = "";
+  document.getElementById("feedback-message").innerText = "";
+  document.getElementById("options-buttons").style.display = "none";
+  document.getElementById("next-phase").style.display = "none";
+}
