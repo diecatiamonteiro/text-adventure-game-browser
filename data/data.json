@@ -2,6 +2,7 @@
   "1": {
     "image": "./assets/scenes/1.png",
     "description": "You begin your journey at the Shattered Temple. A vision of the Wise Elder appears, telling you that 4 relics must be gathered to restore balance to the Forgotten Land. The temple is surrounded by dense trees, and a faint path leads into the distance. Listen to the Wise Elder. He says, “Follow the path ahead. It will take you through the forest to the first relic—hidden deep within the Ruins.”",
+    "question": "What will you do?",
     "inputType": "options",
     "options": ["Talk to Wise Elder", "Follow the path"],
     "correctAnswer": "Follow the path",
@@ -14,6 +15,7 @@
   "2": {
     "image": ".assets/scenes/2.png",
     "description": "You follow the path deeper into the Forest of Shadows, where towering trees loom above like silent sentinels. The air grows thick with magic as the light fades, and twisted vines hang from branches. After walking for some time, you notice the outline of ancient stone structures barely visible through the dense vegetation—the ruins you've been seeking. They appear worn and overgrown but still emit a faint aura of power.",
+    "question": "What will you do?",
     "inputType": "typing",
     "correctAnswer": "ruins",
     "feedback": {
@@ -41,6 +43,7 @@
   "3": {
     "image": "./assets/scenes/3.png",
     "description": "The ruins are vast, and the once-proud fortress is now crumbling and overrun with time. At the heart of the ruins lies the Relic of Strength, but a Stone Guardian blocks your way. This powerful, ancient protector will not let anyone claim the relic without proving their might.",
+    "question": "What will you do?",
     "inputType": "options",
     "options": ["Examine the Stone Guardian", "Fight the Stone Guardian"],
     "correctAnswer": "Fight the Stone Guardian",
@@ -78,6 +81,7 @@
   "4": {
     "image": "./assets/scenes/4.png",
     "description": "The tunnel winds and twists until it brings you to the Crystal Lake, a tranquil body of water surrounded by tall mountains. The still waters of the lake reflect the sky like a mirror. At its center is a small island that holds the Relic of Wisdom, but the lake is protected by an ancient puzzle.",
+    "question": "What will you do?",
     "inputType": "options",
     "options": ["Approach the lake", "Cross the lake"],
     "correctAnswer": "Cross the lake",
@@ -107,6 +111,7 @@
   "5": {
     "image": "./assets/scenes/5.png",
     "description": "After crossing the lake, you emerge into the Frozen Cave, deep beneath the mountains. The air is cold, and frost covers every surface. At the far end of the cavern lies the Relic of Courage, but it is encased in a block of ice. To retrieve it, you must endure the bitter cold and solve the puzzle that protects the relic.",
+    "question": "What will you do?",
     "inputType": "typing",
     "correctAnswer": "puzzle",
     "feedback": {
@@ -133,6 +138,7 @@
   "6": {
     "image": "./assets/scenes/6.png",
     "description": "You arrive at the Whispering Crypt, a dark and eerie place, filled with the voices of long-lost souls. A cold chill runs down your spine. The Relic of Souls lies in the center of the crypt but is guarded by ancient spirits who test the courage of anyone who dares enter. The spirits whisper: 'To claim the Relic of Souls, you must prove you understand the purpose of the relics you have gathered. Only then will balance be restored.'",
+    "question": "What will you do?",
     "inputType": "options",
     "options": ["Leave the crypt", "Face the spirits' final challenge"],
     "correctAnswer": "Face the spirits' final challenge",
@@ -187,6 +193,7 @@
   "7": {
     "image": ".assets/scenes/7.png",
     "description": "With all six relics in your possession, you return to the Shattered Shrine. The temple feels different now, the air heavy with anticipation. As you step into the shrine, the Wise Elder appears once more, his voice echoing in the stillness: 'The balance of the Forgotten Land rests in your hands. Place the relics on the pedestals and restore what has been lost.'",
+    "question": "What will you do?",
     "inputType": "typing",
     "correctAnswer": "place relics on pedestal",
     "feedback": {

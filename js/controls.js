@@ -1,5 +1,8 @@
 // Manages game controls like start, quit, and restart.
 
+import { loadScene } from "./scenes.js";
+import { resetInventory } from "./inventory.js";
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Start Game
 
 export function startGame() {
@@ -11,12 +14,14 @@ export function startGame() {
   startScreen.style.opacity = 0;
 
   setTimeout(() => {
+    resetInventory();
     startScreen.style.display = "none";
 
     mainGame.style.display = "block";
     mainGame.style.opacity = 0;
     setTimeout(() => {
       mainGame.style.opacity = 1; // fade in smoothly
+      loadScene(1)
     }, 50);
   }, 500); // match duration of fade-out
 }
@@ -45,6 +50,8 @@ export function quitGame() {
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Restart Game
 
+let collectedRelics = [];
+
 export function restartGame() {
   const mainGame = document.getElementById("main-game");
 
@@ -52,6 +59,7 @@ export function restartGame() {
   mainGame.style.transition = "opacity 0.5s ease";
   mainGame.style.opacity = 0;
 
+  // reset inventory visually
   setTimeout(() => {
     const inventoryItems = document.querySelectorAll(".inventory-item");
     inventoryItems.forEach((item) => {
@@ -59,8 +67,12 @@ export function restartGame() {
       item.classList.remove("collected");
     });
 
+    // clear relics
+    collectedRelics = [];
+
+    // reset first scene
     const sceneImage = document.getElementById("scene-image");
-    sceneImage.src = "./assets/1.png";
+    sceneImage.src = "./assets/scenes/1.png";
 
     mainGame.style.display = "block";
     mainGame.style.opacity = 1;
