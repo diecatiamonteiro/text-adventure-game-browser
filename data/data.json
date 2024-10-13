@@ -7,30 +7,31 @@
     "options": ["Talk to Wise Elder", "Follow the path"],
     "correctAnswer": "Follow the path",
     "feedback": {
-      "wrong": "I guess you need to listen more carefully!",
-      "right": "You step onto the narrow path that disappears into the thick trees of the forest."
+      "wrong": "The Wise Elder doesn't like talking twice...",
+      "right": "You step onto the narrow path that disappears into the thick trees of the forest. Off you go to the Forest of Shadows..."
     },
     "nextScene": 2
   },
   "2": {
-    "sceneType": "typing",
+    "sceneType": "buttons",
     "image": "./assets/scenes/2.png",
     "description": "SCENE 2. You follow the path deeper into the Forest of Shadows, where towering trees loom above like silent sentinels. The air grows thick with magic as the light fades, and twisted vines hang from branches. After walking in the forest for some time, you notice the outline of ancient stone structures barely visible through the dense vegetation—the ruins you've been seeking are near! The ruins appear worn and overgrown but still emit a faint aura of power.",
     "question": "What will you do?",
-    "correctAnswer": "ruins",
+    "options": ["Head to ruins", "Explore forest a little more"],
+    "correctAnswer": "Head to ruins",
     "feedback": {
-      "wrong": "Think again! What are you really seeking?",
-      "right": "You push through the dense underbrush, making your way toward the hidden ruins."
+      "wrong": "I see you need time to explore. Go ahead and observe everything around you, all the sounds, smells and textures. When you're ready to move on, come back and make a new decision.",
+      "right": "You push through the dense underbrush, making your way toward the hidden ruins. Off you go to the ruins..."
     },
     "nextPhase": {
-      "description": "SCENE 2 RIDDLE. A mist rises before you, and a disembodied voice speaks: 'Answer this riddle, traveler, and the path to the ruins will reveal itself.'",
       "challengeType": "riddle",
+      "description": "SCENE 2 RIDDLE. A mist rises before you, and a disembodied voice speaks: 'Answer this riddle, traveler, and the path to the ruins will reveal itself.'",
       "challenge": {
         "riddle": {
           "question": "I have keys but open no locks. I have space but no room. You can enter, but you can't go outside. What am I - a map, a keyboard, or a dream?",
           "correctAnswer": "keyboard",
           "feedback": {
-            "wrong": "The mist remains. Try again.",
+            "wrong": "Wrong! The mist remains. Try again.",
             "right": "Correct! The mist clears, revealing the path to the ruins. You've conquered your first magical relic, the Relic of Secrets!"
           }
         }
@@ -51,11 +52,11 @@
     "correctAnswer": "Fight the Stone Guardian",
     "feedback": {
       "wrong": "You carefully examine the Stone Guardian. It has thick stone armor, making it hard to penetrate with normal attacks. However, its joints are exposed, leaving them vulnerable to a well-placed strike. HINT: Aim for the joints to deal extra damage during the fight!",
-      "right": "You chose to fight the Guardian. Off we go to a combat..."
+      "right": "You chose to fight. Off you go to a combat with the Stone Guardian..."
     },
     "nextPhase": {
-      "description": "SCENE 3 COMBAT. As you approach the Relic of Strength, the Stone Guardian awakens from its slumber. Its massive stone body creaks and groans as it moves, towering over you with a stone hammer in hand.",
       "challengeType": "combat",
+      "description": "SCENE 3 COMBAT. As you approach the Relic of Strength, the Stone Guardian awakens from its slumber. Its massive stone body creaks and groans as it moves, towering over you with a stone hammer in hand.",
       "enemy": {
         "name": "Stone Guardian",
         "health": 50,
@@ -82,8 +83,8 @@
     "options": ["Approach the lake", "Cross the lake"],
     "correctAnswer": "Cross the lake",
     "feedback": {
-      "wrong": "You hesitate, unsure of how to proceed. When you are sure, go ahead and cross the lake.",
-      "right": "You start your way to cross the Crystal Lake and find several ancient puzzle pieces scattered along the shore."
+      "wrong": "You cautiously approach the lake's edge, but the shimmering surface reveals nothing new. The island in the center remains distant, and you realize crossing the lake is the only way forward.",
+      "right": "You start your way to cross the Crystal Lake and find several ancient puzzle pieces scattered along the shore. Off you go..."
     },
     "nextPhase": {
       "description": "SCENE 4 PUZZLE. To reach the island, you must complete the ancient puzzle. Drag the pieces of the puzzle and drop them into the correct slots. When pieces are restored, they will form a magical bridge across the water.",
@@ -105,14 +106,15 @@
     "nextScene": 5
   },
   "5": {
-    "sceneType": "typing",
+    "sceneType": "buttons",
     "image": "./assets/scenes/5.png",
-    "description": "SCENE 5. After crossing the lake, you emerge into the Frozen Cave, deep beneath the mountains. The air is cold, and frost covers every surface. At the far end of the cavern lies the Relic of Courage, but it is encased in a block of ice. To retrieve it, you must endure the bitter cold and solve the puzzle that protects the relic.",
+    "description": "SCENE 5. After crossing the lake, you emerge into the Frozen Cave, deep beneath the mountains. The air is cold, and frost covers every surface. At the far end of the cavern lies the Relic of Courage, but it is encased in a block of ice. To retrieve it, you must endure the bitter cold and break the icy cover that protects the relic.",
     "question": "What will you do?",
-    "correctAnswer": "puzzle",
+    "options": ["Search for a tool to break the ice cover", "Approach the ice cover"],
+    "correctAnswer": "Approach the ice cover",
     "feedback": {
-      "wrong": "It's too cold to procrastinate. Think and choose your action wisely!",
-      "right": "That was a wise decision! Let's solve that puzzle!"
+        "wrong": "You search around the cave for a tool, but the biting cold slows you down. The ice is too thick, and no tool seems to be enough to break it. The solution lies elsewhere—you must figure out a different way to reach the relic.",
+        "right": "You approach the ice and notice faint glimmers of light reflecting off nearby mirrors. The solution isn't force, but rather using the environment to your advantage. Off you go to find out how..."
     },
     "nextPhase": {
       "description": "SCENE 5 PUZZLE. The Relic of Courage is trapped in a thick block of ice, and you must use the environment around you to melt it. Mirrors placed throughout the cave must be aligned to reflect beams of light from a small flame onto the block of ice. The cold air makes the puzzle more challenging, as the light dims if you take too long.",
@@ -136,11 +138,11 @@
     "image": "./assets/scenes/6.png",
     "description": "SCENE 6. You arrive at the Whispering Crypt, a dark and eerie place, filled with the voices of long-lost souls. A cold chill runs down your spine. The Relic of Souls lies in the center of the crypt but is guarded by ancient spirits who test the courage of anyone who dares enter. The spirits whisper: 'To claim the Relic of Souls, you must prove you understand the purpose of the relics you have gathered. Only then will balance be restored.'",
     "question": "What will you do?",
-    "options": ["Leave the crypt", "Face the spirits' final challenge"],
-    "correctAnswer": "Face the spirits' final challenge",
+    "options": ["Leave the crypt", "Face the final challenge"],
+    "correctAnswer": "Face the final challenge",
     "feedback": {
       "wrong": "I know this can be nerve-wracking. Take a deep breath and when you're ready, face what the spirits have prepared for you.",
-      "right": "The spirits of lost souls welcome you!"
+      "right": "The spirits of lost souls welcome you! Off you go to your final challenge..."
     },
     "nextPhase": {
       "description": "SCENE 6 PUZZLE. Before you, the five relics you've gathered appear: Secrets, Strength, Wisdom, Courage, and Souls. Each relic has a purpose, and to restore balance to the Forgotten Land, you must align them with their rightful roles. Drag and drop the relics into their proper places.",
@@ -187,23 +189,20 @@
     "nextScene": 7
   },
   "7": {
-    "sceneType": "typing",
+    "sceneType": "buttons",
     "image": "./assets/scenes/7.png",
-    "description": "SCENE 7. With all six relics in your possession, you return to the Shattered Shrine. The temple feels different now, the air heavy with anticipation. As you step into the shrine, the Wise Elder appears once more, his voice echoing in the stillness: 'The balance of the Forgotten Land rests in your hands. Place the relics on the pedestals and restore what has been lost.'",
+    "description": "SCENE 7. With all six relics in your possession, you return to the Shattered Temple. The temple feels different now, the air heavy with anticipation. As you step into the shrine, the Wise Elder appears once more, his voice echoing in the stillness: 'The balance of the Forgotten Land rests in your hands. Place the relics on the pedestals and restore what has been lost.'",
     "question": "What will you do?",
-    "correctAnswer": "place relics on pedestal",
+    "options": ["Place relics on the pedestal", "Fix the temple"],
+    "correctAnswer": "Place relics on the pedestal",
     "feedback": {
-      "wrong": "You've come a long way. Do what you came here to do!",
+      "wrong": "You try to fix the temple, but the damage is too great. It seems that the only way to restore balance is by placing the relics on the pedestal.",
       "right": "One by one, you place the relics on their pedestals. As each relic is set in place, a glow surrounds it, filling the shrine with light. The Relic of Secrets, the Relic of Strength, the Relic of Wisdom, the Relic of Courage, and the Relic of Souls each take their place. The central crystal begins to glow brighter and brighter until the entire shrine is bathed in radiant light."
     },
     "nextPhase": {
-      "description": "SCENE 7 FINAL. As the final relic is placed, a wave of energy sweeps across the Forgotten Land. The trees grow lush, the rivers run clear, and peace is restored. The Wise Elder stands before you one last time and hands you the Crystal of Fate.",
-      "feedback": {
-        "right": "You have done it. The Forgotten Land is whole once more, and your name will be remembered for generations."
-      },
+      "description": "SCENE 7 FINAL. As the final relic is placed, a wave of energy sweeps across the Forgotten Land. The trees grow lush, the rivers run clear, and peace is restored. The Wise Elder stands before you one last time and hands you the Crystal of Fate. You did it! The Forgotten Land is whole once more, and your name will be remembered for generations. Congratulations, hero! You have restored balance to the Forgotten Land.",
       "image": "./assets/scenes/7-restored.png"
     },
-    "finalMessage": "Congratulations, hero! You have restored balance to the Forgotten Land.",
     "endGame": true
   }
 }
