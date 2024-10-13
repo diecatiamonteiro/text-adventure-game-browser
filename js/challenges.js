@@ -1,97 +1,126 @@
 // Handles challenges, checks player input, and rewards players with relics or items.
 
+import { addRelicToInventory } from "./inventory.js";
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Riddle Challenge
 
-export function handleRiddleChallenge(riddle, nextPhase, loadScene) {
-  // Show the riddle question
-  const riddleQuestion = document.getElementById("riddle-question");
-  riddleQuestion.innerText = riddle.question;
-
-  // Show the riddle input field and make sure other sections are hidden
-  document.getElementById("riddle-challenge").style.display = "block";
-  document.getElementById("next-phase").style.display = "none";
-
-  const riddleInput = document.getElementById("riddle-answer");
-  riddleInput.value = ""; // Clear previous input
-  riddleInput.removeEventListener("keydown", handleRiddleInput);
-
-  // Handle player input for the riddle
-  function handleRiddleInput(e) {
-    if (e.key === "Enter") {
-      const playerInput = riddleInput.value.toLowerCase().trim();
-      const feedbackMessage = document.getElementById("feedback-message");
-
-      if (playerInput === riddle.correctAnswer) {
-        feedbackMessage.innerText = riddle.feedback.right;
-
-        // After success, add relic and load next scene
-        setTimeout(() => {
-          if (nextPhase.relic) {
-            addRelicToInventory(nextPhase.relic);
-          }
-          loadScene(
-            nextPhase.relic ? nextPhase.relic.nextScene : nextPhase.nextScene
-          );
-        }, 2000);
-      } else {
-        feedbackMessage.innerText = riddle.feedback.wrong;
+export function handleRiddleChallenge(riddle, nextPhase, nextScene, loadScene) {
+    const riddleQuestion = document.getElementById("riddle-question");
+    riddleQuestion.innerText = riddle.question;
+  
+    // Show the riddle challenge UI
+    document.getElementById("riddle-challenge").style.display = "block";
+  
+    const riddleInput = document.getElementById("riddle-answer");
+    riddleInput.value = "";
+  
+    // Handle the player's input for the riddle
+    function handleRiddleInput(e) {
+      if (e.key === "Enter") {
+        const playerInput = riddleInput.value.toLowerCase().trim();
+        const feedbackMessage = document.getElementById("feedback-message");
+  
+        if (playerInput.includes(riddle.correctAnswer)) {
+          feedbackMessage.innerText = riddle.feedback.right;
+  
+          // Add relic to inventory if it exists
+          setTimeout(() => {
+            if (nextPhase && nextPhase.relic) {
+              addRelicToInventory(nextPhase.relic); // Add relic to inventory
+            }
+  
+            // Correctly navigate to the next scene
+            if (nextScene) {
+              loadScene(nextScene);  // Ensure nextScene is passed from the scene data
+            } else {
+              console.error("nextScene is undefined");
+            }
+          }, 2000);
+        } else {
+          feedbackMessage.innerText = riddle.feedback.wrong;
+        }
       }
     }
-  }
-
-  riddleInput.addEventListener("keydown", handleRiddleInput);
+  
+    riddleInput.addEventListener("keydown", handleRiddleInput);
 }
+
+  
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Combat Challenge
 
-export function handleCombatChallenge(combat, loadScene) {
-  // Display the combat description
-  const combatDescription = document.getElementById("combat-description");
-  combatDescription.innerText = combat.description;
+// export function handleCombatChallenge(combat, nextPhase, loadScene) {
+//   const combatDescription = document.getElementById("combat-description");
+//   combatDescription.innerText = combat.description;
 
-  // Show combat challenge section and hide others
-  document.getElementById("combat-challenge").style.display = "block";
-  document.getElementById("next-phase").style.display = "none";
+//   // Show combat challenge UI
+//   document.getElementById("combat-challenge").style.display = "block";
 
-  const attackButton = document.getElementById("attack-button");
-  const defendButton = document.getElementById("defend-button");
+//   function handleAttack() {
+//     combat.enemy.health -= 10;
 
-  attackButton.removeEventListener("click", handleAttack);
-  defendButton.removeEventListener("click", handleDefend);
+//     if (combat.enemy.health <= 0) {
+//       document.getElementById("feedback-message").innerText =
+//         combat.feedback.victory;
 
-  // Define handlers for attack and defend
-  function handleAttack() {
-    const feedbackMessage = document.getElementById("feedback-message");
-    combat.enemy.health -= 10; // Example attack damage
+//       setTimeout(() => {
+//         if (nextPhase.relic) {
+//           addRelicToInventory(nextPhase.relic); // Add relic to inventory
+//         }
+//         loadScene(nextPhase.nextScene);
+//       }, 2000);
+//     }
+//   }
 
-    if (combat.enemy.health <= 0) {
-      feedbackMessage.innerText = combat.feedback.victory;
-      setTimeout(() => loadScene(combat.nextScene), 2000);
-    } else {
-      feedbackMessage.innerText = combat.feedback.continue;
+//   document
+//     .getElementById("attack-button")
+//     .addEventListener("click", handleAttack);
+// }
+
+export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
+    const combatDescription = document.getElementById("combat-description");
+  
+    // Check if combat data is present
+    if (!nextPhase || !nextPhase.enemy || !nextPhase.playerActions) {
+      console.error("Combat data is missing or incomplete.");
+      return;
     }
+  
+    combatDescription.innerText = nextPhase.description;
+  
+    // Show combat challenge UI
+    document.getElementById("combat-challenge").style.display = "block";
+  
+    function handleAttack() {
+      nextPhase.enemy.health -= 10;
+  
+      if (nextPhase.enemy.health <= 0) {
+        document.getElementById("feedback-message").innerText =
+          nextPhase.feedback.victory;
+  
+        setTimeout(() => {
+          if (nextPhase.relic) {
+            addRelicToInventory(nextPhase.relic); // Add relic to inventory
+          }
+          loadScene(nextScene); // Proceed to the next scene
+        }, 2000);
+      }
+    }
+  
+    document
+      .getElementById("attack-button")
+      .addEventListener("click", handleAttack);
   }
-
-  function handleDefend() {
-    const feedbackMessage = document.getElementById("feedback-message");
-    feedbackMessage.innerText = "You defended successfully!";
-  }
-
-  // Add event listeners for combat actions
-  attackButton.addEventListener("click", handleAttack);
-  defendButton.addEventListener("click", handleDefend);
-}
+  
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Puzzle Challenge
 
-export function handlePuzzleChallenge(puzzle, loadScene) {
-  // Show puzzle description
+export function handlePuzzleChallenge(puzzle, nextPhase, loadScene) {
   const puzzleDescription = document.getElementById("puzzle-description");
   puzzleDescription.innerText = puzzle.description;
 
-  // Show puzzle challenge section
+  // Show puzzle challenge UI
   document.getElementById("puzzle-challenge").style.display = "block";
-  document.getElementById("next-phase").style.display = "none";
 
   function checkPuzzleCompletion() {
     const feedbackMessage = document.getElementById("feedback-message");
@@ -99,11 +128,17 @@ export function handlePuzzleChallenge(puzzle, loadScene) {
 
     if (isPuzzleSolved) {
       feedbackMessage.innerText = puzzle.feedback.right;
-      setTimeout(() => loadScene(puzzle.nextScene), 2000);
+
+      setTimeout(() => {
+        if (nextPhase.relic) {
+          addRelicToInventory(nextPhase.relic); // Add relic to inventory
+        }
+        loadScene(nextPhase.nextScene);
+      }, 2000);
     } else {
       feedbackMessage.innerText = puzzle.feedback.wrong;
     }
   }
 
-  // Add puzzle interaction logic here (e.g., drag-and-drop)
+  // Add puzzle interaction logic here
 }

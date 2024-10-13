@@ -50,16 +50,11 @@
     "options": ["Examine the Stone Guardian", "Fight the Stone Guardian"],
     "correctAnswer": "Fight the Stone Guardian",
     "feedback": {
-      "wrong": null,
-      "right": "As you approach the Relic of Strength, the Stone Guardian awakens from its slumber. Its massive stone body creaks and groans as it moves, towering over you with a stone hammer in hand."
-    },
-    "examineOutcome": {
-      "description": "You carefully examine the Stone Guardian. It has thick stone armor, making it hard to penetrate with normal attacks. However, its joints are exposed, leaving them vulnerable to a well-placed strike.",
-      "hint": "Aim for the joints to deal extra damage during the fight!",
-      "feedbackLocation": "feedback-message"
+      "wrong": "You carefully examine the Stone Guardian. It has thick stone armor, making it hard to penetrate with normal attacks. However, its joints are exposed, leaving them vulnerable to a well-placed strike. HINT: Aim for the joints to deal extra damage during the fight!",
+      "right": "You chose to fight the Guardian. Off we go to a combat..."
     },
     "nextPhase": {
-      "description": "As you approach the relic, the Stone Guardian awakens from its slumber. Its massive stone body creaks and groans as it moves, towering over you with a stone hammer in hand.",
+      "description": "As you approach the Relic of Strength, the Stone Guardian awakens from its slumber. Its massive stone body creaks and groans as it moves, towering over you with a stone hammer in hand.",
       "challengeType": "combat",
       "enemy": {
         "name": "Stone Guardian",

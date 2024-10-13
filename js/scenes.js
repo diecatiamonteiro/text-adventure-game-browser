@@ -10,6 +10,64 @@ import { addRelicToInventory } from "./inventory.js";
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Load Scene
 
 // Fetch and load scene based on scene number
+
+// export async function loadScene(sceneNumber) {
+//   try {
+//     const response = await fetch(
+//       "https://raw.githubusercontent.com/diecatiamonteiro/text-adventure-game-browser/main/data/data.json"
+//     );
+//     console.log("Fetching data is working.");
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch scene data.");
+//     }
+
+//     const data = await response.json();
+//     const sceneData = data[sceneNumber];
+
+//     if (sceneData) {
+//       // update description & image
+//       document.getElementById("scene-description").innerText =
+//         sceneData.description;
+//       document.getElementById("scene-image").src = sceneData.image;
+
+//       // "What will you do?"
+//       const question = document.getElementById("scene-question");
+//       question.innerHTML = sceneData.question || "What will you do?";
+
+//       // clear feedback
+//       const feedbackMessage = document.getElementById("feedback-message");
+//       feedbackMessage.innerText = "";
+
+//       // handle input type: buttons or input
+//       if (sceneData.sceneType === "buttons") {
+//         showButtonOptions(sceneData);
+//       } else if (sceneData.sceneType === "typing") {
+//         showTypingInput(sceneData);
+//       }
+
+//       // Handle direct scene transitions without a nextPhase
+//       if (sceneData.nextScene && !sceneData.nextPhase) {
+//         setTimeout(() => {
+//           loadScene(sceneData.nextScene); // Direct scene transition
+//         }, 2000);
+//       }
+
+//       // Handle nextPhase if exists (challenge-based phases)
+//       if (sceneData.nextPhase) {
+//         handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
+//       }
+//     } else {
+//       throw new Error(`Scene ${sceneNumber} not found.`);
+//     }
+//   } catch (error) {
+//     console.error("Error loading scene:", error);
+//     document.getElementById("feedback-message").innerText =
+//       "Error: Scene not found.";
+//   }
+// }
+
+let isHandlingPhase = false; // Flag to track if a phase is currently being handled
+
 export async function loadScene(sceneNumber) {
   try {
     const response = await fetch(
@@ -25,8 +83,7 @@ export async function loadScene(sceneNumber) {
 
     if (sceneData) {
       // update description & image
-      document.getElementById("scene-description").innerText =
-        sceneData.description;
+      document.getElementById("scene-description").innerText = sceneData.description;
       document.getElementById("scene-image").src = sceneData.image;
 
       // "What will you do?"
@@ -44,20 +101,28 @@ export async function loadScene(sceneNumber) {
         showTypingInput(sceneData);
       }
 
-      // handle nextPhase (if exists)
-      if (sceneData.nextPhase) {
-        handleNextPhase(sceneData.nextPhase);
+      // Handle nextPhase if exists and no other phase is being handled
+      if (sceneData.nextPhase && !isHandlingPhase) {
+        isHandlingPhase = true; // Set the flag to indicate we are handling a phase
+        handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
+      }
+
+      // Handle nextScene only if no phase is being handled
+      else if (sceneData.nextScene && !sceneData.nextPhase && !isHandlingPhase) {
+        setTimeout(() => {
+          loadScene(sceneData.nextScene); // Direct scene transition
+        }, 3000);
       }
     } else {
-      throw new Error("Scene not found.");
+      throw new Error(`Scene ${sceneNumber} not found.`);
     }
   } catch (error) {
     console.error("Error loading scene:", error);
-    document.getElementById("feedback-message").innerText =
-      "Error fetching scene data. Please try again later.";
+    document.getElementById("feedback-message").innerText = "Error: Scene not found.";
   }
 }
 
+  
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Button based decisions
 
 // Handle buttons for button-based scenes
@@ -104,7 +169,7 @@ function handleButtonChoices(choice, sceneData) {
         addRelicToInventory(sceneData.relic);
       }
       loadScene(sceneData.nextScene);
-    }, 7000);
+    }, 5000);
   } else {
     feedbackMessage.innerText = sceneData.feedback.wrong;
   }
@@ -156,30 +221,141 @@ function showTypingInput(sceneData) {
 
 // Handle nextPhase logic
 
-function handleNextPhase(nextPhase) {
-  // Clear the current scene content to transition to the next phase
-  document.getElementById("scene-description").innerText = "";
-  document.getElementById("scene-image").src = ""; // Hide the current scene image
-  document.getElementById("scene-question").innerText = ""; // Hide the current question
+// function handleNextPhase(nextPhase) {
+//   // Clear the current scene content to transition to the next phase
+//   document.getElementById("scene-description").innerText = "";
+//   document.getElementById("scene-image").src = ""; // Hide the current scene image
+//   document.getElementById("scene-question").innerText = ""; // Hide the current question
 
-  // Hide options/buttons or typing input
-  document.getElementById("options-buttons").style.display = "none";
-  document.getElementById("options-typing").style.display = "none";
+//   // Hide options/buttons or typing input
+//   document.getElementById("options-buttons").style.display = "none";
+//   document.getElementById("options-typing").style.display = "none";
 
-  // Show nextPhase details
-  const nextPhaseSection = document.getElementById("next-phase");
-  const nextPhaseDescription = document.getElementById(
-    "next-phase-description"
-  );
-  nextPhaseDescription.innerText = nextPhase.description;
-  nextPhaseSection.style.display = "block"; // Make the next phase section visible
+//   // Show nextPhase details
+//   const nextPhaseSection = document.getElementById("next-phase");
+//   const nextPhaseDescription = document.getElementById(
+//     "next-phase-description"
+//   );
+//   nextPhaseDescription.innerText = nextPhase.description;
+//   nextPhaseSection.style.display = "block"; // Make the next phase section visible
 
-  // Handle different challenge types (riddle, combat, puzzle)
-  if (nextPhase.challengeType === "riddle") {
-    displayRiddleChallenge(nextPhase.challenge.riddle);
-  } else if (nextPhase.challengeType === "combat") {
-    displayCombatChallenge(nextPhase.challenge.combat);
-  } else if (nextPhase.challengeType === "puzzle") {
-    displayPuzzleChallenge(nextPhase.challenge.puzzle);
+//   // Handle different challenge types (riddle, combat, puzzle)
+
+//   // Handle different challenge types (riddle, combat, puzzle)
+//   if (nextPhase.challengeType === "riddle") {
+//     handleRiddleChallenge(
+//       nextPhase.challenge.riddle,
+//       nextPhase,
+//       nextScene,
+//       loadScene
+//     );
+//   } else if (nextPhase.challengeType === "combat") {
+//     handleCombatChallenge(
+//       nextPhase.challenge.combat,
+//       nextPhase,
+//       nextScene,
+//       loadScene
+//     );
+//   } else if (nextPhase.challengeType === "puzzle") {
+//     handlePuzzleChallenge(
+//       nextPhase.challenge.puzzle,
+//       nextPhase,
+//       nextScene,
+//       loadScene
+//     );
+//   }
+// }
+
+// function handleNextPhase(nextPhase, nextScene) {
+//     // Clear the current scene content
+//     document.getElementById("scene-description").innerText = "";
+//     document.getElementById("scene-image").src = "";
+//     document.getElementById("scene-question").innerText = "";
+  
+//     // Hide buttons/input
+//     document.getElementById("options-buttons").style.display = "none";
+//     document.getElementById("options-typing").style.display = "none";
+  
+//     // Clear previous challenge elements (riddle, puzzle, combat)
+//     document.getElementById("riddle-challenge").style.display = "none";
+//     document.getElementById("combat-challenge").style.display = "none";
+//     document.getElementById("puzzle-challenge").style.display = "none";
+  
+//     // Show nextPhase content
+//     const nextPhaseSection = document.getElementById("next-phase");
+//     nextPhaseSection.style.display = "block";
+//     const nextPhaseDescription = document.getElementById("next-phase-description");
+//     nextPhaseDescription.innerText = nextPhase.description;
+  
+//     // Log for debugging
+//     console.log("Handling next phase:", nextPhase);
+  
+//     // Handle challenge types
+//     if (nextPhase.challengeType === "riddle" && nextPhase.challenge && nextPhase.challenge.riddle) {
+//       handleRiddleChallenge(nextPhase.challenge.riddle, nextPhase, nextScene, loadScene);
+  
+//     } else if (nextPhase.challengeType === "combat") {
+//       // Handle combat challenge (structure is different)
+//       if (nextPhase.enemy && nextPhase.playerActions) {
+//         console.log("Combat data found:", nextPhase); // Log to confirm combat data
+//         handleCombatChallenge(nextPhase, nextScene, loadScene);
+//       } else {
+//         console.error("Combat data is missing or incomplete.");
+//       }
+  
+//     } else if (nextPhase.challengeType === "puzzle" && nextPhase.challenge && nextPhase.challenge.puzzle) {
+//       handlePuzzleChallenge(nextPhase.challenge.puzzle, nextPhase, nextScene, loadScene);
+  
+//     } else {
+//       console.error("Challenge data is missing or incomplete for the nextPhase.");
+//     }
+//   }
+  
+function handleNextPhase(nextPhase, nextScene) {
+    // Clear the current scene content
+    document.getElementById("scene-description").innerText = "";
+    document.getElementById("scene-image").src = "";
+    document.getElementById("scene-question").innerText = "";
+  
+    // Hide buttons/input
+    document.getElementById("options-buttons").style.display = "none";
+    document.getElementById("options-typing").style.display = "none";
+  
+    // Clear previous challenge elements (riddle, puzzle, combat)
+    document.getElementById("riddle-challenge").style.display = "none";
+    document.getElementById("combat-challenge").style.display = "none";
+    document.getElementById("puzzle-challenge").style.display = "none";
+  
+    // Show nextPhase content
+    const nextPhaseSection = document.getElementById("next-phase");
+    nextPhaseSection.style.display = "block";
+    const nextPhaseDescription = document.getElementById("next-phase-description");
+    nextPhaseDescription.innerText = nextPhase.description;
+  
+    // Log for debugging
+    console.log("Handling next phase:", nextPhase);
+  
+    // Handle challenge types
+    if (nextPhase.challengeType === "riddle" && nextPhase.challenge && nextPhase.challenge.riddle) {
+      handleRiddleChallenge(nextPhase.challenge.riddle, nextPhase, nextScene, loadScene);
+    } else if (nextPhase.challengeType === "combat") {
+      // Handle combat challenge (structure is different)
+      if (nextPhase.enemy && nextPhase.playerActions) {
+        console.log("Combat data found:", nextPhase); // Log to confirm combat data
+        handleCombatChallenge(nextPhase, nextScene, loadScene);
+      } else {
+        console.error("Combat data is missing or incomplete.");
+      }
+    } else if (nextPhase.challengeType === "puzzle" && nextPhase.challenge && nextPhase.challenge.puzzle) {
+      handlePuzzleChallenge(nextPhase.challenge.puzzle, nextPhase, loadScene);
+    } else {
+      console.error("Challenge data is missing or incomplete for the nextPhase.");
+    }
+  
+    // Once phase handling is done, reset the phase handling flag
+    setTimeout(() => {
+      isHandlingPhase = false; // Allow the game to move to the next scene if needed
+    }, 5000); // Adjust the timeout based on challenge duration
   }
-}
+  
+  
