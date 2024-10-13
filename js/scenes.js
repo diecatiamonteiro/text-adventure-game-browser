@@ -68,15 +68,62 @@ let isHandlingPhase = false; // Flag to track if a phase is currently being hand
 //   }
 // }
 
+// export async function loadScene(sceneNumber) {
+//   try {
+//     const response = await fetch(
+//       "https://raw.githubusercontent.com/diecatiamonteiro/text-adventure-game-browser/main/data/data.json"
+//     );
+//     console.log("Fetching data is working.");
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch scene data.");
+//     }
+
+//     const data = await response.json();
+//     const sceneData = data[sceneNumber];
+
+//     if (sceneData) {
+//       // Update scene description, image, and question
+//       document.getElementById("scene-description").innerText =
+//         sceneData.description;
+//       document.getElementById("scene-image").src = sceneData.image;
+//       document.getElementById("scene-question").innerText =
+//         sceneData.question || "What will you do?";
+
+//       // clear feedback
+//       const feedbackMessage = document.getElementById("feedback-message");
+//       feedbackMessage.innerText = "";
+
+//       // handle input type: buttons or input
+//       if (sceneData.sceneType === "buttons") {
+//         showButtonOptions(sceneData);
+//       } else if (sceneData.sceneType === "typing") {
+//         showTypingInput(sceneData);
+//       }
+
+//       // Handle nextPhase if exists and no other phase is being handled
+//       if (sceneData.nextPhase && !isHandlingPhase) {
+//         handleButtonChoices(sceneData);
+//       }
+
+//      // Handle direct scene transitions if no phase
+//      if (sceneData.nextScene && !sceneData.nextPhase && !isHandlingPhase) {
+//         setTimeout(() => {
+//           loadScene(sceneData.nextScene);
+//         }, 5000);
+//       }
+//     } else {
+//       throw new Error(`Scene ${sceneNumber} not found.`);
+//     }
+//   } catch (error) {
+//     console.error("Error loading scene:", error);
+//     document.getElementById("feedback-message").innerText = "Error: Scene not found.";
+//   }
+// }
+
 export async function loadScene(sceneNumber) {
   try {
-    const response = await fetch(
-      "https://raw.githubusercontent.com/diecatiamonteiro/text-adventure-game-browser/main/data/data.json"
-    );
-    console.log("Fetching data is working.");
-    if (!response.ok) {
-      throw new Error("Failed to fetch scene data.");
-    }
+    const response = await fetch("./data/data.json"); // Adjust the path to your data.json file
+    if (!response.ok) throw new Error("Failed to fetch scene data.");
 
     const data = await response.json();
     const sceneData = data[sceneNumber];
@@ -89,37 +136,34 @@ export async function loadScene(sceneNumber) {
       document.getElementById("scene-question").innerText =
         sceneData.question || "What will you do?";
 
-      // clear feedback
-      const feedbackMessage = document.getElementById("feedback-message");
-      feedbackMessage.innerText = "";
+      // Clear feedback
+      document.getElementById("feedback-message").innerText = "";
 
-      // handle input type: buttons or input
+      // Handle scene types: buttons or typing
       if (sceneData.sceneType === "buttons") {
         showButtonOptions(sceneData);
       } else if (sceneData.sceneType === "typing") {
         showTypingInput(sceneData);
       }
 
-      // Handle nextPhase if exists and no other phase is being handled
-      if (sceneData.nextPhase && !isHandlingPhase) {
-        handleButtonChoices(sceneData);
-      }
+      // Handle nextPhase after player action (not immediately)
+      if (sceneData.nextPhase && !isHandlingPhase) return;
 
-     // Handle direct scene transitions if no phase
-     if (sceneData.nextScene && !sceneData.nextPhase && !isHandlingPhase) {
+      // Direct scene transition (no nextPhase)
+      if (sceneData.nextScene && !sceneData.nextPhase && !isHandlingPhase) {
         setTimeout(() => {
           loadScene(sceneData.nextScene);
-        }, 5000);
+        }, 3000);
       }
     } else {
       throw new Error(`Scene ${sceneNumber} not found.`);
     }
   } catch (error) {
     console.error("Error loading scene:", error);
-    document.getElementById("feedback-message").innerText = "Error: Scene not found.";
+    document.getElementById("feedback-message").innerText =
+      "Error: Scene not found.";
   }
 }
-
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Button based decisions
 
@@ -161,19 +205,18 @@ function handleButtonChoices(choice, sceneData) {
   if (choice === sceneData.correctAnswer) {
     feedbackMessage.innerText = sceneData.feedback.right;
 
-    // Go to nextPhase after correct button choice
+    // Proceed to nextPhase or nextScene
     setTimeout(() => {
-        if (sceneData.nextPhase) {
-          handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
-        } else if (sceneData.nextScene) {
-          loadScene(sceneData.nextScene);
-        }
-      }, 5000);
-    } else {
-      feedbackMessage.innerText = sceneData.feedback.wrong;
-    }
+      if (sceneData.nextPhase) {
+        handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
+      } else {
+        loadScene(sceneData.nextScene);
+      }
+    }, 2000);
+  } else {
+    feedbackMessage.innerText = sceneData.feedback.wrong;
   }
-  
+}
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Typing based decisions
 
@@ -198,18 +241,19 @@ function showTypingInput(sceneData) {
 
         // proceed to next scene after feedback
         setTimeout(() => {
-          if (sceneData.relic) {
-            addRelicToInventory(sceneData.relic);
+          if (sceneData.nextPhase) {
+            handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
+          } else {
+            loadScene(sceneData.nextScene);
           }
-          loadScene(sceneData.nextScene); // Correctly navigate to the next scene
         }, 5000);
       } else {
-        feedbackMessage.innerText = sceneData.feedback.wrong || "Try again.";
+        feedbackMessage.innerText = sceneData.feedback.wrong;
       }
     }
   }
 
-  // add keydown event listener back
+  // Add keydown event listener
   input.addEventListener("keydown", handleTypingInput);
 
   // Show typing input and hide buttons
@@ -311,37 +355,73 @@ function showTypingInput(sceneData) {
 //     }
 //   }
 
+// function handleNextPhase(nextPhase, nextScene) {
+//     // Clear scene content
+//     document.getElementById("scene-description").innerText = "";
+//     document.getElementById("scene-image").src = "";
+//     document.getElementById("scene-question").innerText = "";
+
+//     // Hide buttons and input
+//     document.getElementById("options-buttons").style.display = "none";
+//     document.getElementById("options-typing").style.display = "none";
+
+//     // Clear previous challenge elements
+//     document.getElementById("riddle-challenge").style.display = "none";
+//     document.getElementById("combat-challenge").style.display = "none";
+//     document.getElementById("puzzle-challenge").style.display = "none";
+
+//     // Show nextPhase content
+//     const nextPhaseSection = document.getElementById("next-phase");
+//     nextPhaseSection.style.display = "block";
+//     document.getElementById("next-phase-description").innerText = nextPhase.description;
+
+//     // Handle specific challenge types
+//     if (nextPhase.challengeType === "combat") {
+//       handleCombatChallenge(nextPhase, nextScene, loadScene);
+//     } else if (nextPhase.challengeType === "riddle") {
+//       handleRiddleChallenge(nextPhase.challenge.riddle, nextPhase, nextScene, loadScene);
+//     } else if (nextPhase.challengeType === "puzzle") {
+//       handlePuzzleChallenge(nextPhase.challenge.puzzle, nextPhase, loadScene);
+//     }
+
+//     // Reset phase handling flag after challenge completes
+//     setTimeout(() => {
+//       isHandlingPhase = false;
+//     }, 5000);
+//   }
+
 function handleNextPhase(nextPhase, nextScene) {
-    // Clear scene content
-    document.getElementById("scene-description").innerText = "";
-    document.getElementById("scene-image").src = "";
-    document.getElementById("scene-question").innerText = "";
-  
-    // Hide buttons and input
-    document.getElementById("options-buttons").style.display = "none";
-    document.getElementById("options-typing").style.display = "none";
-  
-    // Clear previous challenge elements
-    document.getElementById("riddle-challenge").style.display = "none";
-    document.getElementById("combat-challenge").style.display = "none";
-    document.getElementById("puzzle-challenge").style.display = "none";
-  
-    // Show nextPhase content
-    const nextPhaseSection = document.getElementById("next-phase");
-    nextPhaseSection.style.display = "block";
-    document.getElementById("next-phase-description").innerText = nextPhase.description;
-  
-    // Handle specific challenge types
-    if (nextPhase.challengeType === "combat") {
-      handleCombatChallenge(nextPhase, nextScene, loadScene);
-    } else if (nextPhase.challengeType === "riddle") {
-      handleRiddleChallenge(nextPhase.challenge.riddle, nextPhase, nextScene, loadScene);
-    } else if (nextPhase.challengeType === "puzzle") {
-      handlePuzzleChallenge(nextPhase.challenge.puzzle, nextPhase, loadScene);
-    }
-  
-    // Reset phase handling flag after challenge completes
-    setTimeout(() => {
-      isHandlingPhase = false;
-    }, 5000);
+  // Clear the scene content
+  document.getElementById("scene-description").innerText = "";
+  document.getElementById("scene-image").src = "";
+  document.getElementById("scene-question").innerText = "";
+
+  // Hide buttons/input
+  document.getElementById("options-buttons").style.display = "none";
+  document.getElementById("options-typing").style.display = "none";
+
+  // Show nextPhase content (riddle, combat, puzzle)
+  const nextPhaseSection = document.getElementById("next-phase");
+  nextPhaseSection.style.display = "block";
+  document.getElementById("next-phase-description").innerText =
+    nextPhase.description;
+
+  // Handle different challenge types
+  if (nextPhase.challengeType === "riddle") {
+    handleRiddleChallenge(
+      nextPhase.challenge.riddle,
+      nextPhase,
+      nextScene,
+      loadScene
+    );
+  } else if (nextPhase.challengeType === "combat") {
+    handleCombatChallenge(nextPhase, nextScene, loadScene);
+  } else if (nextPhase.challengeType === "puzzle") {
+    handlePuzzleChallenge(nextPhase.challenge.puzzle, nextPhase, loadScene);
   }
+
+  // Reset handling phase flag after challenge completes
+  setTimeout(() => {
+    isHandlingPhase = false;
+  }, 5000);
+}

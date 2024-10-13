@@ -2,7 +2,7 @@
   "1": {
     "sceneType": "buttons",
     "image": "./assets/scenes/1.png",
-    "description": "You begin your journey at the Shattered Temple. A vision of the Wise Elder appears, telling you that 4 relics must be gathered to restore balance to the Forgotten Land. The temple is surrounded by dense trees, and a faint path leads into the distance. Listen to the Wise Elder. He says, 'Follow the path ahead. It will take you through the forest to the first relic—hidden deep within the Ruins.'",
+    "description": "SCENE 1. You begin your journey at the Shattered Temple. A vision of the Wise Elder appears, telling you that 4 relics must be gathered to restore balance to the Forgotten Land. The temple is surrounded by dense trees, and a faint path leads into the distance. Listen to the Wise Elder. He says, 'Follow the path ahead. It will take you through the forest to the first relic—hidden deep within the Ruins.'",
     "question": "What will you do?",
     "options": ["Talk to Wise Elder", "Follow the path"],
     "correctAnswer": "Follow the path",
@@ -15,7 +15,7 @@
   "2": {
     "sceneType": "typing",
     "image": "./assets/scenes/2.png",
-    "description": "You follow the path deeper into the Forest of Shadows, where towering trees loom above like silent sentinels. The air grows thick with magic as the light fades, and twisted vines hang from branches. After walking in the forest for some time, you notice the outline of ancient stone structures barely visible through the dense vegetation—the ruins you've been seeking are near! The ruins appear worn and overgrown but still emit a faint aura of power.",
+    "description": "SCENE 2. You follow the path deeper into the Forest of Shadows, where towering trees loom above like silent sentinels. The air grows thick with magic as the light fades, and twisted vines hang from branches. After walking in the forest for some time, you notice the outline of ancient stone structures barely visible through the dense vegetation—the ruins you've been seeking are near! The ruins appear worn and overgrown but still emit a faint aura of power.",
     "question": "What will you do?",
     "correctAnswer": "ruins",
     "feedback": {
@@ -23,7 +23,7 @@
       "right": "You push through the dense underbrush, making your way toward the hidden ruins."
     },
     "nextPhase": {
-      "description": "A mist rises before you, and a disembodied voice speaks: 'Answer this riddle, traveler, and the path to the ruins will reveal itself.'",
+      "description": "SCENE 2 RIDDLE. A mist rises before you, and a disembodied voice speaks: 'Answer this riddle, traveler, and the path to the ruins will reveal itself.'",
       "challengeType": "riddle",
       "challenge": {
         "riddle": {
@@ -45,7 +45,7 @@
   "3": {
     "sceneType": "buttons",
     "image": "./assets/scenes/3.png",
-    "description": "The ruins are vast, and the once-proud fortress is now crumbling and overrun with time. At the heart of the ruins lies the Relic of Strength, but a Stone Guardian blocks your way. This powerful, ancient protector will not let anyone claim the relic without proving their might.",
+    "description": "SCENE 3. The ruins are vast, and the once-proud fortress is now crumbling and overrun with time. At the heart of the ruins lies the Relic of Strength, but a Stone Guardian blocks your way. This powerful, ancient protector will not let anyone claim the relic without proving their might.",
     "question": "What will you do?",
     "options": ["Examine the Stone Guardian", "Fight the Stone Guardian"],
     "correctAnswer": "Fight the Stone Guardian",
@@ -54,7 +54,7 @@
       "right": "You chose to fight the Guardian. Off we go to a combat..."
     },
     "nextPhase": {
-      "description": "As you approach the Relic of Strength, the Stone Guardian awakens from its slumber. Its massive stone body creaks and groans as it moves, towering over you with a stone hammer in hand.",
+      "description": "SCENE 3 COMBAT. As you approach the Relic of Strength, the Stone Guardian awakens from its slumber. Its massive stone body creaks and groans as it moves, towering over you with a stone hammer in hand.",
       "challengeType": "combat",
       "enemy": {
         "name": "Stone Guardian",
@@ -77,7 +77,7 @@
   "4": {
     "sceneType": "buttons",
     "image": "./assets/scenes/4.png",
-    "description": "The tunnel winds and twists until it brings you to the Crystal Lake, a tranquil body of water surrounded by tall mountains. The still waters of the lake reflect the sky like a mirror. At its center is a small island that holds the Relic of Wisdom, but the lake is protected by an ancient puzzle.",
+    "description": "SCENE 4. The tunnel winds and twists until it brings you to the Crystal Lake, a tranquil body of water surrounded by tall mountains. The still waters of the lake reflect the sky like a mirror. At its center is a small island that holds the Relic of Wisdom, but the lake is protected by an ancient puzzle.",
     "question": "What will you do?",
     "options": ["Approach the lake", "Cross the lake"],
     "correctAnswer": "Cross the lake",
@@ -86,7 +86,7 @@
       "right": "You start your way to cross the Crystal Lake and find several ancient puzzle pieces scattered along the shore."
     },
     "nextPhase": {
-      "description": "To reach the island, you must complete the ancient puzzle. Drag the pieces of the puzzle and drop them into the correct slots. When pieces are restored, they will form a magical bridge across the water.",
+      "description": "SCENE 4 PUZZLE. To reach the island, you must complete the ancient puzzle. Drag the pieces of the puzzle and drop them into the correct slots. When pieces are restored, they will form a magical bridge across the water.",
       "challengeType": "puzzle",
       "puzzle": {
         "description": "Rearrange the 6 puzzle pieces by dragging them into the correct positions to complete the image and unlock the magical bridge.",
@@ -107,7 +107,7 @@
   "5": {
     "sceneType": "typing",
     "image": "./assets/scenes/5.png",
-    "description": "After crossing the lake, you emerge into the Frozen Cave, deep beneath the mountains. The air is cold, and frost covers every surface. At the far end of the cavern lies the Relic of Courage, but it is encased in a block of ice. To retrieve it, you must endure the bitter cold and solve the puzzle that protects the relic.",
+    "description": "SCENE 5. After crossing the lake, you emerge into the Frozen Cave, deep beneath the mountains. The air is cold, and frost covers every surface. At the far end of the cavern lies the Relic of Courage, but it is encased in a block of ice. To retrieve it, you must endure the bitter cold and solve the puzzle that protects the relic.",
     "question": "What will you do?",
     "correctAnswer": "puzzle",
     "feedback": {
@@ -115,7 +115,7 @@
       "right": "That was a wise decision! Let's solve that puzzle!"
     },
     "nextPhase": {
-      "description": "The Relic of Courage is trapped in a thick block of ice, and you must use the environment around you to melt it. Mirrors placed throughout the cave must be aligned to reflect beams of light from a small flame onto the block of ice. The cold air makes the puzzle more challenging, as the light dims if you take too long.",
+      "description": "SCENE 5 PUZZLE. The Relic of Courage is trapped in a thick block of ice, and you must use the environment around you to melt it. Mirrors placed throughout the cave must be aligned to reflect beams of light from a small flame onto the block of ice. The cold air makes the puzzle more challenging, as the light dims if you take too long.",
       "challengeType": "puzzle",
       "puzzle": {
         "description": "Align the mirrors to reflect light from a flame onto the block of ice. If the mirrors are aligned correctly, the ice will melt, revealing the relic.",
@@ -134,7 +134,7 @@
   "6": {
     "sceneType": "buttons",
     "image": "./assets/scenes/6.png",
-    "description": "You arrive at the Whispering Crypt, a dark and eerie place, filled with the voices of long-lost souls. A cold chill runs down your spine. The Relic of Souls lies in the center of the crypt but is guarded by ancient spirits who test the courage of anyone who dares enter. The spirits whisper: 'To claim the Relic of Souls, you must prove you understand the purpose of the relics you have gathered. Only then will balance be restored.'",
+    "description": "SCENE 6. You arrive at the Whispering Crypt, a dark and eerie place, filled with the voices of long-lost souls. A cold chill runs down your spine. The Relic of Souls lies in the center of the crypt but is guarded by ancient spirits who test the courage of anyone who dares enter. The spirits whisper: 'To claim the Relic of Souls, you must prove you understand the purpose of the relics you have gathered. Only then will balance be restored.'",
     "question": "What will you do?",
     "options": ["Leave the crypt", "Face the spirits' final challenge"],
     "correctAnswer": "Face the spirits' final challenge",
@@ -143,7 +143,7 @@
       "right": "The spirits of lost souls welcome you!"
     },
     "nextPhase": {
-      "description": "Before you, the five relics you've gathered appear: Secrets, Strength, Wisdom, Courage, and Souls. Each relic has a purpose, and to restore balance to the Forgotten Land, you must align them with their rightful roles. Drag and drop the relics into their proper places.",
+      "description": "SCENE 6 PUZZLE. Before you, the five relics you've gathered appear: Secrets, Strength, Wisdom, Courage, and Souls. Each relic has a purpose, and to restore balance to the Forgotten Land, you must align them with their rightful roles. Drag and drop the relics into their proper places.",
       "challengeType": "puzzle",
       "puzzle": {
         "description": "Align the relics to their rightful purposes to restore balance. Drag and drop each relic into its proper place.",
@@ -189,7 +189,7 @@
   "7": {
     "sceneType": "typing",
     "image": "./assets/scenes/7.png",
-    "description": "With all six relics in your possession, you return to the Shattered Shrine. The temple feels different now, the air heavy with anticipation. As you step into the shrine, the Wise Elder appears once more, his voice echoing in the stillness: 'The balance of the Forgotten Land rests in your hands. Place the relics on the pedestals and restore what has been lost.'",
+    "description": "SCENE 7. With all six relics in your possession, you return to the Shattered Shrine. The temple feels different now, the air heavy with anticipation. As you step into the shrine, the Wise Elder appears once more, his voice echoing in the stillness: 'The balance of the Forgotten Land rests in your hands. Place the relics on the pedestals and restore what has been lost.'",
     "question": "What will you do?",
     "correctAnswer": "place relics on pedestal",
     "feedback": {
@@ -197,7 +197,7 @@
       "right": "One by one, you place the relics on their pedestals. As each relic is set in place, a glow surrounds it, filling the shrine with light. The Relic of Secrets, the Relic of Strength, the Relic of Wisdom, the Relic of Courage, and the Relic of Souls each take their place. The central crystal begins to glow brighter and brighter until the entire shrine is bathed in radiant light."
     },
     "nextPhase": {
-      "description": "As the final relic is placed, a wave of energy sweeps across the Forgotten Land. The trees grow lush, the rivers run clear, and peace is restored. The Wise Elder stands before you one last time and hands you the Crystal of Fate.",
+      "description": "SCENE 7 FINAL. As the final relic is placed, a wave of energy sweeps across the Forgotten Land. The trees grow lush, the rivers run clear, and peace is restored. The Wise Elder stands before you one last time and hands you the Crystal of Fate.",
       "feedback": {
         "right": "You have done it. The Forgotten Land is whole once more, and your name will be remembered for generations."
       },
