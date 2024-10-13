@@ -243,7 +243,12 @@ main #game-area #game-container #options-typing input {
 
 main #game-area #game-container #feedback #feedback-message {
   margin-top: 20px;
-  color: green;
+  /* font-family: "IBM Plex Mono", monospace; */
+  font-family: "Press Start 2P", sans-serif;
+
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: rgb(57, 255, 57);
 }
 
 /* ++++++++++++++++++++++ Main - Game Area - Aside inventory ++++++++++++++++++++++ */

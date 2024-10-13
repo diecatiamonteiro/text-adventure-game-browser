@@ -1,6 +1,10 @@
 // Fetches and displays scenes based on game progression.
 
-import { handleChallenge } from "./challenges.js";
+import {
+  handleRiddleChallenge,
+  handleCombatChallenge,
+  handlePuzzleChallenge,
+} from "./challenges.js";
 import { addRelicToInventory } from "./inventory.js";
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Load Scene
@@ -34,9 +38,9 @@ export async function loadScene(sceneNumber) {
       feedbackMessage.innerText = "";
 
       // handle input type: buttons or input
-      if (sceneData.inputType === "buttons") {
+      if (sceneData.sceneType === "buttons") {
         showButtonOptions(sceneData);
-      } else if (sceneData.inputType === "typing") {
+      } else if (sceneData.sceneType === "typing") {
         showTypingInput(sceneData);
       }
 
@@ -79,7 +83,8 @@ function showButtonOptions(sceneData, sceneNumber) {
     handleButtonChoices(sceneData.options[1], sceneData)
   );
 
-  // hide input field
+  // show buttons and hide input field
+  optionsButtons.style.display = "block";
   document.getElementById("options-typing").style.display = "none";
 }
 
@@ -99,7 +104,7 @@ function handleButtonChoices(choice, sceneData) {
         addRelicToInventory(sceneData.relic);
       }
       loadScene(sceneData.nextScene);
-    }, 2000);
+    }, 7000);
   } else {
     feedbackMessage.innerText = sceneData.feedback.wrong;
   }
@@ -152,16 +157,29 @@ function showTypingInput(sceneData) {
 // Handle nextPhase logic
 
 function handleNextPhase(nextPhase) {
+  // Clear the current scene content to transition to the next phase
+  document.getElementById("scene-description").innerText = "";
+  document.getElementById("scene-image").src = ""; // Hide the current scene image
+  document.getElementById("scene-question").innerText = ""; // Hide the current question
+
+  // Hide options/buttons or typing input
+  document.getElementById("options-buttons").style.display = "none";
+  document.getElementById("options-typing").style.display = "none";
+
+  // Show nextPhase details
   const nextPhaseSection = document.getElementById("next-phase");
   const nextPhaseDescription = document.getElementById(
     "next-phase-description"
   );
-
   nextPhaseDescription.innerText = nextPhase.description;
-  nextPhaseSection.style.display = "block";
+  nextPhaseSection.style.display = "block"; // Make the next phase section visible
 
-  // Handle different challenge types (riddle, combat, etc.)
-  if (nextPhase.challengeType) {
-    handleChallenge(nextPhase.challengeType, nextPhase.challenge);
+  // Handle different challenge types (riddle, combat, puzzle)
+  if (nextPhase.challengeType === "riddle") {
+    displayRiddleChallenge(nextPhase.challenge.riddle);
+  } else if (nextPhase.challengeType === "combat") {
+    displayCombatChallenge(nextPhase.challenge.combat);
+  } else if (nextPhase.challengeType === "puzzle") {
+    displayPuzzleChallenge(nextPhase.challenge.puzzle);
   }
 }

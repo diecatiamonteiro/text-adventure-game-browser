@@ -1,99 +1,109 @@
 // Handles challenges, checks player input, and rewards players with relics or items.
 
-// Main challenge handler function
-export function handleChallenge(sceneData, playerInput) {
-    switch (sceneData.challengeType) {
-      case "riddle":
-        return handleRiddleChallenge(sceneData, playerInput);
-      case "combat":
-        return handleCombatChallenge(sceneData, playerInput);
-      case "puzzle":
-        return handleRealPuzzle(sceneData); // No player input for real puzzle
-      case "mirror-puzzle":
-        return handleMirrorPuzzle(sceneData); // Same for mirror puzzle
-      case "drag-drop-relics":
-        return handleRelicDragDrop(sceneData); // Drag-and-drop functionality
-      default:
-        return "failure"; // If challengeType isn't recognized
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Riddle Challenge
+
+export function handleRiddleChallenge(riddle, nextPhase, loadScene) {
+  // Show the riddle question
+  const riddleQuestion = document.getElementById("riddle-question");
+  riddleQuestion.innerText = riddle.question;
+
+  // Show the riddle input field and make sure other sections are hidden
+  document.getElementById("riddle-challenge").style.display = "block";
+  document.getElementById("next-phase").style.display = "none";
+
+  const riddleInput = document.getElementById("riddle-answer");
+  riddleInput.value = ""; // Clear previous input
+  riddleInput.removeEventListener("keydown", handleRiddleInput);
+
+  // Handle player input for the riddle
+  function handleRiddleInput(e) {
+    if (e.key === "Enter") {
+      const playerInput = riddleInput.value.toLowerCase().trim();
+      const feedbackMessage = document.getElementById("feedback-message");
+
+      if (playerInput === riddle.correctAnswer) {
+        feedbackMessage.innerText = riddle.feedback.right;
+
+        // After success, add relic and load next scene
+        setTimeout(() => {
+          if (nextPhase.relic) {
+            addRelicToInventory(nextPhase.relic);
+          }
+          loadScene(
+            nextPhase.relic ? nextPhase.relic.nextScene : nextPhase.nextScene
+          );
+        }, 2000);
+      } else {
+        feedbackMessage.innerText = riddle.feedback.wrong;
+      }
     }
   }
-  
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Riddle Challenge
-  
-  function handleRiddleChallenge(sceneData, playerInput) {
-    // Compare playerInput to the correct riddle answer
-    if (playerInput.includes(sceneData.riddle.correctAnswer)) {
-      return "success"; // Proceed to the next scene
+
+  riddleInput.addEventListener("keydown", handleRiddleInput);
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Combat Challenge
+
+export function handleCombatChallenge(combat, loadScene) {
+  // Display the combat description
+  const combatDescription = document.getElementById("combat-description");
+  combatDescription.innerText = combat.description;
+
+  // Show combat challenge section and hide others
+  document.getElementById("combat-challenge").style.display = "block";
+  document.getElementById("next-phase").style.display = "none";
+
+  const attackButton = document.getElementById("attack-button");
+  const defendButton = document.getElementById("defend-button");
+
+  attackButton.removeEventListener("click", handleAttack);
+  defendButton.removeEventListener("click", handleDefend);
+
+  // Define handlers for attack and defend
+  function handleAttack() {
+    const feedbackMessage = document.getElementById("feedback-message");
+    combat.enemy.health -= 10; // Example attack damage
+
+    if (combat.enemy.health <= 0) {
+      feedbackMessage.innerText = combat.feedback.victory;
+      setTimeout(() => loadScene(combat.nextScene), 2000);
     } else {
-      return "failure"; // Show "Try again" feedback
+      feedbackMessage.innerText = combat.feedback.continue;
     }
   }
-  
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Combat Challenge
-  
-  function handleCombatChallenge(sceneData, playerInput) {
-    // Simple combat logic for example purposes
-    const enemyHealth = sceneData.enemy.health;
-    let playerHealth = 50; // Example player health
-  
-    if (playerInput === "attack") {
-      // If the player attacks, reduce enemy health
-      sceneData.enemy.health -= 10; // Example attack damage
-      return sceneData.enemy.health <= 0 ? "success" : "continue";
-    } else if (playerInput === "defend") {
-      // Defend reduces damage received
-      playerHealth -= sceneData.enemy.attack / 2;
-    } else if (playerInput === "aim for the joints") {
-      // Special attack deals extra damage
-      sceneData.enemy.health -= 20;
-      return sceneData.enemy.health <= 0 ? "success" : "continue";
+
+  function handleDefend() {
+    const feedbackMessage = document.getElementById("feedback-message");
+    feedbackMessage.innerText = "You defended successfully!";
+  }
+
+  // Add event listeners for combat actions
+  attackButton.addEventListener("click", handleAttack);
+  defendButton.addEventListener("click", handleDefend);
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Puzzle Challenge
+
+export function handlePuzzleChallenge(puzzle, loadScene) {
+  // Show puzzle description
+  const puzzleDescription = document.getElementById("puzzle-description");
+  puzzleDescription.innerText = puzzle.description;
+
+  // Show puzzle challenge section
+  document.getElementById("puzzle-challenge").style.display = "block";
+  document.getElementById("next-phase").style.display = "none";
+
+  function checkPuzzleCompletion() {
+    const feedbackMessage = document.getElementById("feedback-message");
+    const isPuzzleSolved = true; // Add puzzle-solving logic here
+
+    if (isPuzzleSolved) {
+      feedbackMessage.innerText = puzzle.feedback.right;
+      setTimeout(() => loadScene(puzzle.nextScene), 2000);
+    } else {
+      feedbackMessage.innerText = puzzle.feedback.wrong;
     }
-  
-    // If the player health drops to zero, return failure
-    return playerHealth <= 0 ? "failure" : "continue";
   }
-  
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Real Puzzle Challenge
-  
-  function handleRealPuzzle(sceneData) {
-    // You can initiate and check the puzzle here (e.g., real drag-and-drop, rearrange pieces)
-    const isPuzzleSolved = checkPuzzleCompletion(sceneData.puzzle); // This function checks puzzle completion logic
-    return isPuzzleSolved ? "success" : "failure";
-  }
-  
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Mirror Alignment Puzzle
-  
-  function handleMirrorPuzzle(sceneData) {
-    // Logic to handle the alignment of mirrors and reflection of light
-    const isAligned = checkMirrorAlignment(sceneData.puzzle); // Check the puzzle completion
-    return isAligned ? "success" : "failure";
-  }
-  
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Drag-and-Drop Relics Puzzle
-  
-  function handleRelicDragDrop(sceneData) {
-    // Logic to handle the drag-and-drop relics and their meanings
-    const areRelicsCorrectlyPlaced = checkRelicPlacement(sceneData.puzzle); // Check if relics are correctly placed
-    return areRelicsCorrectlyPlaced ? "success" : "failure";
-  }
-  
-  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Helpers for Puzzle Checking
-  
-  // Example helper to check puzzle completion
-  function checkPuzzleCompletion(puzzleData) {
-    // Logic to check if all pieces of the puzzle are in place
-    // This can be specific to your puzzle's logic
-    return puzzleData.pieces.every(piece => piece.isInCorrectPosition); // Example logic
-  }
-  
-  function checkMirrorAlignment(puzzleData) {
-    // Logic to check if the mirrors are correctly aligned
-    // You can use more complex conditions here
-    return puzzleData.mirrors.every(mirror => mirror.isAlignedCorrectly); // Example logic
-  }
-  
-  function checkRelicPlacement(puzzleData) {
-    // Logic to check if relics are placed in their correct slots
-    return puzzleData.relics.every(relic => relic.isInCorrectPlace); // Example logic
-  }
-  
+
+  // Add puzzle interaction logic here (e.g., drag-and-drop)
+}
