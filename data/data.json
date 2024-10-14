@@ -91,7 +91,16 @@
       "challengeType": "puzzle",
       "puzzle": {
         "description": "Rearrange the 6 puzzle pieces by dragging them into the correct positions to complete the image and unlock the magical bridge.",
-        "pieces": ["piece1", "piece2", "piece3", "piece4", "piece5", "piece6", "piece7", "piece8"],
+        "pieces": [
+          "piece1",
+          "piece2",
+          "piece3",
+          "piece4",
+          "piece5",
+          "piece6",
+          "piece7",
+          "piece8"
+        ],
         "feedbackChallenge": {
           "wrong": "The pieces don't fit together yet. Try again.",
           "right": "The puzzle is complete! A shimmering bridge appears, allowing you to walk across the water to the island. There, you claim the Relic of Wisdom. With the Relic of Wisdom in hand, the lake's waters part, revealing a hidden cave entrance. You venture inside to continue your quest."
@@ -100,20 +109,23 @@
       "relic": {
         "name": "relic_of_wisdom",
         "image": "./assets/relics/relic-of-wisdom-scene4.png"
-      }
-    },
-    "nextScene": 5
+      },
+      "nextScene": 5
+    }
   },
   "5": {
     "sceneType": "buttons",
     "image": "./assets/scenes/5.png",
     "description": "SCENE 5. After crossing the lake, you emerge into the Frozen Cave, deep beneath the mountains. The air is cold, and frost covers every surface. At the far end of the cavern lies the Relic of Courage, but it is encased in a block of ice. To retrieve it, you must endure the bitter cold and break the icy cover that protects the relic.",
     "question": "What will you do?",
-    "options": ["Search for a tool to break the ice cover", "Approach the ice cover"],
+    "options": [
+      "Search for a tool to break the ice cover",
+      "Approach the ice cover"
+    ],
     "correctSceneAnswer": "Approach the ice cover",
     "feedback": {
-        "wrong": "You search around the cave for a tool, but the biting cold slows you down. The ice is too thick, and no tool seems to be enough to break it. The solution lies elsewhere—you must figure out a different way to reach the relic.",
-        "right": "You approach the ice and notice faint glimmers of light reflecting off nearby mirrors. The solution isn't force, but rather using the environment to your advantage. Off you go to find out how..."
+      "wrong": "You search around the cave for a tool, but the biting cold slows you down. The ice is too thick, and no tool seems to be enough to break it. The solution lies elsewhere—you must figure out a different way to reach the relic.",
+      "right": "You approach the ice and notice faint glimmers of light reflecting off nearby mirrors. The solution isn't force, but rather using the environment to your advantage. Off you go to find out how..."
     },
     "nextPhase": {
       "description": "SCENE 5 PUZZLE. The Relic of Courage is trapped in a thick block of ice, and you must use the environment around you to melt it. Mirrors placed throughout the cave must be aligned to reflect beams of light from a small flame onto the block of ice. The cold air makes the puzzle more challenging, as the light dims if you take too long.",

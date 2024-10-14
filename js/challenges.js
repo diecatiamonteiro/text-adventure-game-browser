@@ -1,6 +1,6 @@
 import { addRelicToInventory } from "./inventory.js";
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Riddle Challenge
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Riddle
 
 export function handleRiddleChallenge(riddle, nextPhase, nextScene, loadScene) {
   const riddleQuestion = document.getElementById("riddle-question");
@@ -43,7 +43,7 @@ export function handleRiddleChallenge(riddle, nextPhase, nextScene, loadScene) {
   riddleInput.addEventListener("keydown", handleRiddleInput);
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Combat Challenge
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Combat
 
 export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
   const enemyName = document.getElementById("enemy-name");
@@ -180,60 +180,48 @@ export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
     .addEventListener("click", () => handlePlayerAction("Defend"));
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Puzzle Challenge
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Puzzle
 
-// export function handlePuzzleChallenge(puzzle, nextPhase, loadScene) {
-//   const puzzleDescription = document.getElementById("puzzle-description");
-//   puzzleDescription.innerText = puzzle.description;
-
-//   // Show puzzle challenge UI
-//   document.getElementById("puzzle-challenge").style.display = "block";
-
-//   function checkPuzzleCompletion() {
-//     const feedbackMessage = document.getElementById("feedback-message");
-//     const isPuzzleSolved = true; // Add puzzle-solving logic here
-
-//     if (isPuzzleSolved) {
-//       feedbackMessage.innerText = puzzle.feedbackChallenge.right;
-
-//       setTimeout(() => {
-//         if (nextPhase.relic) {
-//           addRelicToInventory(nextPhase.relic); // Add relic to inventory
-//         }
-//         loadScene(nextPhase.nextScene);
-//       }, 2000);
-//     } else {
-//       feedbackMessage.innerText = puzzle.feedbackChallenge.wrong;
-//     }
-//   }
-
-//   // Add puzzle interaction logic here
-// }
-
-export function handlePuzzleChallenge(puzzle, nextPhase, loadScene) {
-  console.log("Puzzle data:", puzzle); // Ensure puzzle data is available
+export function handlePuzzleChallenge(puzzle, nextPhase, nextScene, loadScene) {
+  console.log("Puzzle data:", puzzle); // ********
 
   const puzzleDescription = document.getElementById("puzzle-description");
   puzzleDescription.innerText = puzzle.description;
 
-  // Show puzzle challenge UI
+  // show puzzle challenge UI
   document.getElementById("puzzle-challenge").style.display = "block";
-  console.log("Puzzle challenge is now visible.");
+  console.log("Puzzle challenge is now visible."); // ********
 
-  // Dynamically create puzzle pieces and slots
-  const puzzleContainer = document.getElementById("puzzle-pieces");
-  puzzle.pieces.forEach((piece, index) => {
-    console.log(`Adding puzzle piece: ${piece}`);
+  // Function to shuffle the puzzle pieces array
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
 
+  // Shuffle the puzzle pieces before displaying them
+  const shuffledPieces = shuffleArray([...puzzle.pieces]);
+  console.log("Shuffled puzzle pieces:", shuffledPieces);
+
+  // Clear existing pieces if any
+  const puzzlePiecesContainer = document.getElementById("puzzle-pieces");
+  puzzlePiecesContainer.innerHTML = ""; // Clear any previous pieces
+
+  // create puzzle pieces and slots
+  shuffledPieces.forEach((piece, index) => {
+    console.log(`Adding puzzle piece: ${piece}`); // ********
     const img = document.createElement("img");
-    img.src = `./assets/puzzle/${piece}.png`; // Assuming you have these images stored
+    img.src = `./assets/puzzle/${piece}.png`;
     img.classList.add("puzzle-piece");
+
+    const originalPieceIndex = puzzle.pieces.indexOf(piece) + 1;
     img.setAttribute("draggable", "true");
-    img.setAttribute("data-piece", index + 1);
+    img.setAttribute("data-piece", originalPieceIndex);
 
-    puzzleContainer.appendChild(img);
+    puzzlePiecesContainer.appendChild(img);
 
-    // Add drag event listeners
     img.addEventListener("dragstart", handleDragStart);
   });
 
@@ -251,6 +239,16 @@ export function handlePuzzleChallenge(puzzle, nextPhase, loadScene) {
     e.preventDefault(); // Allows dropping
   }
 
+  function showPopup(text, color = "red") {
+    const popupPuzzleFeedback = document.getElementById(
+      "popup-puzzle-feedback"
+    );
+    popupPuzzleFeedback.innerText = text;
+    popupPuzzleFeedback.style.color = color;
+    popupPuzzleFeedback.style.display = "block";
+    setTimeout(() => (popupPuzzleFeedback.style.display = "none"), 4000); // Hide after 3 seconds
+  }
+
   function handleDrop(e) {
     const draggedPieceId = e.dataTransfer.getData("text/plain");
     const droppedSlotId = e.target.dataset.slot;
@@ -262,28 +260,33 @@ export function handlePuzzleChallenge(puzzle, nextPhase, loadScene) {
       piece.setAttribute("draggable", "false"); // Disable dragging once correctly placed
 
       // Check if the puzzle is complete
-      checkPuzzleCompletion();
+      checkPuzzleCompletion(nextScene);
     } else {
-      alert("Wrong place! Try again.");
+      showPopup("Wrong place. Try again.");
     }
   }
 
-  function checkPuzzleCompletion() {
+  function checkPuzzleCompletion(nextScene) {
     const placedPieces = document.querySelectorAll(".puzzle-slot img");
+
     if (placedPieces.length === puzzle.pieces.length) {
-      const feedbackMessage = document.getElementById("feedback-message");
+      const feedbackMessage = document.getElementById("puzzle-feedback");
       feedbackMessage.innerText = puzzle.feedbackChallenge.right;
 
       setTimeout(() => {
         if (nextPhase.relic) {
-          addRelicToInventory(nextPhase.relic); // Add relic to inventory
+          addRelicToInventory(nextPhase.relic);
         }
-        loadScene(nextPhase.nextScene); // Load the next scene
-      }, 2000);
+      }, 4000);
+      
+      loadScene(nextScene);
+
+      showNextButton();
+    } else {
+      console.log("Scene not found.");
     }
   }
 }
-
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next Button
 
 function showNextButton(onNext) {

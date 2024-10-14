@@ -176,6 +176,7 @@ function handleNextPhase(nextPhase, nextScene) {
     }
   }
 }
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Clear previous scene
 
 function clearPreviousScene() {

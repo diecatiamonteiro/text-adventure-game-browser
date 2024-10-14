@@ -312,10 +312,13 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
 
 /* ++++++++++++++++++++++ Next Phase ++++++++++++++++++++++ */
 
+#next-phase {
+  margin: 0;
+}
+
 #next-phase-description {
   font-family: "IBM Plex Mono", monospace;
   font-size: 1.3rem;
-  margin: 20px 0 40px 0;
   line-height: 1.4;
 }
 
@@ -456,17 +459,23 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
 
 /* ++++++++++++++++++++++ Puzzle ++++++++++++++++++++++ */
 
+#puzzle-description {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.3rem;
+  margin: 20px 0;
+  line-height: 1.4;
+}
 #puzzle-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap; /* Enable wrapping to create multiple rows */
-  width: 480px; /* Adjust based on your image sizes (100px per piece + margin) */
-  margin: 0 auto; /* Center the puzzle container */
+  width: 500px; /* Adjust based on your image sizes (100px per piece + margin) */
+  margin: 20px auto; /* Center the puzzle container */
 }
 
 .puzzle-slot {
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   border: 2px dashed #999;
   display: inline-block;
 }
@@ -476,12 +485,22 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
   flex-wrap: wrap; /* Wrap images into rows */
   justify-content: center;
   gap: 10px; 
+  width: 580px;
+  margin: 20px auto; /* Center the puzzle container */
+
 }
 
 .puzzle-piece {
-  width: 100px; /* Adjust width as needed */
-  height: 100px; /* Adjust height as needed */
+  width: 110px; /* Adjust width as needed */
+  height: 110px; /* Adjust height as needed */
   cursor: grab;
+}
+
+#puzzle-feedback {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: rgb(57, 255, 57);
 }
 
 /* ++++++++++++++++++++++ Responsiveness ++++++++++++++++++++++ */
