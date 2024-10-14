@@ -142,17 +142,15 @@ export async function loadScene(sceneNumber) {
       // Handle next phase (challenge) if correct answer is clicked
       if (sceneData.nextPhase) return;
 
-      // Direct scene transition if no nextPhase
-      if (sceneData.nextScene && !sceneData.nextPhase) {
-        setTimeout(() => loadScene(sceneData.nextScene), 3000);
-      }
+        handleButtonChoices()
+
     } else {
       throw new Error(`Scene ${sceneNumber} not found.`);
     }
   } catch (error) {
     console.error("Error loading scene:", error);
-    document.getElementById("feedback-message").innerText =
-      "Error: Scene not found.";
+    // document.getElementById("feedback-message").innerText =
+    //   "Error: Scene not found.";
   }
 }
 
@@ -206,7 +204,7 @@ function showButtonOptions(sceneData) {
 function handleButtonChoices(choice, sceneData) {
   const feedbackMessage = document.getElementById("feedback-message");
 
-  if (choice === sceneData.correctAnswer) {
+  if (choice === sceneData.correctSceneAnswer) {
     feedbackMessage.innerText = sceneData.feedback.right;
     setTimeout(() => {
       if (sceneData.nextPhase) {
@@ -214,7 +212,7 @@ function handleButtonChoices(choice, sceneData) {
       } else {
         loadScene(sceneData.nextScene); // Move directly to next scene
       }
-    }, 2000);
+    }, 6000);
   } else {
     feedbackMessage.innerText = sceneData.feedback.wrong;
   }
