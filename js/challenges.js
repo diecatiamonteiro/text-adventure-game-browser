@@ -21,7 +21,7 @@ export function handleRiddleChallenge(riddle, nextPhase, nextScene, loadScene) {
         const feedbackMessage = document.getElementById("feedback-message");
   
         if (playerInput.includes(riddle.correctAnswer)) {
-          feedbackMessage.innerText = riddle.feedback.right;
+          feedbackMessage.innerText = riddle.feedbackChallenge.right;
   
           // Add relic to inventory if it exists
           setTimeout(() => {
@@ -37,7 +37,7 @@ export function handleRiddleChallenge(riddle, nextPhase, nextScene, loadScene) {
             }
           }, 2000);
         } else {
-          feedbackMessage.innerText = riddle.feedback.wrong;
+          feedbackMessage.innerText = riddle.feedbackChallenge.wrong;
         }
       }
     }
@@ -109,7 +109,7 @@ export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
 
     // Update feedback based on the result of the action
     if (enemyHealth <= 0) {
-      feedbackMessage.innerText = nextPhase.feedback.victory;
+      feedbackMessage.innerText = nextPhase.feedbackChallenge.victory;
 
       setTimeout(() => {
         // Add relic to inventory if it exists
@@ -152,7 +152,7 @@ export function handlePuzzleChallenge(puzzle, nextPhase, loadScene) {
     const isPuzzleSolved = true; // Add puzzle-solving logic here
 
     if (isPuzzleSolved) {
-      feedbackMessage.innerText = puzzle.feedback.right;
+      feedbackMessage.innerText = puzzle.feedbackChallenge.right;
 
       setTimeout(() => {
         if (nextPhase.relic) {
@@ -161,7 +161,7 @@ export function handlePuzzleChallenge(puzzle, nextPhase, loadScene) {
         loadScene(nextPhase.nextScene);
       }, 2000);
     } else {
-      feedbackMessage.innerText = puzzle.feedback.wrong;
+      feedbackMessage.innerText = puzzle.feedbackChallenge.wrong;
     }
   }
 
