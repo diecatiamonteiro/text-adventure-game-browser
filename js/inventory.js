@@ -1,6 +1,4 @@
-// inventory.js
-
-let collectedRelics = []; // Array to store collected relics
+let collectedRelics = [];
 
 // Function to add a relic to the inventory
 export function addRelicToInventory(relic) {
@@ -9,9 +7,12 @@ export function addRelicToInventory(relic) {
 
   // Update the inventory visually
   updateInventoryUI();
+
+  // Trigger relic animation and sound effect
+  playRelicEffect();
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Function to reset the inventory (e.g., on game restart)
 export function resetInventory() {
@@ -25,7 +26,7 @@ export function resetInventory() {
   });
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // Function to update the inventory UI based on collected relics
 function updateInventoryUI() {
@@ -34,8 +35,27 @@ function updateInventoryUI() {
   // Loop through collected relics and update the UI
   collectedRelics.forEach((relic, index) => {
     if (inventoryItems[index]) {
-      inventoryItems[index].style.backgroundImage = `url(${relic.image})`; // Set relic image
+      inventoryItems[index].style.backgroundImage = `url(${relic.image})`;
       inventoryItems[index].classList.add("collected"); // Mark it as collected
     }
   });
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+function playRelicEffect() {
+  const lastCollectedItem = collectedRelics[collectedRelics.length - 1];
+  const inventoryItems = document.querySelectorAll(".inventory-item");
+
+  // Check if there's a valid last collected item and corresponding inventory slot
+  if (inventoryItems[collectedRelics.length - 1]) {
+    const collectedItemElement = inventoryItems[collectedRelics.length - 1];
+
+    collectedItemElement.classList.add("relicFloat"); // Add animation
+
+    // Remove animation after some time (adjust based on animation duration)
+    setTimeout(() => {
+      collectedItemElement.classList.remove("relicFloat");
+    }, 2000);
+  }
 }

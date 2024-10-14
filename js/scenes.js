@@ -11,113 +11,6 @@ import { addRelicToInventory } from "./inventory.js";
 
 // Fetch and load scene based on scene number
 
-// export async function loadScene(sceneNumber) {
-//   try {
-//     const response = await fetch(
-//       "https://raw.githubusercontent.com/diecatiamonteiro/text-adventure-game-browser/main/data/data.json"
-//     );
-//     console.log("Fetching data is working.");
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch scene data.");
-//     }
-
-//     const data = await response.json();
-//     const sceneData = data[sceneNumber];
-
-//     if (sceneData) {
-//       // update description & image
-//       document.getElementById("scene-description").innerText =
-//         sceneData.description;
-//       document.getElementById("scene-image").src = sceneData.image;
-
-//       // "What will you do?"
-//       const question = document.getElementById("scene-question");
-//       question.innerHTML = sceneData.question || "What will you do?";
-
-//       // clear feedback
-//       const feedbackMessage = document.getElementById("feedback-message");
-//       feedbackMessage.innerText = "";
-
-//       // handle input type: buttons or input
-//       if (sceneData.sceneType === "buttons") {
-//         showButtonOptions(sceneData);
-//       } else if (sceneData.sceneType === "typing") {
-//         showTypingInput(sceneData);
-//       }
-
-//       // Handle direct scene transitions without a nextPhase
-//       if (sceneData.nextScene && !sceneData.nextPhase) {
-//         setTimeout(() => {
-//           loadScene(sceneData.nextScene); // Direct scene transition
-//         }, 2000);
-//       }
-
-//       // Handle nextPhase if exists (challenge-based phases)
-//       if (sceneData.nextPhase) {
-//         handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
-//       }
-//     } else {
-//       throw new Error(`Scene ${sceneNumber} not found.`);
-//     }
-//   } catch (error) {
-//     console.error("Error loading scene:", error);
-//     document.getElementById("feedback-message").innerText =
-//       "Error: Scene not found.";
-//   }
-// }
-
-// export async function loadScene(sceneNumber) {
-//   try {
-//     const response = await fetch(
-//       "https://raw.githubusercontent.com/diecatiamonteiro/text-adventure-game-browser/main/data/data.json"
-//     );
-//     console.log("Fetching data is working.");
-//     if (!response.ok) {
-//       throw new Error("Failed to fetch scene data.");
-//     }
-
-//     const data = await response.json();
-//     const sceneData = data[sceneNumber];
-
-//     if (sceneData) {
-//       // Update scene description, image, and question
-//       document.getElementById("scene-description").innerText =
-//         sceneData.description;
-//       document.getElementById("scene-image").src = sceneData.image;
-//       document.getElementById("scene-question").innerText =
-//         sceneData.question || "What will you do?";
-
-//       // clear feedback
-//       const feedbackMessage = document.getElementById("feedback-message");
-//       feedbackMessage.innerText = "";
-
-//       // handle input type: buttons or input
-//       if (sceneData.sceneType === "buttons") {
-//         showButtonOptions(sceneData);
-//       } else if (sceneData.sceneType === "typing") {
-//         showTypingInput(sceneData);
-//       }
-
-//       // Handle nextPhase if exists and no other phase is being handled
-//       if (sceneData.nextPhase && !isHandlingPhase) {
-//         handleButtonChoices(sceneData);
-//       }
-
-//      // Handle direct scene transitions if no phase
-//      if (sceneData.nextScene && !sceneData.nextPhase && !isHandlingPhase) {
-//         setTimeout(() => {
-//           loadScene(sceneData.nextScene);
-//         }, 5000);
-//       }
-//     } else {
-//       throw new Error(`Scene ${sceneNumber} not found.`);
-//     }
-//   } catch (error) {
-//     console.error("Error loading scene:", error);
-//     document.getElementById("feedback-message").innerText = "Error: Scene not found.";
-//   }
-// }
-
 export async function loadScene(sceneNumber) {
   try {
     clearPreviousScene();
@@ -126,7 +19,10 @@ export async function loadScene(sceneNumber) {
     if (!response.ok) throw new Error("Failed to fetch scene data.");
 
     const data = await response.json();
-    const sceneData = data[sceneNumber];
+    const sceneData = data[String(sceneNumber)];
+
+    // Log the sceneData to ensure it's being retrieved correctly
+    console.log("Loaded Scene Data:", sceneData);
 
     if (sceneData) {
       // Update scene description, image, and question
@@ -138,19 +34,13 @@ export async function loadScene(sceneNumber) {
 
       // Show buttons and set their text
       showButtonOptions(sceneData);
-
-      // Handle next phase (challenge) if correct answer is clicked
-      if (sceneData.nextPhase) return;
-
-        handleButtonChoices()
-
     } else {
       throw new Error(`Scene ${sceneNumber} not found.`);
     }
   } catch (error) {
     console.error("Error loading scene:", error);
-    // document.getElementById("feedback-message").innerText =
-    //   "Error: Scene not found.";
+    document.getElementById("feedback-message").innerText =
+      "Error: Scene not found.";
   }
 }
 
@@ -204,6 +94,22 @@ function showButtonOptions(sceneData) {
 function handleButtonChoices(choice, sceneData) {
   const feedbackMessage = document.getElementById("feedback-message");
 
+  console.log("Scene Data:", sceneData);
+
+  // Check if sceneData and correctSceneAnswer exist
+  if (!sceneData || !sceneData.correctSceneAnswer) {
+    console.error("Error: sceneData or correctSceneAnswer is undefined.");
+    feedbackMessage.innerText = "Error: Invalid scene configuration.";
+    return; // Prevent further execution if there's an issue
+  }
+
+  // Check if sceneData exists and is for a button-based scene, and if the correct answer is defined
+  if (sceneData.sceneType === "buttons" && !sceneData.correctSceneAnswer) {
+    console.error("Error: correctSceneAnswer missing in button-based scene.");
+    feedbackMessage.innerText = "Error: Scene configuration is incorrect.";
+    return; // Prevent further execution if there's an issue
+  }
+
   if (choice === sceneData.correctSceneAnswer) {
     feedbackMessage.innerText = sceneData.feedback.right;
     setTimeout(() => {
@@ -212,7 +118,7 @@ function handleButtonChoices(choice, sceneData) {
       } else {
         loadScene(sceneData.nextScene); // Move directly to next scene
       }
-    }, 6000);
+    }, 3000);
   } else {
     feedbackMessage.innerText = sceneData.feedback.wrong;
   }
@@ -449,12 +355,29 @@ function handleNextPhase(nextPhase, nextScene) {
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// Clear previous scene
 function clearPreviousScene() {
-  document.getElementById("scene-description").innerText = "";
-  document.getElementById("scene-image").src = "";
-  document.getElementById("scene-question").innerText = "";
-  document.getElementById("feedback-message").innerText = "";
-  document.getElementById("options-buttons").style.display = "none";
-  document.getElementById("next-phase").style.display = "none";
-}
+    // Clear previous scene content
+    document.getElementById("scene-description").innerText = "";
+    document.getElementById("scene-image").src = "";
+    document.getElementById("scene-question").innerText = "";
+    document.getElementById("feedback-message").innerText = ""; // Clear general feedback
+  
+    // Hide buttons and input
+    document.getElementById("options-buttons").style.display = "none";
+    document.getElementById("options-typing").style.display = "none";
+  
+    // Clear any previous challenge elements (riddle, combat, puzzle)
+    document.getElementById("riddle-challenge").style.display = "none"; // Hide riddle section
+    document.getElementById("riddle-question").innerText = ""; // Clear riddle question
+    document.getElementById("riddle-feedback-message").innerText = ""; // Clear riddle feedback
+  
+    // Hide combat and puzzle challenge sections if they exist
+    document.getElementById("combat-challenge").style.display = "none";
+    document.getElementById("puzzle-challenge").style.display = "none";
+  
+    // Clear any challenge-related content (for nextPhase descriptions)
+    document.getElementById("next-phase-description").innerText = ""; // Clear any leftover nextPhase descriptions
+    document.getElementById("combat-description").innerText = "";
+    document.getElementById("puzzle-description").innerText = "";
+  }
+  

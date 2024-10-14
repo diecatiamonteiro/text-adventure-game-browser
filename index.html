@@ -83,13 +83,13 @@
           <section id="feedback">
             <p id="feedback-message"></p>
           </section>
-          
+
           <!-- Next phase -->
           <section id="next-phase" style="display: none">
             <p id="next-phase-description"></p>
           </section>
-          
-          <!-- Challenges (riddles, combats, puzzles, etc.) -->
+
+          <!-- Challenges -->
           <section id="challenge">
             <!-- For riddles -->
             <div id="riddle-challenge" style="display: none">
@@ -99,13 +99,48 @@
                 id="riddle-answer"
                 placeholder="Type your answer..."
               />
-            </div>
+              <p id="riddle-feedback-message"></p>
+            </div> 
 
-            <!-- For combat -->
+            <!-- Combat Section -->
             <div id="combat-challenge" style="display: none">
               <p id="combat-description"></p>
-              <button id="attack-button">Attack</button>
-              <button id="defend-button">Defend</button>
+
+              <!-- Enemy stats with a visual health bar -->
+              <div id="enemy-stats">
+                <p id="enemy-name"></p>
+                <div id="enemy-health-bar" class="health-bar">
+                  <div id="enemy-health-fill" class="health-fill"></div>
+                </div>
+              </div>
+
+              <!-- Player stats with a visual health bar (optional) -->
+              <div id="player-stats">
+                <p>Health - Player</p>
+                <div id="player-health-bar" class="health-bar">
+                  <div id="player-health-fill" class="health-fill"></div>
+                </div>
+              </div>
+
+              <!-- Combat actions with icons -->
+              <div id="combat-actions">
+                <button id="attack-button">
+                  <img src="./assets/icons/sword.png" alt="Attack" />
+                  <p id="icon-title">Attack</p>
+                </button>
+                <button id="aim-button">
+                  <img src="./assets/icons/aim.png" alt="Aim for the joints" />
+                  <p id="icon-title">Aim for joints</p>
+                </button>
+                <button id="defend-button">
+                  <img src="./assets/icons/shield.png" alt="Defend" />
+                  <p id="icon-title">Defend</p>
+                </button>
+              </div>
+
+              <!-- Combat feedback and pop-up area -->
+              <div id="combat-feedback"></div>
+              <div id="popup-feedback" class="popup-feedback"></div>
             </div>
 
             <!-- For puzzles -->

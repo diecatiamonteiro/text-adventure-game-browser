@@ -243,11 +243,10 @@ main #game-area #game-container #options-typing input {
 
 main #game-area #game-container #feedback #feedback-message {
   margin-top: 20px;
-  /* font-family: "IBM Plex Mono", monospace; */
-  font-family: "Press Start 2P", sans-serif;
-
+  font-family: "IBM Plex Mono", monospace;
   font-size: 1.3rem;
-  line-height: 1.4;
+  line-height: 1.5;
+  font-weight: bold;
   color: rgb(57, 255, 57);
 }
 
@@ -293,6 +292,92 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
   background-color: green;
   opacity: 1;
 }
+
+/* ++++++++++++++++++++++ Challenge section ++++++++++++++++++++++ */
+
+#riddle-feedback-message {
+  margin-top: 20px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.3rem;
+  line-height: 1.5;
+  font-weight: bold;
+  color: rgb(57, 255, 57);
+}
+
+/* ++++++++++++++++++++++ Combat ++++++++++++++++++++++ */
+
+/* Health bars for enemy and player */
+.health-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.health-fill {
+  height: 100%;
+  width: 100%;
+  background-color: #1be622; /* Green for health */
+  border-radius: 10px;
+}
+
+#enemy-health-fill {
+  width: 100%; /* Start with full health */
+}
+
+#player-health-fill {
+  width: 100%; /* Start with full health */
+}
+
+#combat-actions {
+  display: flex;
+  justify-content: space-around; /* Spread buttons evenly */
+}
+
+/* Combat actions styled with icons */
+#combat-actions button {
+  display: flex;
+  flex-direction: column; /* Stack icon and text vertically */
+  align-items: center; /* Center them horizontally */
+  justify-content: center; /* Center them vertically */
+  background: none; /* Remove default button styling */
+  border: none; /* Remove border */
+  cursor: pointer;
+}
+
+#combat-actions img {
+  width: 80px;
+  height: 110px;
+}
+
+#icon-title {
+  font-family: "IBM Plex Mono", monospace;
+  color: rgb(165, 165, 165);
+}
+
+/* Feedback pop-ups for damage or block effects */
+.popup-feedback {
+  font-family: "IBM Plex Mono", monospace;
+  position: absolute;
+  font-size: 20px;
+  color: red;
+  animation: fadeOut 5s forwards;
+  z-index: 100;
+  display: none;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    top: 50px;
+  }
+  100% {
+    opacity: 0;
+    top: 0px;
+  }
+}
+
 
 /* ++++++++++++++++++++++ Responsiveness ++++++++++++++++++++++ */
 
@@ -355,4 +440,23 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
     padding: 12px 25px;
     font-size: 0.8rem;
   }
+}
+
+/* relic float */
+
+@keyframes relicFloat {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.relicFloat {
+  animation: relicFloat 3s ease-in-out;
+  box-shadow: 0 0 15px 5px gold; /* Optional glow effect */
 }
