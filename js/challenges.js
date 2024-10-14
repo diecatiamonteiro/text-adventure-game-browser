@@ -278,10 +278,10 @@ export function handlePuzzleChallenge(puzzle, nextPhase, nextScene, loadScene) {
           addRelicToInventory(nextPhase.relic);
         }
       }, 4000);
-      
-      loadScene(nextScene);
 
-      showNextButton();
+      showNextButton(() => {
+        loadScene(nextScene);
+      });
     } else {
       console.log("Scene not found.");
     }

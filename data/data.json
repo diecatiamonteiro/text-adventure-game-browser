@@ -109,9 +109,9 @@
       "relic": {
         "name": "relic_of_wisdom",
         "image": "./assets/relics/relic-of-wisdom-scene4.png"
-      },
-      "nextScene": 5
-    }
+      }
+    },
+    "nextScene": 5
   },
   "5": {
     "sceneType": "buttons",
