@@ -37,7 +37,7 @@ export function handleRiddleChallenge(riddle, nextPhase, nextScene, loadScene) {
           } else {
             console.error("nextScene is undefined");
           }
-        }, 6000);
+        }, 8000);
       } else {
         feedbackChallengeMessage.innerText = riddle.feedbackChallenge.wrong;
       }
@@ -124,7 +124,7 @@ export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
         } else {
           console.error("nextScene is undefined");
         }
-      }, 6000);
+      }, 8000);
     } else {
       feedbackMessage.innerText += ` Enemy's remaining health: ${enemyHealth}`;
     }

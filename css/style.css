@@ -48,7 +48,7 @@ body {
   font-family: "Press Start 2P", sans-serif;
   font-size: 1rem;
   background-color: black;
-  color: green;
+  color: limegreen;
 }
 
 main#main-game {
@@ -83,7 +83,7 @@ header#start-screen h1 {
   line-height: 1.4;
   letter-spacing: 0.8vw;
   max-width: 85%;
-  color: #029c02;
+  color: limegreen;
 }
 
 header#start-screen #intro {
@@ -193,7 +193,7 @@ main #game-area #game-container #scene #scene-description {
 
 main #game-area #game-container #scene #scene-question {
   margin: 20px 0;
-  color: #029c02;
+  color:limegreen;
   text-decoration: underline;
 }
 
@@ -245,7 +245,7 @@ main #game-area #game-container #feedback #feedback-message {
   margin-top: 20px;
   font-family: "IBM Plex Mono", monospace;
   font-size: 1.3rem;
-  line-height: 1.5;
+  line-height: 1.2;
   font-weight: bold;
   color: rgb(57, 255, 57);
 }
@@ -293,15 +293,66 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
   opacity: 1;
 }
 
-/* ++++++++++++++++++++++ Challenge section ++++++++++++++++++++++ */
+@keyframes relicFloat {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.relicFloat {
+  animation: relicFloat 3s ease-in-out;
+  box-shadow: 0 0 15px 5px gold; 
+}
+
+/* ++++++++++++++++++++++ Next Phase ++++++++++++++++++++++ */
+
+#next-phase-description {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.3rem;
+  margin: 20px 0 40px 0;
+  line-height: 1.4;
+}
+
+/* ++++++++++++++++++++++ Riddle ++++++++++++++++++++++ */
+
+#riddle-question {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.3rem;
+  margin: 20px 0;
+  line-height: 1.4;
+}
 
 #riddle-feedback-message {
   margin-top: 20px;
   font-family: "IBM Plex Mono", monospace;
   font-size: 1.3rem;
-  line-height: 1.5;
+  line-height: 1.4;
   font-weight: bold;
   color: rgb(57, 255, 57);
+}
+
+#riddle-answer {
+  font: inherit; /* Ensure form elements inherit font styles */
+  outline: none; /* Remove default browser focus outlines */
+
+  width: 90%;
+  padding: 10px 0;
+  background-color: black;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.3rem;
+  border: none;
+  color: green;
+
+  caret-color: green;
+
+
+  
 }
 
 /* ++++++++++++++++++++++ Combat ++++++++++++++++++++++ */
@@ -440,23 +491,4 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
     padding: 12px 25px;
     font-size: 0.8rem;
   }
-}
-
-/* relic float */
-
-@keyframes relicFloat {
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.relicFloat {
-  animation: relicFloat 3s ease-in-out;
-  box-shadow: 0 0 15px 5px gold; /* Optional glow effect */
 }

@@ -32,7 +32,7 @@
           "correctChallengeAnswer": "keyboard",
           "feedbackChallenge": {
             "wrong": "Wrong! The mist remains. Try again.",
-            "right": "Correct! The mist clears, revealing the path to the ruins. You've conquered your first magical relic, the Relic of Secrets!"
+            "right": "Correct! The mist clears, revealing the path to the ruins. You've conquered your first magical relic, the Relic of Secrets! You are ready to move on onto your next challenge. Off you go..."
           }
         }
       },
