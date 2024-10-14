@@ -458,8 +458,10 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
 
 #puzzle-container {
   display: flex;
-  gap: 10px;
   justify-content: center;
+  flex-wrap: wrap; /* Enable wrapping to create multiple rows */
+  width: 480px; /* Adjust based on your image sizes (100px per piece + margin) */
+  margin: 0 auto; /* Center the puzzle container */
 }
 
 .puzzle-slot {
@@ -471,14 +473,14 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
 
 #puzzle-pieces {
   display: flex;
+  flex-wrap: wrap; /* Wrap images into rows */
   justify-content: center;
-  margin-top: 20px;
+  gap: 10px; 
 }
 
 .puzzle-piece {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
+  width: 100px; /* Adjust width as needed */
+  height: 100px; /* Adjust height as needed */
   cursor: grab;
 }
 

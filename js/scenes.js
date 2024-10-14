@@ -167,10 +167,15 @@ function handleNextPhase(nextPhase, nextScene) {
   } else if (nextPhase.challengeType === "combat") {
     handleCombatChallenge(nextPhase, nextScene, loadScene);
   } else if (nextPhase.challengeType === "puzzle") {
-    handlePuzzleChallenge(nextPhase.challenge.puzzle, nextPhase, loadScene);
+    if (nextPhase.puzzle) {
+      // Show the puzzle challenge
+      document.getElementById("puzzle-challenge").style.display = "block"; // Make sure this is visible
+      handlePuzzleChallenge(nextPhase.puzzle, nextPhase, loadScene);
+    } else {
+      console.error("Error: Puzzle challenge data is missing");
+    }
   }
 }
-
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Clear previous scene
 
 function clearPreviousScene() {

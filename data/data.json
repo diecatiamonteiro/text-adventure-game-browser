@@ -91,7 +91,7 @@
       "challengeType": "puzzle",
       "puzzle": {
         "description": "Rearrange the 6 puzzle pieces by dragging them into the correct positions to complete the image and unlock the magical bridge.",
-        "pieces": ["piece1", "piece2", "piece3", "piece4", "piece5", "piece6"],
+        "pieces": ["piece1", "piece2", "piece3", "piece4", "piece5", "piece6", "piece7", "piece8"],
         "feedbackChallenge": {
           "wrong": "The pieces don't fit together yet. Try again.",
           "right": "The puzzle is complete! A shimmering bridge appears, allowing you to walk across the water to the island. There, you claim the Relic of Wisdom. With the Relic of Wisdom in hand, the lake's waters part, revealing a hidden cave entrance. You venture inside to continue your quest."
