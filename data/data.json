@@ -46,7 +46,7 @@
   "3": {
     "sceneType": "buttons",
     "image": "./assets/scenes/3.png",
-    "description": "SCENE 3. The ruins are vast, and the once-proud fortress is now crumbling and overrun with time. At the heart of the ruins lies the Relic of Strength, but a Stone Guardian blocks your way. This powerful, ancient protector will not let anyone claim the relic without proving their might.",
+    "description": "SCENE 3. You arrive at the ruins, at last! The ruins are vast, and the once-proud fortress is now crumbling and overrun with time. At the heart of the ruins lies the Relic of Strength, but a Stone Guardian blocks your way. This powerful, ancient protector will not let anyone claim the relic without proving their might.",
     "question": "What will you do?",
     "options": ["Examine the Stone Guardian", "Fight the Stone Guardian"],
     "correctSceneAnswer": "Fight the Stone Guardian",
@@ -117,8 +117,8 @@
     },
     "nextPhase": {
       "description": "SCENE 5 PUZZLE. The Relic of Courage is trapped in a thick block of ice, and you must use the environment around you to melt it. Mirrors placed throughout the cave must be aligned to reflect beams of light from a small flame onto the block of ice. The cold air makes the puzzle more challenging, as the light dims if you take too long.",
-      "challengeType": "puzzle",
-      "puzzle": {
+      "challengeType": "align",
+      "align": {
         "description": "Align the mirrors to reflect light from a flame onto the block of ice. If the mirrors are aligned correctly, the ice will melt, revealing the relic.",
         "feedbackChallenge": {
           "wrong": "The mirrors are not aligned properly and the light failed. Try again!",
@@ -145,8 +145,8 @@
     },
     "nextPhase": {
       "description": "SCENE 6 PUZZLE. Before you, the five relics you've gathered appear: Secrets, Strength, Wisdom, Courage, and Souls. Each relic has a purpose, and to restore balance to the Forgotten Land, you must align them with their rightful roles. Drag and drop the relics into their proper places.",
-      "challengeType": "puzzle",
-      "puzzle": {
+      "challengeType": "match",
+      "match": {
         "description": "Align the relics to their rightful purposes to restore balance. Drag and drop each relic into its proper place.",
         "relics": [
           {

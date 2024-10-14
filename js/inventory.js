@@ -2,13 +2,10 @@ let collectedRelics = [];
 
 // Function to add a relic to the inventory
 export function addRelicToInventory(relic) {
-  // Add the relic to the collectedRelics array
   collectedRelics.push(relic);
 
-  // Update the inventory visually
   updateInventoryUI();
 
-  // Trigger relic animation and sound effect
   playRelicEffect();
 }
 
@@ -16,7 +13,7 @@ export function addRelicToInventory(relic) {
 
 // Function to reset the inventory (e.g., on game restart)
 export function resetInventory() {
-  collectedRelics = []; // Clear the relics array
+  collectedRelics = []; // clear array
 
   // Reset the visual inventory
   const inventoryItems = document.querySelectorAll(".inventory-item");

@@ -28,16 +28,12 @@ export function handleRiddleChallenge(riddle, nextPhase, nextScene, loadScene) {
           if (nextPhase && nextPhase.relic) {
             addRelicToInventory(nextPhase.relic);
           }
-        }, 2000);
+        }, 4000);
 
-        // navigate to next scene
-        setTimeout(() => {
-          if (nextScene) {
-            loadScene(nextScene);
-          } else {
-            console.error("nextScene is undefined");
-          }
-        }, 8000);
+        // Show "Next" button to proceed to the next phase
+        showNextButton(() => {
+          loadScene(nextScene);
+        });
       } else {
         feedbackChallengeMessage.innerText = riddle.feedbackChallenge.wrong;
       }
@@ -116,17 +112,15 @@ export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
         if (nextPhase.relic) {
           addRelicToInventory(nextPhase.relic);
         }
-      }, 2000);
+      }, 4000);
 
-      setTimeout(() => {
-        if (nextScene) {
+      if (nextScene) {
+        showNextButton(() => {
           loadScene(nextScene);
-        } else {
-          console.error("nextScene is undefined");
-        }
-      }, 8000);
-    } else {
-      feedbackMessage.innerText += ` Enemy's remaining health: ${enemyHealth}`;
+        });
+      } else {
+        console.error("nextScene is undefined");
+      }
     }
   }
 
@@ -214,4 +208,17 @@ export function handlePuzzleChallenge(puzzle, nextPhase, loadScene) {
   }
 
   // Add puzzle interaction logic here
+}
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next Button
+
+function showNextButton(onNext) {
+  const nextButton = document.getElementById("next-button");
+  nextButton.style.display = "block";
+
+  nextButton.addEventListener("click", function onNextClick() {
+    onNext(); // Trigger function to load next scene
+    nextButton.style.display = "none"; // Hide button after clicking
+    nextButton.removeEventListener("click", onNextClick); // Remove listener to avoid duplication
+  });
 }
