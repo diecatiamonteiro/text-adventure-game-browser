@@ -1,11 +1,14 @@
 // Fetches and displays scenes based on game progression.
 
+// import {handleRiddleChallenge} from "./riddle.js";
+// import {handleCombatChallenge} from "./combat.js";
+// import {handlePuzzleChallenge} from "./combat.js";
+
 import {
   handleRiddleChallenge,
   handleCombatChallenge,
   handlePuzzleChallenge,
 } from "./challenges.js";
-import { addRelicToInventory } from "./inventory.js";
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Load Scene
 
@@ -44,35 +47,9 @@ export async function loadScene(sceneNumber) {
   }
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Button based decisions
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Buttons for scene entry
 
 // Handle buttons for button-based scenes
-
-// function showButtonOptions(sceneData) {
-//   const optionsButtons = document.getElementById("options-buttons");
-//   const button1 = document.getElementById("button1");
-//   const button2 = document.getElementById("button2");
-
-//   // remove existing event listeners
-//   button1.removeEventListener("click", handleButtonChoices);
-//   button2.removeEventListener("click", handleButtonChoices);
-
-//   // update button text
-//   button1.innerText = sceneData.options[0];
-//   button2.innerText = sceneData.options[1];
-
-//   // add new event listeners to buttons
-//   button1.addEventListener("click", () =>
-//     handleButtonChoices(sceneData.options[0], sceneData)
-//   );
-//   button2.addEventListener("click", () =>
-//     handleButtonChoices(sceneData.options[1], sceneData)
-//   );
-
-//   // show buttons and hide input field
-//   optionsButtons.style.display = "block";
-//   document.getElementById("options-typing").style.display = "none";
-// }
 
 function showButtonOptions(sceneData) {
   const button1 = document.getElementById("button1");
@@ -171,7 +148,6 @@ function handleButtonChoices(choice, sceneData) {
 
 // Handle nextPhase logic
 
-
 function handleNextPhase(nextPhase, nextScene) {
   clearPreviousScene();
 
@@ -195,31 +171,30 @@ function handleNextPhase(nextPhase, nextScene) {
   }
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Clear previous scene
 
 function clearPreviousScene() {
-    // Clear previous scene content
-    document.getElementById("scene-description").innerText = "";
-    document.getElementById("scene-image").src = "";
-    document.getElementById("scene-question").innerText = "";
-    document.getElementById("feedback-message").innerText = ""; // Clear general feedback
-  
-    // Hide buttons and input
-    document.getElementById("options-buttons").style.display = "none";
-    document.getElementById("options-typing").style.display = "none";
-  
-    // Clear any previous challenge elements (riddle, combat, puzzle)
-    document.getElementById("riddle-challenge").style.display = "none"; // Hide riddle section
-    document.getElementById("riddle-question").innerText = ""; // Clear riddle question
-    document.getElementById("riddle-feedback-message").innerText = ""; // Clear riddle feedback
-  
-    // Hide combat and puzzle challenge sections if they exist
-    document.getElementById("combat-challenge").style.display = "none";
-    document.getElementById("puzzle-challenge").style.display = "none";
-  
-    // Clear any challenge-related content (for nextPhase descriptions)
-    document.getElementById("next-phase-description").innerText = ""; // Clear any leftover nextPhase descriptions
-    document.getElementById("combat-description").innerText = "";
-    document.getElementById("puzzle-description").innerText = "";
-  }
-  
+  // Clear previous scene content
+  document.getElementById("scene-description").innerText = "";
+  document.getElementById("scene-image").src = "";
+  document.getElementById("scene-question").innerText = "";
+  document.getElementById("feedback-message").innerText = ""; // Clear general feedback
+
+  // Hide buttons and input
+  document.getElementById("options-buttons").style.display = "none";
+  document.getElementById("options-typing").style.display = "none";
+
+  // Clear any previous challenge elements (riddle, combat, puzzle)
+  document.getElementById("riddle-challenge").style.display = "none"; // Hide riddle section
+  document.getElementById("riddle-question").innerText = ""; // Clear riddle question
+  document.getElementById("riddle-feedback-message").innerText = ""; // Clear riddle feedback
+
+  // Hide combat and puzzle challenge sections if they exist
+  document.getElementById("combat-challenge").style.display = "none";
+  document.getElementById("puzzle-challenge").style.display = "none";
+
+  // Clear any challenge-related content (for nextPhase descriptions)
+  document.getElementById("next-phase-description").innerText = ""; // Clear any leftover nextPhase descriptions
+  document.getElementById("combat-description").innerText = "";
+  document.getElementById("puzzle-description").innerText = "";
+}

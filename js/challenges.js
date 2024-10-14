@@ -182,34 +182,103 @@ export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Puzzle Challenge
 
+// export function handlePuzzleChallenge(puzzle, nextPhase, loadScene) {
+//   const puzzleDescription = document.getElementById("puzzle-description");
+//   puzzleDescription.innerText = puzzle.description;
+
+//   // Show puzzle challenge UI
+//   document.getElementById("puzzle-challenge").style.display = "block";
+
+//   function checkPuzzleCompletion() {
+//     const feedbackMessage = document.getElementById("feedback-message");
+//     const isPuzzleSolved = true; // Add puzzle-solving logic here
+
+//     if (isPuzzleSolved) {
+//       feedbackMessage.innerText = puzzle.feedbackChallenge.right;
+
+//       setTimeout(() => {
+//         if (nextPhase.relic) {
+//           addRelicToInventory(nextPhase.relic); // Add relic to inventory
+//         }
+//         loadScene(nextPhase.nextScene);
+//       }, 2000);
+//     } else {
+//       feedbackMessage.innerText = puzzle.feedbackChallenge.wrong;
+//     }
+//   }
+
+//   // Add puzzle interaction logic here
+// }
+
 export function handlePuzzleChallenge(puzzle, nextPhase, loadScene) {
-  const puzzleDescription = document.getElementById("puzzle-description");
-  puzzleDescription.innerText = puzzle.description;
-
-  // Show puzzle challenge UI
-  document.getElementById("puzzle-challenge").style.display = "block";
-
-  function checkPuzzleCompletion() {
-    const feedbackMessage = document.getElementById("feedback-message");
-    const isPuzzleSolved = true; // Add puzzle-solving logic here
-
-    if (isPuzzleSolved) {
-      feedbackMessage.innerText = puzzle.feedbackChallenge.right;
-
-      setTimeout(() => {
-        if (nextPhase.relic) {
-          addRelicToInventory(nextPhase.relic); // Add relic to inventory
-        }
-        loadScene(nextPhase.nextScene);
-      }, 2000);
-    } else {
-      feedbackMessage.innerText = puzzle.feedbackChallenge.wrong;
+    const puzzleDescription = document.getElementById("puzzle-description");
+    puzzleDescription.innerText = puzzle.description;
+  
+    // Show puzzle challenge UI
+    document.getElementById("puzzle-challenge").style.display = "block";
+  
+    // Dynamically create puzzle pieces and slots
+    const puzzleContainer = document.getElementById("puzzle-pieces");
+    puzzle.pieces.forEach((piece, index) => {
+      const img = document.createElement("img");
+      img.src = `./assets/puzzles/${piece}.png`; // Assuming you have these images stored
+      img.classList.add("puzzle-piece");
+      img.setAttribute("draggable", "true");
+      img.setAttribute("data-piece", index + 1);
+  
+      puzzleContainer.appendChild(img);
+  
+      // Add drag event listeners
+      img.addEventListener("dragstart", handleDragStart);
+    });
+  
+    const puzzleSlots = document.querySelectorAll(".puzzle-slot");
+    puzzleSlots.forEach((slot) => {
+      slot.addEventListener("dragover", handleDragOver);
+      slot.addEventListener("drop", handleDrop);
+    });
+  
+    function handleDragStart(e) {
+      e.dataTransfer.setData("text/plain", e.target.dataset.piece);
+    }
+  
+    function handleDragOver(e) {
+      e.preventDefault(); // Allows dropping
+    }
+  
+    function handleDrop(e) {
+      const draggedPieceId = e.dataTransfer.getData("text/plain");
+      const droppedSlotId = e.target.dataset.slot;
+  
+      // Check if the piece matches the slot
+      if (draggedPieceId === droppedSlotId) {
+        const piece = document.querySelector(`[data-piece="${draggedPieceId}"]`);
+        e.target.appendChild(piece); // Drop the piece into the slot
+        piece.setAttribute("draggable", "false"); // Disable dragging once correctly placed
+  
+        // Check if the puzzle is complete
+        checkPuzzleCompletion();
+      } else {
+        alert("Wrong place! Try again.");
+      }
+    }
+  
+    function checkPuzzleCompletion() {
+      const placedPieces = document.querySelectorAll(".puzzle-slot img");
+      if (placedPieces.length === puzzle.pieces.length) {
+        const feedbackMessage = document.getElementById("feedback-message");
+        feedbackMessage.innerText = puzzle.feedbackChallenge.right;
+  
+        setTimeout(() => {
+          if (nextPhase.relic) {
+            addRelicToInventory(nextPhase.relic); // Add relic to inventory
+          }
+          loadScene(nextPhase.nextScene); // Load the next scene
+        }, 2000);
+      }
     }
   }
-
-  // Add puzzle interaction logic here
-}
-
+  
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next Button
 
 function showNextButton(onNext) {

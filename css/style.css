@@ -454,6 +454,33 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
   }
 }
 
+/* ++++++++++++++++++++++ Puzzle ++++++++++++++++++++++ */
+
+#puzzle-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.puzzle-slot {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #999;
+  display: inline-block;
+}
+
+#puzzle-pieces {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.puzzle-piece {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  cursor: grab;
+}
 
 /* ++++++++++++++++++++++ Responsiveness ++++++++++++++++++++++ */
 
