@@ -156,7 +156,7 @@
       "right": "The spirits of lost souls welcome you! Off you go to your final challenge..."
     },
     "nextPhase": {
-      "description": "SCENE 6 PUZZLE. The final trial. The four relics you've collected, Secrets, Strength, Wisdom, and Courage, stand before you, each radiating with untapped power. The Relic of Souls lies just within reach, but it will only be yours if you succeed in this final challenge. To restore balance to the Forgotten Lands, you must gather all five of them. For that, you must align them with their rightful powers.",
+      "description": "SCENE 6 PUZZLE. The final trial. The four relics you've collected, Secrets, Strength, Wisdom, and Courage, stand before you, each radiating with untapped power. The Relic of Souls lies just within reach, but it will only be yours if you succeed in this final challenge. To restore balance to the Forgotten Lands, you must gather all five of them.",
       "challengeType": "match",
       "match": {
         "description": "Each relic has a power that the Forgotten Lands need to restore balance. Match the relics with their rightful powers, and conquer your last one, the Relic of Souls.",
@@ -188,8 +188,8 @@
           }
         ],
         "feedbackChallenge": {
-          "wrong": "You do not yet understand all your relics yet. Keep trying.",
-          "right": "The relics glow with power as they align in perfect harmony. The spirits acknowledge your understanding, and the Relic of Souls is yours. Balance is near."
+          "wrong": "Wrong match! Keep trying.",
+          "right": "Epic! The relics glow with power as they align in perfect harmony. The spirits acknowledge your understanding, and the Relic of Souls is yours. Balance is near..."
         }
       },
       "relic": {

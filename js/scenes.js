@@ -9,6 +9,7 @@ import {
   handleCombatChallenge,
   handlePuzzleChallenge,
   handleAlignChallenge,
+  handleMatchChallenge,
 } from "./challenges.js";
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Load Scene
@@ -102,49 +103,6 @@ function handleButtonChoices(choice, sceneData) {
   }
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Typing based decisions
-
-// Handle typing input scenes (navigation or challenges)
-
-// function showTypingInput(sceneData) {
-//   const input = document.getElementById("options-typing-input");
-//   const feedbackMessage = document.getElementById("feedback-message");
-
-//   input.value = "";
-
-//   // remove existing keydown event listeners to prevent stacking
-//   input.removeEventListener("keydown", handleTypingInput);
-
-//   // handle player input
-//   function handleTypingInput(e) {
-//     if (e.key === "Enter") {
-//       const playerInput = input.value.toLowerCase().trim();
-
-//       if (playerInput.includes(sceneData.correctAnswer)) {
-//         feedbackMessage.innerText = sceneData.feedback.right;
-
-//         // proceed to next scene after feedback
-//         setTimeout(() => {
-//           if (sceneData.nextPhase) {
-//             handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
-//           } else {
-//             loadScene(sceneData.nextScene);
-//           }
-//         }, 5000);
-//       } else {
-//         feedbackMessage.innerText = sceneData.feedback.wrong;
-//       }
-//     }
-//   }
-
-//   // Add keydown event listener
-//   input.addEventListener("keydown", handleTypingInput);
-
-//   // Show typing input and hide buttons
-//   document.getElementById("options-typing").style.display = "block";
-//   document.getElementById("options-buttons").style.display = "none";
-// }
-
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next phase within scene
 
 // Handle nextPhase logic
@@ -175,6 +133,8 @@ function handleNextPhase(nextPhase, nextScene) {
     }
   } else if (nextPhase.challengeType === "align") {
     handleAlignChallenge(nextPhase.align, nextPhase, nextScene, loadScene);
+  } else if (nextPhase.challengeType === "match") {
+    handleMatchChallenge(nextPhase.match, nextPhase, nextScene, loadScene);
   }
 }
 
@@ -206,37 +166,38 @@ function clearPreviousScene() {
 
   document.getElementById("align-challenge").style.display = "none";
   document.getElementById("align-feedback").innerText = "";
+
+  document.getElementById("match-challenge").style.display = "none";
 }
 
-    // function hidePreviousSceneInChallenges() {
-    //     // Only hide specific challenge-related fields, not the entire scene
-    //     const feedback = document.getElementById("feedback");
-    //     if (feedback) {
-    //       feedback.style.display = "none"; // Hide feedback
-    //     }
-      
-    //     const alignChallenge = document.getElementById("align-challenge");
-    //     if (alignChallenge) {
-    //       alignChallenge.style.display = "none"; // Hide the align challenge
-    //     }
-      
-    //     const riddleChallenge = document.getElementById("riddle-challenge");
-    //     if (riddleChallenge) {
-    //       riddleChallenge.style.display = "none"; // Hide riddle challenge
-    //     }
-      
-    //     const combatChallenge = document.getElementById("combat-challenge");
-    //     if (combatChallenge) {
-    //       combatChallenge.style.display = "none"; // Hide combat challenge
-    //     }
-      
-    //     const puzzleChallenge = document.getElementById("puzzle-challenge");
-    //     if (puzzleChallenge) {
-    //       puzzleChallenge.style.display = "none"; // Hide puzzle challenge
-    //     }
-      
-    //     // Optionally remove any margin or padding that may still cause spacing
-    //     document.getElementById("scene").style.margin = "0";
-    //     document.getElementById("scene").style.padding = "0";
-    //   }
-    
+// function hidePreviousSceneInChallenges() {
+//     // Only hide specific challenge-related fields, not the entire scene
+//     const feedback = document.getElementById("feedback");
+//     if (feedback) {
+//       feedback.style.display = "none"; // Hide feedback
+//     }
+
+//     const alignChallenge = document.getElementById("align-challenge");
+//     if (alignChallenge) {
+//       alignChallenge.style.display = "none"; // Hide the align challenge
+//     }
+
+//     const riddleChallenge = document.getElementById("riddle-challenge");
+//     if (riddleChallenge) {
+//       riddleChallenge.style.display = "none"; // Hide riddle challenge
+//     }
+
+//     const combatChallenge = document.getElementById("combat-challenge");
+//     if (combatChallenge) {
+//       combatChallenge.style.display = "none"; // Hide combat challenge
+//     }
+
+//     const puzzleChallenge = document.getElementById("puzzle-challenge");
+//     if (puzzleChallenge) {
+//       puzzleChallenge.style.display = "none"; // Hide puzzle challenge
+//     }
+
+//     // Optionally remove any margin or padding that may still cause spacing
+//     document.getElementById("scene").style.margin = "0";
+//     document.getElementById("scene").style.padding = "0";
+//   }

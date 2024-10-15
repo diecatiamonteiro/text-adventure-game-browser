@@ -180,19 +180,14 @@ export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
     .addEventListener("click", () => handlePlayerAction("Defend"));
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Puzzle
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Puzzle Challenge
 
 export function handlePuzzleChallenge(puzzle, nextPhase, nextScene, loadScene) {
-  console.log("Puzzle data:", puzzle); // ********
-
   const puzzleDescription = document.getElementById("puzzle-description");
   puzzleDescription.innerText = puzzle.description;
 
-  // show puzzle challenge UI
   document.getElementById("puzzle-challenge").style.display = "block";
-  console.log("Puzzle challenge is now visible."); // ********
 
-  // Function to shuffle the puzzle pieces array
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -201,17 +196,14 @@ export function handlePuzzleChallenge(puzzle, nextPhase, nextScene, loadScene) {
     return array;
   }
 
-  // Shuffle the puzzle pieces before displaying them
+  // shuffle puzzle pieces position
   const shuffledPieces = shuffleArray([...puzzle.pieces]);
-  console.log("Shuffled puzzle pieces:", shuffledPieces);
 
-  // Clear existing pieces if any
+  // clear previous pieces
   const puzzlePiecesContainer = document.getElementById("puzzle-pieces");
-  puzzlePiecesContainer.innerHTML = ""; // Clear any previous pieces
+  puzzlePiecesContainer.innerHTML = "";
 
-  // create puzzle pieces and slots
-  shuffledPieces.forEach((piece, index) => {
-    console.log(`Adding puzzle piece: ${piece}`); // ********
+  shuffledPieces.forEach((piece) => {
     const img = document.createElement("img");
     img.src = `./assets/puzzle/${piece}.png`;
     img.classList.add("puzzle-piece");
@@ -236,7 +228,22 @@ export function handlePuzzleChallenge(puzzle, nextPhase, nextScene, loadScene) {
   }
 
   function handleDragOver(e) {
-    e.preventDefault(); // Allows dropping
+    e.preventDefault(); // allows dropping
+  }
+
+  function handleDrop(e) {
+    const draggedPieceId = e.dataTransfer.getData("text/plain");
+    const droppedSlotId = e.target.dataset.slot;
+
+    if (draggedPieceId === droppedSlotId) {
+      const piece = document.querySelector(`[data-piece="${draggedPieceId}"]`);
+      e.target.appendChild(piece); // drop piece into slot
+      piece.setAttribute("draggable", "false");
+
+      checkPuzzleCompletion(nextScene);
+    } else {
+      showPopup("Wrong place. Try again.");
+    }
   }
 
   function showPopup(text, color = "red") {
@@ -246,24 +253,9 @@ export function handlePuzzleChallenge(puzzle, nextPhase, nextScene, loadScene) {
     popupPuzzleFeedback.innerText = text;
     popupPuzzleFeedback.style.color = color;
     popupPuzzleFeedback.style.display = "block";
-    setTimeout(() => (popupPuzzleFeedback.style.display = "none"), 4000); // Hide after 3 seconds
-  }
-
-  function handleDrop(e) {
-    const draggedPieceId = e.dataTransfer.getData("text/plain");
-    const droppedSlotId = e.target.dataset.slot;
-
-    // Check if the piece matches the slot
-    if (draggedPieceId === droppedSlotId) {
-      const piece = document.querySelector(`[data-piece="${draggedPieceId}"]`);
-      e.target.appendChild(piece); // Drop the piece into the slot
-      piece.setAttribute("draggable", "false"); // Disable dragging once correctly placed
-
-      // Check if the puzzle is complete
-      checkPuzzleCompletion(nextScene);
-    } else {
-      showPopup("Wrong place. Try again.");
-    }
+    setTimeout(() => {
+      popupPuzzleFeedback.style.display = "none";
+    }, 4000);
   }
 
   function checkPuzzleCompletion(nextScene) {
@@ -288,7 +280,7 @@ export function handlePuzzleChallenge(puzzle, nextPhase, nextScene, loadScene) {
   }
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Align game
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Align Challenge
 
 export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
   const puzzleDescription = document.getElementById("puzzle-description");
@@ -361,7 +353,124 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
     }
   }
 }
-  
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Match Challenge
+
+export function handleMatchChallenge(match, nextPhase, nextScene, loadScene) {
+  const matchChallengeContainer = document.getElementById("match-challenge");
+  const relicsContainer = document.getElementById("relics-container");
+  const powersContainer = document.getElementById("powers-container");
+  const powerDropZone = document.getElementById("power-drop-zone");
+  const feedbackMessage = document.getElementById("match-feedback");
+
+  relicsContainer.innerHTML = "";
+  powersContainer.innerHTML = "";
+  powerDropZone.innerHTML = "";
+  feedbackMessage.innerText = "";
+  matchChallengeContainer.style.display = "block";
+
+  const matchDescription = document.getElementById("match-description");
+  matchDescription.innerText = match.description;
+
+  function shuffleRelicsArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  // shuffle powers' positioning
+  const powers = match.relics.map((relic) => relic.power); // get powers
+  const shuffledPowers = shuffleRelicsArray([...powers]); // suffle powers
+
+  match.relics.forEach((relic, slotIndex) => {
+    // create div with relic name & image
+    const relicElement = document.createElement("div");
+    relicElement.classList.add("relic");
+
+    const relicImage = document.createElement("img");
+    relicImage.classList.add("relic-image");
+    relicImage.src = relic.image;
+    relicImage.alt = relic.name;
+
+    const relicName = document.createElement("h4");
+    relicName.classList.add("relic-name");
+    relicName.innerText = relic.name;
+    
+    relicElement.appendChild(relicImage);
+    relicElement.appendChild(relicName);
+    relicsContainer.appendChild(relicElement);
+
+    // create power drop zone for each power
+    const powerSlot = document.createElement("div");
+    powerSlot.classList.add("power-slot");
+    powerSlot.dataset.slot = slotIndex; // power index
+    powerSlot.addEventListener("dragover", handleDragOver);
+    powerSlot.addEventListener("drop", (e) => handleDrop(e, slotIndex, match));
+    powerDropZone.appendChild(powerSlot);
+  });
+
+  // display shuffled draggable powers below drop zone
+  shuffledPowers.forEach((power) => {
+    const powerElement = document.createElement("div");
+    powerElement.classList.add("power");
+    powerElement.draggable = true;
+    powerElement.dataset.correctIndex = match.relics.findIndex(
+      (relic) => relic.power === power
+    );
+
+    const powerDescription = document.createElement("p");
+    powerDescription.classList.add("power-description");
+    powerDescription.innerText = power;
+
+    powerElement.appendChild(powerDescription);
+    powersContainer.appendChild(powerElement);
+
+    powerElement.addEventListener("dragstart", handleDragStart);
+  });
+
+  function handleDragStart(e) {
+    e.dataTransfer.setData("text/plain", e.target.dataset.correctIndex);
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault(); // allow dropping
+  }
+
+  function handleDrop(e, slotIndex, match) {
+    e.preventDefault();
+    const draggedPowerIndex = e.dataTransfer.getData("text/plain");
+    const feedbackMessage = document.getElementById("match-feedback");
+
+    // check if dropped power matches correct slot
+    if (draggedPowerIndex == slotIndex) {
+      const draggedElement = document.querySelector(
+        `[data-correct-index="${draggedPowerIndex}"]`
+      );
+      e.target.appendChild(draggedElement); // move power to power slot
+      draggedElement.draggable = false;
+
+      // check if all powers are correctly placed
+      const placedPowers = document.querySelectorAll(".power-slot .power");
+      if (placedPowers.length === match.relics.length) {
+        feedbackMessage.innerText = match.feedbackChallenge.right;
+
+        setTimeout(() => {
+          if (nextPhase.relic) {
+            addRelicToInventory(nextPhase.relic);
+          }
+          showNextButton(() => {
+            loadScene(nextScene);
+          });
+        }, 4000);
+      }
+    } else {
+      feedbackMessage.innerText = match.feedbackChallenge.wrong;
+    }
+  }
+}
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next Button
 
 function showNextButton(onNext) {
