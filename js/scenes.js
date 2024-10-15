@@ -181,27 +181,62 @@ function handleNextPhase(nextPhase, nextScene) {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Clear previous scene
 
 function clearPreviousScene() {
-  // Clear previous scene content
+  // main scene
   document.getElementById("scene-description").innerText = "";
   document.getElementById("scene-image").src = "";
   document.getElementById("scene-question").innerText = "";
-  document.getElementById("feedback-message").innerText = ""; // Clear general feedback
+  document.getElementById("feedback-message").innerText = "";
 
-  // Hide buttons and input
+  // buttons & inputs
   document.getElementById("options-buttons").style.display = "none";
   document.getElementById("options-typing").style.display = "none";
 
-  // Clear any previous challenge elements (riddle, combat, puzzle)
-  document.getElementById("riddle-challenge").style.display = "none"; // Hide riddle section
-  document.getElementById("riddle-question").innerText = ""; // Clear riddle question
-  document.getElementById("riddle-feedback-message").innerText = ""; // Clear riddle feedback
+  // challenges
+  document.getElementById("next-phase-description").innerText = "";
 
-  // Hide combat and puzzle challenge sections if they exist
+  document.getElementById("riddle-challenge").style.display = "none";
+  document.getElementById("riddle-question").innerText = "";
+  document.getElementById("riddle-feedback-message").innerText = "";
+
   document.getElementById("combat-challenge").style.display = "none";
-  document.getElementById("puzzle-challenge").style.display = "none";
-
-  // Clear any challenge-related content (for nextPhase descriptions)
-  document.getElementById("next-phase-description").innerText = ""; // Clear any leftover nextPhase descriptions
   document.getElementById("combat-description").innerText = "";
+
+  document.getElementById("puzzle-challenge").style.display = "none";
   document.getElementById("puzzle-description").innerText = "";
+
+  document.getElementById("align-challenge").style.display = "none";
+  document.getElementById("align-feedback").innerText = "";
 }
+
+    // function hidePreviousSceneInChallenges() {
+    //     // Only hide specific challenge-related fields, not the entire scene
+    //     const feedback = document.getElementById("feedback");
+    //     if (feedback) {
+    //       feedback.style.display = "none"; // Hide feedback
+    //     }
+      
+    //     const alignChallenge = document.getElementById("align-challenge");
+    //     if (alignChallenge) {
+    //       alignChallenge.style.display = "none"; // Hide the align challenge
+    //     }
+      
+    //     const riddleChallenge = document.getElementById("riddle-challenge");
+    //     if (riddleChallenge) {
+    //       riddleChallenge.style.display = "none"; // Hide riddle challenge
+    //     }
+      
+    //     const combatChallenge = document.getElementById("combat-challenge");
+    //     if (combatChallenge) {
+    //       combatChallenge.style.display = "none"; // Hide combat challenge
+    //     }
+      
+    //     const puzzleChallenge = document.getElementById("puzzle-challenge");
+    //     if (puzzleChallenge) {
+    //       puzzleChallenge.style.display = "none"; // Hide puzzle challenge
+    //     }
+      
+    //     // Optionally remove any margin or padding that may still cause spacing
+    //     document.getElementById("scene").style.margin = "0";
+    //     document.getElementById("scene").style.padding = "0";
+    //   }
+    

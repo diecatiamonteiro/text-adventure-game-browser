@@ -44,7 +44,7 @@
       <section id="game-area">
         <!-- B1) Inventory -->
         <aside id="inventory">
-          <h3>Collected Relics</h3>
+          <h3>Relics</h3>
           <div id="items-box">
             <div class="inventory-item" id="item1"></div>
             <div class="inventory-item" id="item2"></div>
@@ -181,10 +181,24 @@
               <!-- Bottom Section: Flame -->
               <div class="bottom-section">
                 <div id="flame"></div>
+                <div id="light-beam" class="beam"></div>
+                <!-- Light beam from flame to mirror -->
               </div>
 
               <div id="align-feedback"></div>
+            </div>
 
+            <!-- For match game -->
+            <div id="match-challenge" style="display: none">
+              <p id="match-description"></p>
+              <div id="relics-container">
+                <div id="secrets">
+                  <h4 id="name"></h4>
+                  <img id="image"/>
+                </div>
+              </div>
+              <div id="powers-container"></div>
+              <div id="match-feedback"></div>
             </div>
 
             <!-- Next button -->

@@ -156,39 +156,39 @@
       "right": "The spirits of lost souls welcome you! Off you go to your final challenge..."
     },
     "nextPhase": {
-      "description": "SCENE 6 PUZZLE. Before you, the five relics you've gathered appear: Secrets, Strength, Wisdom, Courage, and Souls. Each relic has a purpose, and to restore balance to the Forgotten Land, you must align them with their rightful roles. Drag and drop the relics into their proper places.",
+      "description": "SCENE 6 PUZZLE. The final trial. The four relics you've collected, Secrets, Strength, Wisdom, and Courage, stand before you, each radiating with untapped power. The Relic of Souls lies just within reach, but it will only be yours if you succeed in this final challenge. To restore balance to the Forgotten Lands, you must gather all five of them. For that, you must align them with their rightful powers.",
       "challengeType": "match",
       "match": {
-        "description": "Align the relics to their rightful purposes to restore balance. Drag and drop each relic into its proper place.",
+        "description": "Each relic has a power that the Forgotten Lands need to restore balance. Match the relics with their rightful powers, and conquer your last one, the Relic of Souls.",
         "relics": [
           {
             "image": "./assets/relics/relic-of-secrets-scene2.png",
             "name": "Relic of Secrets",
-            "purpose": "Reveals hidden knowledge that unlocks the path to peace."
+            "power": "Reveals hidden knowledge that unlocks the path to peace."
           },
           {
             "image": "./assets/relics/relic-of-strength-scene3.png",
             "name": "Relic of Strength",
-            "purpose": "Protects the land from threats and fortifies the weak."
+            "power": "Protects the land from threats and fortifies the weak."
           },
           {
             "image": "./assets/relics/relic-of-wisdom-scene4.png",
             "name": "Relic of Wisdom",
-            "purpose": "Guides decisions to maintain harmony and order."
+            "power": "Guides decisions to maintain harmony and order."
           },
           {
             "image": "./assets/relics/relic-of-courage-scene5.png",
             "name": "Relic of Courage",
-            "purpose": "Inspires bravery to face the darkness and uncertainty."
+            "power": "Inspires bravery to face the darkness and uncertainty."
           },
           {
             "image": "./assets/relics/relic-of-souls-scene6.png",
             "name": "Relic of Souls",
-            "purpose": "Connects the living and the dead, ensuring peace for all spirits."
+            "power": "Connects the living and the dead, ensuring peace for all spirits."
           }
         ],
         "feedbackChallenge": {
-          "wrong": "You do not yet understand all your relics. Try again.",
+          "wrong": "You do not yet understand all your relics yet. Keep trying.",
           "right": "The relics glow with power as they align in perfect harmony. The spirits acknowledge your understanding, and the Relic of Souls is yours. Balance is near."
         }
       },

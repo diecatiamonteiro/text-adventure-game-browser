@@ -297,7 +297,7 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
   document.getElementById("align-challenge").style.display = "block";
 
   const flame = document.getElementById("flame");
-  flame.style.backgroundImage = "url('./assets/align-game/flame.png')";
+  flame.style.backgroundImage = "url('./assets/align-game/fire.gif')";
 
   const ice = document.getElementById("iceBlock");
   ice.style.backgroundImage = "url('./assets/align-game/ice.png')";
@@ -328,11 +328,23 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
       mirror3 === 45 &&
       mirror4 === 135
     ) {
-        const iceBlock = document.getElementById("iceBlock");
-        iceBlock.style.backgroundImage = `url(${nextPhase.relic.image})`;
+      // Remove event listeners to stop further rotation
+      mirrors.forEach((mirror) => {
+        mirror.removeEventListener("click", () => rotateMirror(mirror));
+      });
 
-      const feedbackMessage = document.getElementById("align-feedback");
-      feedbackMessage.innerText = nextPhase.align.feedbackChallenge.right;
+      const iceBlock = document.getElementById("iceBlock");
+      iceBlock.style.backgroundImage = `url(${nextPhase.relic.image})`;
+
+      // Slowly make the relic appear
+      setTimeout(() => {
+        iceBlock.classList.add("reveal");
+      }, 1000);
+
+      setTimeout(() => {
+        const feedbackMessage = document.getElementById("align-feedback");
+        feedbackMessage.innerText = nextPhase.align.feedbackChallenge.right;
+      }, 2000);
 
       setTimeout(() => {
         if (nextPhase.relic) {
@@ -349,7 +361,7 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
     }
   }
 }
-
+  
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next Button
 
 function showNextButton(onNext) {
