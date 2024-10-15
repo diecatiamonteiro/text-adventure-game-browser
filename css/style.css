@@ -395,36 +395,68 @@ main #game-area aside#inventory #items-box .inventory-item {
 
 /* ++++++++++++++++++++++ Combat ++++++++++++++++++++++ */
 
-/* Health bars for enemy and player */
+#enemy-name {
+  margin-top: 30px;
+}
+
 .health-bar {
   width: 100%;
   height: 20px;
-  background-color: #ddd;
+  border: 1px solid limegreen;
   border-radius: 10px;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
-#enemy-health-bar {
-  margin-bottom: 40px;
+#enemy-health-bar,
+#player-health-bar {
+  margin-bottom: 25px;
 }
+
 .health-fill {
   height: 100%;
   width: 100%;
-  background-color: #1be622; /* Green for health */
+  background-color: limegreen;
   border-radius: 10px;
 }
 
 #enemy-health-fill {
-  width: 100%; /* Start with full health */
+  width: 100%;
 }
 
 #player-health-fill {
-  width: 100%; /* Start with full health */
+  width: 100%;
+}
+
+#player-energy-bar {
+  width: 100%;
+  height: 20px;
+  border: 1px solid limegreen;
+  border-radius: 10px;
+  margin: 5px 0;
+  position: relative;
+  overflow: hidden;
+  background-color: rgb(0, 41, 0);
+}
+
+#player-energy-fill {
+  height: 100%;
+  background-color: limegreen;
+  width: 100%;
+  transition: width 0.5s ease;
+  border-radius: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#player-stats p,
+#enemy-stats p {
+  font-family: "IBM Plex Mono", monospace;
 }
 
 #combat-actions {
   display: flex;
-  justify-content: space-around; /* Spread buttons evenly */
+  justify-content: space-evenly; /* Spread buttons evenly */
   margin: 40px 0;
 }
 
@@ -446,7 +478,8 @@ main #game-area aside#inventory #items-box .inventory-item {
 
 #icon-title {
   font-family: "IBM Plex Mono", monospace;
-  color: rgb(165, 165, 165);
+  color: limegreen;
+  padding-top: 5px;
 }
 
 /* Feedback pop-ups for damage or block effects */
@@ -463,7 +496,7 @@ main #game-area aside#inventory #items-box .inventory-item {
 @keyframes fadeOut {
   0% {
     opacity: 1;
-    top: 50%;
+    top: 60%;
   }
   100% {
     opacity: 0;
@@ -483,14 +516,14 @@ main #game-area aside#inventory #items-box .inventory-item {
   display: flex;
   justify-content: center;
   flex-wrap: wrap; /* Enable wrapping to create multiple rows */
-  width: 500px; /* Adjust based on your image sizes (100px per piece + margin) */
+  width: 600px; /* Adjust based on your image sizes (100px per piece + margin) */
   margin: 20px auto; /* Center the puzzle container */
 }
 
 .puzzle-slot {
-  width: 110px;
-  height: 110px;
-  border: 2px dashed #999;
+  width: 130px;
+  height: 130px;
+  border: 2px dashed rgb(8, 61, 8);
   display: inline-block;
 }
 
@@ -504,8 +537,8 @@ main #game-area aside#inventory #items-box .inventory-item {
 }
 
 .puzzle-piece {
-  width: 110px; /* Adjust width as needed */
-  height: 110px; /* Adjust height as needed */
+  width: 130px; /* Adjust width as needed */
+  height: 130px; /* Adjust height as needed */
   cursor: grab;
 }
 

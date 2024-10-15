@@ -45,140 +45,310 @@ export function handleRiddleChallenge(riddle, nextPhase, nextScene, loadScene) {
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Combat
 
+// export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
+//   const enemyName = document.getElementById("enemy-name");
+//   const enemyHealthFill = document.getElementById("enemy-health-fill");
+//   const playerHealthFill = document.getElementById("player-health-fill");
+//   const feedbackMessage = document.getElementById("combat-feedback");
+
+//   let enemyHealth = nextPhase.enemy.health; // Set enemy's initial health
+//   let playerHealth = 100; // Set player's initial health
+
+//   // Set combat description and enemy stats
+//   enemyName.innerText = `Health - ${nextPhase.enemy.name}`;
+//   updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health); // Set initial width for enemy health bar
+//   updateHealthBar(playerHealthFill, playerHealth, 100); // Set initial width for player health bar
+
+//   // Display combat UI elements
+//   document.getElementById("combat-challenge").style.display = "block";
+//   feedbackMessage.innerText = ""; // Clear previous feedback
+
+//   // Function to handle health bar updates
+//   function updateHealthBar(healthBar, currentHealth, maxHealth) {
+//     const healthPercentage = (currentHealth / maxHealth) * 100;
+//     healthBar.style.width = `${healthPercentage}%`; // Set the width as a percentage
+//   }
+
+//   // Function to handle pop-up effects (damage or block notifications)
+//   function showPopup(text, color = "red") {
+//     const popupFeedback = document.getElementById("popup-feedback");
+//     popupFeedback.innerText = text;
+//     popupFeedback.style.color = color;
+//     popupFeedback.style.display = "block";
+//     setTimeout(() => (popupFeedback.style.display = "none"), 3000); // Hide after 3 seconds
+//   }
+
+//   // Function to handle player's actions
+//   function handlePlayerAction(action) {
+//     let damageDealt;
+//     if (action === "Attack") {
+//       damageDealt = 10; // Regular attack
+//       enemyHealth -= damageDealt;
+//       updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health); // Update enemy health bar
+//       feedbackMessage.innerText = `You strike the Stone Guardian, dealing ${damageDealt} damage.`;
+//       showPopup(`-${damageDealt} HP for Guardian`, "red");
+//     } else if (action === "Aim for joints") {
+//       damageDealt = 20; // Strong attack for weak points
+//       enemyHealth -= damageDealt;
+//       updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health); // Update enemy health bar
+//       feedbackMessage.innerText = `You aim for the Guardian's weak points! You deal ${damageDealt} damage!`;
+//       showPopup(`-${damageDealt} HP for Guardian`, "orange");
+//     } else if (action === "Defend") {
+//       feedbackMessage.innerText =
+//         "You brace yourself, reducing incoming damage.";
+//       showPopup("You block the attack!", "blue");
+//       return; // No damage dealt in this turn
+//     }
+
+//     // Guardian retaliates after each player action
+//     handleEnemyAttack();
+
+//     // Check for victory
+//     if (enemyHealth <= 0) {
+//       feedbackMessage.innerText = nextPhase.feedbackChallenge.victory;
+//       updateHealthBar(enemyHealthFill, 0, nextPhase.enemy.health); // Ensure the health bar is fully empty on victory
+
+//       setTimeout(() => {
+//         if (nextPhase.relic) {
+//           addRelicToInventory(nextPhase.relic);
+//         }
+//       }, 4000);
+
+//       if (nextScene) {
+//         showNextButton(() => {
+//           loadScene(nextScene);
+//         });
+//       } else {
+//         console.error("nextScene is undefined");
+//       }
+//     }
+//   }
+
+//   // Function to handle the enemy attack
+//   function handleEnemyAttack() {
+//     const enemyAttackDamage = Math.floor(Math.random() * 10) + 10; // Randomize between 10-20
+//     feedbackMessage.innerText += ` The Stone Guardian retaliates, swinging its hammer and dealing ${enemyAttackDamage} damage to you.`;
+
+//     // Reduce player's health
+//     playerHealth -= enemyAttackDamage;
+//     updateHealthBar(playerHealthFill, playerHealth, 100); // Update player's health bar
+
+//     // Check if the player is defeated
+//     if (playerHealth <= 0) {
+//       feedbackMessage.innerText = nextPhase.feedbackChallenge.defeat;
+//       setTimeout(() => {
+//         resetCombat(); // Reset the combat after defeat
+//       }, 4000);
+//     }
+//   }
+
+//   // Function to reset combat
+//   function resetCombat() {
+//     // Reset health values
+//     playerHealth = 100;
+//     enemyHealth = nextPhase.enemy.health;
+
+//     // Update health bars
+//     updateHealthBar(playerHealthFill, playerHealth, 100);
+//     updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health);
+
+//     // Reset feedback and display message
+//     feedbackMessage.innerText =
+//       "You've been given another chance! Fight again!";
+//   }
+
+//   // Remove existing event listeners to prevent stacking
+//   document
+//     .getElementById("attack-button")
+//     .removeEventListener("click", handlePlayerAction);
+//   document
+//     .getElementById("aim-button")
+//     .removeEventListener("click", handlePlayerAction);
+//   document
+//     .getElementById("defend-button")
+//     .removeEventListener("click", handlePlayerAction);
+
+//   // Add event listeners for player actions
+//   document
+//     .getElementById("attack-button")
+//     .addEventListener("click", () => handlePlayerAction("Attack"));
+//   document
+//     .getElementById("aim-button")
+//     .addEventListener("click", () => handlePlayerAction("Aim for joints"));
+//   document
+//     .getElementById("defend-button")
+//     .addEventListener("click", () => handlePlayerAction("Defend"));
+// }
+
+
 export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
-  const enemyName = document.getElementById("enemy-name");
-  const enemyHealthFill = document.getElementById("enemy-health-fill");
-  const playerHealthFill = document.getElementById("player-health-fill");
-  const feedbackMessage = document.getElementById("combat-feedback");
-
-  let enemyHealth = nextPhase.enemy.health; // Set enemy's initial health
-  let playerHealth = 100; // Set player's initial health
-
-  // Set combat description and enemy stats
-  enemyName.innerText = `Health - ${nextPhase.enemy.name}`;
-  updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health); // Set initial width for enemy health bar
-  updateHealthBar(playerHealthFill, playerHealth, 100); // Set initial width for player health bar
-
-  // Display combat UI elements
-  document.getElementById("combat-challenge").style.display = "block";
-  feedbackMessage.innerText = ""; // Clear previous feedback
-
-  // Function to handle health bar updates
-  function updateHealthBar(healthBar, currentHealth, maxHealth) {
-    const healthPercentage = (currentHealth / maxHealth) * 100;
-    healthBar.style.width = `${healthPercentage}%`; // Set the width as a percentage
-  }
-
-  // Function to handle pop-up effects (damage or block notifications)
-  function showPopup(text, color = "red") {
-    const popupFeedback = document.getElementById("popup-feedback");
-    popupFeedback.innerText = text;
-    popupFeedback.style.color = color;
-    popupFeedback.style.display = "block";
-    setTimeout(() => (popupFeedback.style.display = "none"), 3000); // Hide after 3 seconds
-  }
-
-  // Function to handle player's actions
-  function handlePlayerAction(action) {
-    let damageDealt;
-    if (action === "Attack") {
-      damageDealt = 10; // Regular attack
-      enemyHealth -= damageDealt;
-      updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health); // Update enemy health bar
-      feedbackMessage.innerText = `You strike the Stone Guardian, dealing ${damageDealt} damage.`;
-      showPopup(`-${damageDealt} HP for Guardian`, "red");
-    } else if (action === "Aim for joints") {
-      damageDealt = 20; // Strong attack for weak points
-      enemyHealth -= damageDealt;
-      updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health); // Update enemy health bar
-      feedbackMessage.innerText = `You aim for the Guardian's weak points! You deal ${damageDealt} damage!`;
-      showPopup(`-${damageDealt} HP for Guardian`, "orange");
-    } else if (action === "Defend") {
-      feedbackMessage.innerText =
-        "You brace yourself, reducing incoming damage.";
-      showPopup("You block the attack!", "blue");
-      return; // No damage dealt in this turn
+    const enemyName = document.getElementById("enemy-name");
+    const enemyHealthFill = document.getElementById("enemy-health-fill");
+    const playerHealthFill = document.getElementById("player-health-fill");
+    const feedbackMessage = document.getElementById("combat-feedback");
+  
+    let enemyHealth = nextPhase.enemy.health; // Set enemy's initial health
+    let playerHealth = 100; // Set player's initial health
+    let playerEnergy = 50; // Add energy mechanic to limit actions
+  
+    let combatOver = false; // Variable to track if combat is over
+  
+    // Set combat description and enemy stats
+    enemyName.innerText = `Health - ${nextPhase.enemy.name}`;
+    updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health);
+    updateHealthBar(playerHealthFill, playerHealth, 100);
+    
+    // Display player energy
+    const playerEnergyBar = document.getElementById("player-energy-fill");
+    updateEnergyBar(playerEnergyBar, playerEnergy, 50); // Initial energy
+  
+    document.getElementById("combat-challenge").style.display = "block";
+    feedbackMessage.innerText = ""; // Clear previous feedback
+  
+    // Function to update health bars
+    function updateHealthBar(healthBar, currentHealth, maxHealth) {
+      const healthPercentage = (currentHealth / maxHealth) * 100;
+      healthBar.style.width = `${healthPercentage}%`;
     }
-
-    // Guardian retaliates after each player action
-    handleEnemyAttack();
-
-    // Check for victory
-    if (enemyHealth <= 0) {
-      feedbackMessage.innerText = nextPhase.feedbackChallenge.victory;
-      updateHealthBar(enemyHealthFill, 0, nextPhase.enemy.health); // Ensure the health bar is fully empty on victory
-
+  
+    // Function to update energy bar
+    function updateEnergyBar(energyBar, currentEnergy, maxEnergy) {
+      const energyPercentage = (currentEnergy / maxEnergy) * 100;
+      energyBar.style.width = `${energyPercentage}%`;
+    }
+  
+    // Define the showPopup function to display temporary feedback
+    function showPopup(text, color = "red") {
+      const popupFeedback = document.getElementById("popup-feedback");
+      popupFeedback.innerText = text;
+      popupFeedback.style.color = color;
+      popupFeedback.style.display = "block";
       setTimeout(() => {
-        if (nextPhase.relic) {
-          addRelicToInventory(nextPhase.relic);
+        popupFeedback.style.display = "none";
+      }, 3000); // Hide after 3 seconds
+    }
+  
+    // Regenerate player energy over time
+    function regenerateEnergy() {
+      const regenAmount = 5; // Amount of energy regained per cycle
+      const regenInterval = setInterval(() => {
+        if (combatOver) { // Stop regenerating if combat is over
+          clearInterval(regenInterval);
+          return;
         }
-      }, 4000);
-
-      if (nextScene) {
-        showNextButton(() => {
-          loadScene(nextScene);
-        });
-      } else {
-        console.error("nextScene is undefined");
+        
+        if (playerEnergy < 50) { // Ensure energy doesn't exceed max
+          playerEnergy += regenAmount;
+          updateEnergyBar(playerEnergyBar, playerEnergy, 50); // Update the energy bar
+        } else {
+          clearInterval(regenInterval); // Stop regenerating when energy is full
+        }
+      }, 2000); // Regenerate every 2 seconds
+    }
+  
+    // Handle player's actions with energy cost and special moves
+    function handlePlayerAction(action) {
+      if (combatOver) return; // Prevent further actions if combat is over
+  
+      let damageDealt;
+      
+      if (playerEnergy < 10) {
+        feedbackMessage.innerText = "You're too tired to attack! You must wait to regain energy.";
+        showPopup("You're too tired!", "orange");
+        regenerateEnergy(); // Start energy regeneration
+        return;
+      }
+  
+      if (action === "Attack") {
+        damageDealt = 10;
+        playerEnergy -= 10; // Regular attack costs 10 energy
+        enemyHealth -= damageDealt;
+        updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health);
+        updateEnergyBar(playerEnergyBar, playerEnergy, 50); // Update energy
+        feedbackMessage.innerText = `You strike the Stone Guardian, dealing ${damageDealt} damage.`;
+        showPopup(`-${damageDealt} HP for Guardian`, "red");
+      } else if (action === "Aim for joints") {
+        if (Math.random() > 0.2) { // Add a chance for critical hits
+          damageDealt = 25;
+          playerEnergy -= 20; // Aiming costs more energy
+          feedbackMessage.innerText = `Critical hit! You aim for the weak spot and deal ${damageDealt} damage!`;
+        } else {
+          damageDealt = 5; // Missed attempt
+          feedbackMessage.innerText = `You missed the weak spot, only dealing ${damageDealt} damage.`;
+        }
+        enemyHealth -= damageDealt;
+        updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health);
+        updateEnergyBar(playerEnergyBar, playerEnergy, 50);
+        showPopup(`-${damageDealt} HP for Guardian`, "orange");
+      } else if (action === "Defend") {
+        playerEnergy -= 5; // Defending costs less energy
+        feedbackMessage.innerText = "You brace yourself, reducing incoming damage.";
+        showPopup("You block the attack!", "blue");
+        return; // No damage dealt
+      }
+  
+      handleEnemyAttack(); // Enemy retaliates
+  
+      if (enemyHealth <= 0) {
+        combatOver = true; // Mark combat as over
+        feedbackMessage.innerText = nextPhase.feedbackChallenge.victory;
+        updateHealthBar(enemyHealthFill, 0, nextPhase.enemy.health);
+  
+        setTimeout(() => {
+          if (nextPhase.relic) {
+            addRelicToInventory(nextPhase.relic);
+          }
+  
+          showNextButton(() => {
+            loadScene(nextScene);
+          });
+        }, 4000);
       }
     }
-  }
-
-  // Function to handle the enemy attack
-  function handleEnemyAttack() {
-    const enemyAttackDamage = Math.floor(Math.random() * 10) + 10; // Randomize between 10-20
-    feedbackMessage.innerText += ` The Stone Guardian retaliates, swinging its hammer and dealing ${enemyAttackDamage} damage to you.`;
-
-    // Reduce player's health
-    playerHealth -= enemyAttackDamage;
-    updateHealthBar(playerHealthFill, playerHealth, 100); // Update player's health bar
-
-    // Check if the player is defeated
-    if (playerHealth <= 0) {
-      feedbackMessage.innerText = nextPhase.feedbackChallenge.defeat;
-      setTimeout(() => {
-        resetCombat(); // Reset the combat after defeat
-      }, 4000);
+  
+    // Enemy attack function
+    function handleEnemyAttack() {
+      if (combatOver) return; // Prevent enemy actions if combat is over
+  
+      const enemyAttackType = Math.random() > 0.5 ? "Heavy Attack" : "Quick Strike";
+      let enemyAttackDamage;
+  
+      if (enemyAttackType === "Heavy Attack") {
+        enemyAttackDamage = 25; // Heavy attack deals more damage
+        feedbackMessage.innerText += ` The Stone Guardian charges a heavy attack and deals ${enemyAttackDamage} damage!`;
+      } else {
+        enemyAttackDamage = Math.floor(Math.random() * 10) + 5; // Lighter, random attack
+        feedbackMessage.innerText += ` The Stone Guardian strikes swiftly and deals ${enemyAttackDamage} damage.`;
+      }
+  
+      playerHealth -= enemyAttackDamage;
+      updateHealthBar(playerHealthFill, playerHealth, 100);
+  
+      if (playerHealth <= 0) {
+        combatOver = true; // Mark combat as over
+        feedbackMessage.innerText = nextPhase.feedbackChallenge.defeat;
+        setTimeout(() => resetCombat(), 4000); // Reset after defeat
+      }
     }
+  
+    // Reset combat for retry (optional for your game logic)
+    function resetCombat() {
+      playerHealth = 100;
+      enemyHealth = nextPhase.enemy.health;
+      playerEnergy = 50; // Reset energy
+      combatOver = false; // Reset combat status
+      updateHealthBar(playerHealthFill, playerHealth, 100);
+      updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health);
+      updateEnergyBar(playerEnergyBar, playerEnergy, 50);
+      feedbackMessage.innerText = "You've been given another chance!";
+    }
+  
+    // Add event listeners for actions
+    document.getElementById("attack-button").addEventListener("click", () => handlePlayerAction("Attack"));
+    document.getElementById("aim-button").addEventListener("click", () => handlePlayerAction("Aim for joints"));
+    document.getElementById("defend-button").addEventListener("click", () => handlePlayerAction("Defend"));
   }
-
-  // Function to reset combat
-  function resetCombat() {
-    // Reset health values
-    playerHealth = 100;
-    enemyHealth = nextPhase.enemy.health;
-
-    // Update health bars
-    updateHealthBar(playerHealthFill, playerHealth, 100);
-    updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health);
-
-    // Reset feedback and display message
-    feedbackMessage.innerText =
-      "You've been given another chance! Fight again!";
-  }
-
-  // Remove existing event listeners to prevent stacking
-  document
-    .getElementById("attack-button")
-    .removeEventListener("click", handlePlayerAction);
-  document
-    .getElementById("aim-button")
-    .removeEventListener("click", handlePlayerAction);
-  document
-    .getElementById("defend-button")
-    .removeEventListener("click", handlePlayerAction);
-
-  // Add event listeners for player actions
-  document
-    .getElementById("attack-button")
-    .addEventListener("click", () => handlePlayerAction("Attack"));
-  document
-    .getElementById("aim-button")
-    .addEventListener("click", () => handlePlayerAction("Aim for joints"));
-  document
-    .getElementById("defend-button")
-    .addEventListener("click", () => handlePlayerAction("Defend"));
-}
+  
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Puzzle Challenge
 
@@ -297,18 +467,21 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
   let rotationAngles = { mirror1: 0, mirror2: 0, mirror3: 0, mirror4: 0 };
   const mirrors = document.querySelectorAll(".mirror");
 
-  mirrors.forEach((mirror) => {
-    mirror.style.backgroundImage = "url('./assets/align-game/mirror.png')";
-    mirror.addEventListener("click", () => rotateMirror(mirror));
-  });
-
-  function rotateMirror(mirror) {
+  function rotateMirror(e) {
+    const mirror = e.target; // get clicked mirror
     const id = mirror.id;
     rotationAngles[id] = (rotationAngles[id] + 45) % 360; // Rotate in 45-degree increments
     mirror.style.transform = `rotate(${rotationAngles[id]}deg)`; // Apply rotation
 
-    checkAlignment(); // after each click
+    if (Object.values(rotationAngles).every((angle) => angle !== 0)) {
+      checkAlignment(); // after all mirrors are clicked at least once
+    }
   }
+
+  mirrors.forEach((mirror) => {
+    mirror.style.backgroundImage = "url('./assets/align-game/mirror.png')";
+    mirror.addEventListener("click", rotateMirror);
+  });
 
   function checkAlignment() {
     const { mirror1, mirror2, mirror3, mirror4 } = rotationAngles;
@@ -320,9 +493,8 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
       mirror3 === 45 &&
       mirror4 === 135
     ) {
-      // Remove event listeners to stop further rotation
       mirrors.forEach((mirror) => {
-        mirror.removeEventListener("click", () => rotateMirror(mirror));
+        mirror.removeEventListener("click", rotateMirror);
       });
 
       const iceBlock = document.getElementById("iceBlock");
@@ -331,12 +503,12 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
       // Slowly make the relic appear
       setTimeout(() => {
         iceBlock.classList.add("reveal");
-      }, 1000);
+      }, 1500);
 
       setTimeout(() => {
         const feedbackMessage = document.getElementById("align-feedback");
         feedbackMessage.innerText = nextPhase.align.feedbackChallenge.right;
-      }, 2000);
+      }, 2500);
 
       setTimeout(() => {
         if (nextPhase.relic) {
@@ -397,7 +569,7 @@ export function handleMatchChallenge(match, nextPhase, nextScene, loadScene) {
     const relicName = document.createElement("h4");
     relicName.classList.add("relic-name");
     relicName.innerText = relic.name;
-    
+
     relicElement.appendChild(relicImage);
     relicElement.appendChild(relicName);
     relicsContainer.appendChild(relicElement);

@@ -132,7 +132,7 @@ function handleNextPhase(nextPhase, nextScene) {
       setTimeout(() => {
         sceneEndImage.classList.add("show"); // animation to ensure `display` takes effect
       }, 100);
-    }, 8000);
+    }, 13000);
 
     setTimeout(() => {
       const endWords = document.getElementById("end-words");
@@ -155,7 +155,6 @@ function handleNextPhase(nextPhase, nextScene) {
       handleCombatChallenge(nextPhase, nextScene, loadScene);
     } else if (nextPhase.challengeType === "puzzle") {
       if (nextPhase.puzzle) {
-        // document.getElementById("puzzle-challenge").style.display = "block";
         handlePuzzleChallenge(
           nextPhase.puzzle,
           nextPhase,
