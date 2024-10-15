@@ -193,7 +193,7 @@ main #game-area #game-container #scene #scene-description {
 
 main #game-area #game-container #scene #scene-question {
   margin: 20px 0;
-  color:limegreen;
+  color: limegreen;
   text-decoration: underline;
 }
 
@@ -307,7 +307,7 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
 
 .relicFloat {
   animation: relicFloat 3s ease-in-out;
-  box-shadow: 0 0 15px 5px gold; 
+  box-shadow: 0 0 15px 5px gold;
 }
 
 /* ++++++++++++++++++++++ Next Phase ++++++++++++++++++++++ */
@@ -484,10 +484,9 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
   display: flex;
   flex-wrap: wrap; /* Wrap images into rows */
   justify-content: center;
-  gap: 10px; 
+  gap: 10px;
   width: 580px;
   margin: 20px auto; /* Center the puzzle container */
-
 }
 
 .puzzle-piece {
@@ -502,6 +501,69 @@ main #game-area aside#inventory #items-box .inventory-item.collected {
   font-weight: bold;
   color: rgb(57, 255, 57);
 }
+
+/* ++++++++++++++++++++++ Align game ++++++++++++++++++++++ */
+
+#align-challenge {
+  width: 800px;
+  margin: auto;
+}
+
+.top-section,
+.middle-section,
+.bottom-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.mirror,
+#flame,
+#iceBlock {
+  /* background-color: gray; */
+  background-size: cover;
+}
+
+.mirror {
+  cursor: pointer;
+  width: 90px;
+  height: 110px;
+}
+
+#flame {
+  width: 50px;
+  height: 80px;
+}
+
+#iceBlock {
+  width: 180px;
+  height: 180px;
+}
+
+/* .mirror {
+  background-image: url("./assets/align-game/mirror.png") ;
+} */
+/* 
+#mirror1 {
+  background-image: url("./assets/align-game/mirror1.png");
+}
+
+#mirror2 {
+  background-image: url("./assets/align-game/mirror2.png");
+}
+
+#mirror3 {
+  background-image: url("./assets/align-game/mirror3.png");
+}
+
+#mirror4 {
+  background-image: url("./assets/align-game/mirror4.png");
+}
+
+.mirror {
+  transition: transform 0.3s;
+} */
 
 /* ++++++++++++++++++++++ Responsiveness ++++++++++++++++++++++ */
 

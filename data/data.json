@@ -133,7 +133,7 @@
       "align": {
         "description": "Align the mirrors to reflect light from a flame onto the block of ice. If the mirrors are aligned correctly, the ice will melt, revealing the relic.",
         "feedbackChallenge": {
-          "wrong": "The mirrors are not aligned properly and the light failed. Try again!",
+          "wrong": "Not yet! Keep trying.",
           "right": "Congratulations! The ice melts, and you retrieve the Relic of Courage. With the relic in hand, the ice shifts, revealing a passage leading further into the mountains. You continue your journey."
         }
       },

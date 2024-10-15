@@ -287,6 +287,69 @@ export function handlePuzzleChallenge(puzzle, nextPhase, nextScene, loadScene) {
     }
   }
 }
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Align game
+
+export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
+  const puzzleDescription = document.getElementById("puzzle-description");
+  puzzleDescription.innerText = align.description;
+
+  document.getElementById("align-challenge").style.display = "block";
+
+  const flame = document.getElementById("flame");
+  flame.style.backgroundImage = "url('./assets/align-game/flame.png')";
+
+  const ice = document.getElementById("iceBlock");
+  ice.style.backgroundImage = "url('./assets/align-game/ice.png')";
+
+  let rotationAngles = { mirror1: 0, mirror2: 0, mirror3: 0, mirror4: 0 };
+  const mirrors = document.querySelectorAll(".mirror");
+
+  mirrors.forEach((mirror) => {
+    mirror.style.backgroundImage = "url('./assets/align-game/mirror.png')";
+    mirror.addEventListener("click", () => rotateMirror(mirror));
+  });
+
+  function rotateMirror(mirror) {
+    const id = mirror.id;
+    rotationAngles[id] = (rotationAngles[id] + 45) % 360; // Rotate in 45-degree increments
+    mirror.style.transform = `rotate(${rotationAngles[id]}deg)`; // Apply rotation
+
+    checkAlignment(); // after each click
+  }
+
+  function checkAlignment() {
+    const { mirror1, mirror2, mirror3, mirror4 } = rotationAngles;
+
+    // if mirrors are aligned, melt ice and display relic
+    if (
+      mirror1 === 45 &&
+      mirror2 === 135 &&
+      mirror3 === 45 &&
+      mirror4 === 135
+    ) {
+        const iceBlock = document.getElementById("iceBlock");
+        iceBlock.style.backgroundImage = `url(${nextPhase.relic.image})`;
+
+      const feedbackMessage = document.getElementById("align-feedback");
+      feedbackMessage.innerText = nextPhase.align.feedbackChallenge.right;
+
+      setTimeout(() => {
+        if (nextPhase.relic) {
+          addRelicToInventory(nextPhase.relic);
+        }
+
+        showNextButton(() => {
+          loadScene(nextScene);
+        });
+      }, 4000);
+    } else {
+      const feedbackMessage = document.getElementById("align-feedback");
+      feedbackMessage.innerText = nextPhase.align.feedbackChallenge.wrong;
+    }
+  }
+}
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next Button
 
 function showNextButton(onNext) {

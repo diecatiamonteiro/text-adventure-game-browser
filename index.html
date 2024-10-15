@@ -102,7 +102,7 @@
               <p id="riddle-feedback-message"></p>
             </div>
 
-            <!-- Combat Section -->
+            <!-- For combats -->
             <div id="combat-challenge" style="display: none">
               <p id="combat-description"></p>
 
@@ -145,28 +145,50 @@
 
             <!-- For puzzles -->
             <div id="puzzle-challenge" style="display: none">
-                <p id="puzzle-description"></p>
-                <div id="puzzle-container">
-                  <div class="puzzle-slot" data-slot="1"></div>
-                  <div class="puzzle-slot" data-slot="2"></div>
-                  <div class="puzzle-slot" data-slot="3"></div>
-                  <div class="puzzle-slot" data-slot="4"></div>
-                  <div class="puzzle-slot" data-slot="5"></div>
-                  <div class="puzzle-slot" data-slot="6"></div>
-                  <div class="puzzle-slot" data-slot="7"></div>
-                  <div class="puzzle-slot" data-slot="8"></div>
-                </div>
-                <div id="puzzle-pieces">
-                  <!-- Puzzle pieces will be dynamically added here -->
-                </div>
-                <div id="puzzle-feedback"></div>
-                <div id="popup-puzzle-feedback" class="popup-feedback"></div>
-
+              <p id="puzzle-description"></p>
+              <div id="puzzle-container">
+                <div class="puzzle-slot" data-slot="1"></div>
+                <div class="puzzle-slot" data-slot="2"></div>
+                <div class="puzzle-slot" data-slot="3"></div>
+                <div class="puzzle-slot" data-slot="4"></div>
+                <div class="puzzle-slot" data-slot="5"></div>
+                <div class="puzzle-slot" data-slot="6"></div>
+                <div class="puzzle-slot" data-slot="7"></div>
+                <div class="puzzle-slot" data-slot="8"></div>
               </div>
-              
+              <div id="puzzle-pieces">
+                <!-- Puzzle pieces will be dynamically added here -->
+              </div>
+              <div id="puzzle-feedback"></div>
+              <div id="popup-puzzle-feedback" class="popup-feedback"></div>
+            </div>
 
+            <!-- For align game -->
+            <div id="align-challenge" style="display: none">
+              <!-- Top Section: Mirror 3 and Mirror 4 -->
+              <div class="top-section">
+                <div id="mirror3" class="mirror"></div>
+                <div id="mirror4" class="mirror"></div>
+              </div>
+
+              <!-- Middle Section: Mirror 1, Ice Block, Mirror 2 -->
+              <div class="middle-section">
+                <div id="mirror1" class="mirror"></div>
+                <div id="iceBlock"></div>
+                <div id="mirror2" class="mirror"></div>
+              </div>
+
+              <!-- Bottom Section: Flame -->
+              <div class="bottom-section">
+                <div id="flame"></div>
+              </div>
+
+              <div id="align-feedback"></div>
+
+            </div>
+
+            <!-- Next button -->
             <button id="next-button" style="display: none">Next</button>
-
           </section>
         </section>
       </section>
