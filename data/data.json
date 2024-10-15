@@ -124,7 +124,7 @@
     ],
     "correctSceneAnswer": "Approach the ice cover",
     "feedback": {
-      "wrong": "You search around the cave for a tool, but the biting cold slows you down. The ice is too thick, and no tool seems to be enough to break it. The solution lies elsewhere—you must figure out a different way to reach the relic.",
+      "wrong": "You search around the cave for a tool, only to then realise the ice is too thick, and no tool seems to be enough to break it. The solution lies elsewhere—you must figure out a different way to reach the relic.",
       "right": "You approach the ice and notice faint glimmers of light reflecting off nearby mirrors. The solution isn't force, but rather using the environment to your advantage. Off you go to find out how..."
     },
     "nextPhase": {
