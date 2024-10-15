@@ -50,37 +50,37 @@ export function quitGame() {
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Restart Game
 
-let collectedRelics = [];
+// let collectedRelics = [];
 
-export function restartGame() {
-  const mainGame = document.getElementById("main-game");
+// export function restartGame() {
+//   const mainGame = document.getElementById("main-game");
 
-  // fade out the main game screen
-  mainGame.style.transition = "opacity 0.5s ease";
-  mainGame.style.opacity = 0;
+//   // fade out the main game screen
+//   mainGame.style.transition = "opacity 0.5s ease";
+//   mainGame.style.opacity = 0;
 
-  // reset inventory visually
-  setTimeout(() => {
-    const inventoryItems = document.querySelectorAll(".inventory-item");
-    inventoryItems.forEach((item) => {
-      item.style.backgroundImage = "none";
-      item.classList.remove("collected");
-    });
+//   // reset inventory visually
+//   setTimeout(() => {
+//     const inventoryItems = document.querySelectorAll(".inventory-item");
+//     inventoryItems.forEach((item) => {
+//       item.style.backgroundImage = "none";
+//       item.classList.remove("collected");
+//     });
 
-    // clear relics
-    collectedRelics = [];
+//     // clear relics
+//     collectedRelics = [];
 
-    // reset first scene
-    const sceneImage = document.getElementById("scene-image");
-    sceneImage.src = "./assets/scenes/1.png";
+//     // reset first scene
+//     const sceneImage = document.getElementById("scene-image");
+//     sceneImage.src = "./assets/scenes/1.png";
 
-    mainGame.style.display = "block";
-    mainGame.style.opacity = 1;
+//     mainGame.style.display = "block";
+//     mainGame.style.opacity = 1;
 
-    setTimeout(() => {
-      mainGame.style.opacity = 1;
-    }, 50);
-  }, 500); // wait for fade-out (500ms) before resetting and fading in
+//     setTimeout(() => {
+//       mainGame.style.opacity = 1;
+//     }, 50);
+//   }, 500); // wait for fade-out (500ms) before resetting and fading in
 
-  // Optionally, reset game progress variables (if any)
-}
+//   // Optionally, reset game progress variables (if any)
+// }

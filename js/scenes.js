@@ -1,9 +1,5 @@
 // Fetches and displays scenes based on game progression.
 
-// import {handleRiddleChallenge} from "./riddle.js";
-// import {handleCombatChallenge} from "./combat.js";
-// import {handlePuzzleChallenge} from "./combat.js";
-
 import {
   handleRiddleChallenge,
   handleCombatChallenge,
@@ -19,6 +15,9 @@ import {
 export async function loadScene(sceneNumber) {
   try {
     clearPreviousScene();
+
+    document.getElementById("scene").style.display = "block";
+    document.getElementById("feedback").style.display = "block";
 
     const response = await fetch("./data/data.json");
     if (!response.ok) throw new Error("Failed to fetch scene data.");
@@ -110,6 +109,12 @@ function handleButtonChoices(choice, sceneData) {
 function handleNextPhase(nextPhase, nextScene) {
   clearPreviousScene();
 
+  // If this is a challenge, hide the scene and feedback elements
+  if (nextPhase.challengeType || nextPhase.endWords) {
+    document.getElementById("scene").style.display = "none"; // Hide main scene container
+    document.getElementById("feedback").style.display = "none"; // Hide feedback container
+  }
+
   const nextPhaseSection = document.getElementById("next-phase");
   nextPhaseSection.style.display = "block";
   document.getElementById("next-phase-description").innerText =
@@ -123,7 +128,7 @@ function handleNextPhase(nextPhase, nextScene) {
 
     setTimeout(() => {
       triggerEnergyWave();
-    }, 9000);
+    }, 6000);
 
     setTimeout(() => {
       const sceneEndImage = document.getElementById("scene-end-image");
@@ -132,7 +137,7 @@ function handleNextPhase(nextPhase, nextScene) {
       setTimeout(() => {
         sceneEndImage.classList.add("show"); // animation to ensure `display` takes effect
       }, 100);
-    }, 13000);
+    }, 10000);
 
     setTimeout(() => {
       const endWords = document.getElementById("end-words");
@@ -141,7 +146,7 @@ function handleNextPhase(nextPhase, nextScene) {
       setTimeout(() => {
         endWords.classList.add("show"); // animations
       }, 100);
-    }, 10000);
+    }, 12000);
   } else {
     // handle challenges
     if (nextPhase.challengeType === "riddle") {
