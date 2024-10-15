@@ -207,12 +207,13 @@
     "options": ["Place relics on the pedestal", "Restore balance to the lands"],
     "correctSceneAnswer": "Place relics on the pedestal",
     "feedback": {
-      "wrong": "You reach out to restore balance, but the forgotten lands remain unchanged. It is not yet time. The relics must first be returned to their rightful places before balance can be restored.",
-      "right": "One by one, you place the relics on their pedestals. As each relic is set in place, a glow surrounds it, filling the temple with light. The Relic of Secrets, the Relic of Strength, the Relic of Wisdom, the Relic of Courage, and the Relic of Souls each take their place. The central crystal begins to glow brighter and brighter until the entire shrine is bathed in radiant light."
+      "wrong": "You attempt to restore balance, but the forgotten lands remain unchanged. It is not yet time. The relics must first be returned to their rightful places before balance can be restored.",
+      "right": "Off you go..."
     },
     "nextPhase": {
-      "description": "SCENE 7 FINAL. As the final relic is placed, a wave of energy sweeps across the Forgotten Land. The trees grow lush, the rivers run clear, and peace is restored. The Wise Elder stands before you one last time and hands you the Crystal of Fate. You did it! The Forgotten Land is whole once more, and your name will be remembered for generations. Congratulations, hero! You have restored balance to the Forgotten Land.",
-      "image": "./assets/scenes/7-restored.png"
+      "description": "One by one, you place the relics on their pedestals...  As each relic is set in place, a glow surrounds it, filling the temple with light. The Relic of Secrets, the Relic of Strength, the Relic of Wisdom, the Relic of Courage, and the Relic of Souls each take their place. As the final relic is placed, a wave of energy sweeps across the Forgotten Lands. The trees grow lush, the rivers run clear, and peace is restored. The Wise Elder appears once more, his voice calm but full of reverence: 'The Forgotten Lands are whole again... because of you. Your name will be remembered, hero, long after the echoes of time fade away.'",
+      "image": "./assets/scenes/7-restored.png", 
+      "end": "The End."
     },
     "endGame": true
   }
