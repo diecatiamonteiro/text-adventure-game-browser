@@ -114,8 +114,8 @@ function handleNextPhase(nextPhase, nextScene) {
   nextPhaseSection.style.display = "block";
   document.getElementById("next-phase-description").innerText =
     nextPhase.description;
-  
-    // end scene
+
+  // end scene
   if (nextPhase.endImage) {
     setTimeout(() => {
       triggerRelicGlow();
@@ -127,29 +127,47 @@ function handleNextPhase(nextPhase, nextScene) {
 
     setTimeout(() => {
       const sceneEndImage = document.getElementById("scene-end-image");
-      sceneEndImage.src = nextPhase.endImage
-    }, timeout);
-  }
+      sceneEndImage.src = nextPhase.endImage;
+      sceneEndImage.style.display = "block";
+      setTimeout(() => {
+        sceneEndImage.classList.add("show"); // animation to ensure `display` takes effect
+      }, 100);
+    }, 8000);
 
-  // handle challenges
-  if (nextPhase.challengeType === "riddle") {
-    handleRiddleChallenge(
-      nextPhase.challenge.riddle,
-      nextPhase,
-      nextScene,
-      loadScene
-    );
-  } else if (nextPhase.challengeType === "combat") {
-    handleCombatChallenge(nextPhase, nextScene, loadScene);
-  } else if (nextPhase.challengeType === "puzzle") {
-    if (nextPhase.puzzle) {
-      document.getElementById("puzzle-challenge").style.display = "block";
-      handlePuzzleChallenge(nextPhase.puzzle, nextPhase, nextScene, loadScene);
+    setTimeout(() => {
+      const endWords = document.getElementById("end-words");
+      endWords.innerText = nextPhase.endWords;
+      endWords.style.display = "block";
+      setTimeout(() => {
+        endWords.classList.add("show"); // animations
+      }, 100);
+    }, 10000);
+  } else {
+    // handle challenges
+    if (nextPhase.challengeType === "riddle") {
+      handleRiddleChallenge(
+        nextPhase.challenge.riddle,
+        nextPhase,
+        nextScene,
+        loadScene
+      );
+    } else if (nextPhase.challengeType === "combat") {
+      handleCombatChallenge(nextPhase, nextScene, loadScene);
+    } else if (nextPhase.challengeType === "puzzle") {
+      if (nextPhase.puzzle) {
+        // document.getElementById("puzzle-challenge").style.display = "block";
+        handlePuzzleChallenge(
+          nextPhase.puzzle,
+          nextPhase,
+          nextScene,
+          loadScene
+        );
+      }
+    } else if (nextPhase.challengeType === "align") {
+      handleAlignChallenge(nextPhase.align, nextPhase, nextScene, loadScene);
+    } else if (nextPhase.challengeType === "match") {
+      handleMatchChallenge(nextPhase.match, nextPhase, nextScene, loadScene);
     }
-  } else if (nextPhase.challengeType === "align") {
-    handleAlignChallenge(nextPhase.align, nextPhase, nextScene, loadScene);
-  } else if (nextPhase.challengeType === "match") {
-    handleMatchChallenge(nextPhase.match, nextPhase, nextScene, loadScene);
   }
 }
 
@@ -185,34 +203,21 @@ function clearPreviousScene() {
   document.getElementById("match-challenge").style.display = "none";
 }
 
-// function hidePreviousSceneInChallenges() {
-//     // Only hide specific challenge-related fields, not the entire scene
-//     const feedback = document.getElementById("feedback");
-//     if (feedback) {
-//       feedback.style.display = "none"; // Hide feedback
-//     }
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ End-scene effects
 
-//     const alignChallenge = document.getElementById("align-challenge");
-//     if (alignChallenge) {
-//       alignChallenge.style.display = "none"; // Hide the align challenge
-//     }
+function triggerRelicGlow() {
+  const relics = document.querySelectorAll(".inventory-item");
 
-//     const riddleChallenge = document.getElementById("riddle-challenge");
-//     if (riddleChallenge) {
-//       riddleChallenge.style.display = "none"; // Hide riddle challenge
-//     }
+  relics.forEach((relic, index) => {
+    setTimeout(() => {
+      relic.classList.add("glow");
+    }, index * 1000); // delay each glow by 1 sec
+  });
+}
 
-//     const combatChallenge = document.getElementById("combat-challenge");
-//     if (combatChallenge) {
-//       combatChallenge.style.display = "none"; // Hide combat challenge
-//     }
-
-//     const puzzleChallenge = document.getElementById("puzzle-challenge");
-//     if (puzzleChallenge) {
-//       puzzleChallenge.style.display = "none"; // Hide puzzle challenge
-//     }
-
-//     // Optionally remove any margin or padding that may still cause spacing
-//     document.getElementById("scene").style.margin = "0";
-//     document.getElementById("scene").style.padding = "0";
-//   }
+function triggerEnergyWave() {
+  const inventory = document.getElementById("inventory");
+  setTimeout(() => {
+    inventory.classList.add("glow-wave");
+  }, 5000);
+}

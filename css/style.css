@@ -654,6 +654,47 @@ main #game-area aside#inventory #items-box .inventory-item {
   color: black;
 }
 
+/* ++++++++++++++++++++++ End scene ++++++++++++++++++++++ */
+
+.inventory-item {
+  transition: transform 1s ease, box-shadow 1.5s ease-in-out;
+}
+
+.inventory-item.glow {
+  transform: scale(1.1); /* Slight enlargement */
+  box-shadow: 0px 0px 15px 5px rgba(255, 255, 0, 0.8); /* Glow effect */
+}
+
+#inventory.glow-wave {
+  box-shadow: 0px 0px 30px 15px rgba(0, 255, 255, 0.5); /* Energy wave effect */
+  transition: box-shadow 2s ease-in-out;
+}
+
+#scene-end-image {
+  width: 60%;
+  margin: 20px auto;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 1.5s ease-in, transform 1.5s ease-in;
+}
+
+#scene-end-image.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#end-words {
+  opacity: 0;
+  font-size: 0;
+  transition: opacity 2s ease-in, font-size 2s ease-in;
+  text-align: center;
+}
+
+#end-words.show {
+  opacity: 1;
+  font-size: 3rem;
+}
+
 /* ++++++++++++++++++++++ Responsiveness ++++++++++++++++++++++ */
 
 @media (max-width: 1350px) {
