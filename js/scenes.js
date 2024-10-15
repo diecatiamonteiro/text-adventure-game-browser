@@ -114,8 +114,24 @@ function handleNextPhase(nextPhase, nextScene) {
   nextPhaseSection.style.display = "block";
   document.getElementById("next-phase-description").innerText =
     nextPhase.description;
+  
+    // end scene
+  if (nextPhase.endImage) {
+    setTimeout(() => {
+      triggerRelicGlow();
+    }, 3000);
 
-  // Handle different challenge types (riddle, combat, puzzle)
+    setTimeout(() => {
+      triggerEnergyWave();
+    }, 9000);
+
+    setTimeout(() => {
+      const sceneEndImage = document.getElementById("scene-end-image");
+      sceneEndImage.src = nextPhase.endImage
+    }, timeout);
+  }
+
+  // handle challenges
   if (nextPhase.challengeType === "riddle") {
     handleRiddleChallenge(
       nextPhase.challenge.riddle,
@@ -127,8 +143,7 @@ function handleNextPhase(nextPhase, nextScene) {
     handleCombatChallenge(nextPhase, nextScene, loadScene);
   } else if (nextPhase.challengeType === "puzzle") {
     if (nextPhase.puzzle) {
-      // Show the puzzle challenge
-      document.getElementById("puzzle-challenge").style.display = "block"; // Make sure this is visible
+      document.getElementById("puzzle-challenge").style.display = "block";
       handlePuzzleChallenge(nextPhase.puzzle, nextPhase, nextScene, loadScene);
     }
   } else if (nextPhase.challengeType === "align") {
