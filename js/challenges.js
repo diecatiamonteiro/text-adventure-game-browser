@@ -665,7 +665,7 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
 
       setTimeout(() => {
         iceBlock.classList.add("show"); // ice block shrinks and fades out
-      }, 2000);
+      }, 500);
 
       setTimeout(() => {
         iceBlock.style.backgroundImage = `url(${nextPhase.relic.image})`;
@@ -676,7 +676,7 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
       setTimeout(() => {
         const feedbackMessage = document.getElementById("align-feedback");
         feedbackMessage.innerText = nextPhase.align.feedbackChallenge.right;
-      }, 3000);
+      }, 4000);
 
       setTimeout(() => {
         if (nextPhase.relic) {
@@ -688,7 +688,7 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
             loadScene(nextScene);
           });
         }, 1500);
-      }, 4000);
+      }, 5000);
     } else {
       const feedbackMessage = document.getElementById("align-feedback");
       feedbackMessage.innerText = nextPhase.align.feedbackChallenge.wrong;
@@ -780,6 +780,16 @@ export function handleMatchChallenge(match, nextPhase, nextScene, loadScene) {
     e.preventDefault(); // allow dropping
   }
 
+  function showPopup(text, color = "red") {
+    const popupFeedback = document.getElementById("popup-match-feedback");
+    popupFeedback.innerText = text;
+    popupFeedback.style.color = color;
+    popupFeedback.style.display = "block";
+    setTimeout(() => {
+      popupFeedback.style.display = "none";
+    }, 3000); // hide after 3sec
+  }
+
   function handleDrop(e, slotIndex, match) {
     e.preventDefault();
     const draggedPowerIndex = e.dataTransfer.getData("text/plain");
@@ -793,10 +803,12 @@ export function handleMatchChallenge(match, nextPhase, nextScene, loadScene) {
       e.target.appendChild(draggedElement); // move power to power slot
       draggedElement.draggable = false;
 
+   
+
       // check if all powers are correctly placed
       const placedPowers = document.querySelectorAll(".power-slot .power");
       if (placedPowers.length === match.relics.length) {
-        feedbackMessage.innerText = match.feedbackChallenge.right;
+               feedbackMessage.innerText = match.feedbackChallenge.right;
 
         setTimeout(() => {
           if (nextPhase.relic) {
@@ -811,7 +823,9 @@ export function handleMatchChallenge(match, nextPhase, nextScene, loadScene) {
         }, 4000);
       }
     } else {
-      feedbackMessage.innerText = match.feedbackChallenge.wrong;
+    //   feedbackMessage.innerText = match.feedbackChallenge.wrong;
+    showPopup("Not quite, try again!");
+
     }
   }
 }
