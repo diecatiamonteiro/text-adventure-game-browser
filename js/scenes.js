@@ -8,6 +8,8 @@ import {
   handleMatchChallenge,
 } from "./challenges.js";
 
+import { triggerRelicGlow, triggerEnergyWave } from "./inventory.js";
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Load Scene
 
 // Fetch and load scene based on scene number
@@ -111,10 +113,10 @@ function handleButtonChoices(choice, sceneData) {
     setTimeout(() => {
       if (sceneData.nextPhase) {
         handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
-        enableButtons(); 
+        enableButtons();
       } else {
         loadScene(sceneData.nextScene);
-        enableButtons(); 
+        enableButtons();
       }
     }, 3000);
   } else {
@@ -197,7 +199,7 @@ function handleNextPhase(nextPhase, nextScene) {
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Clear previous scene
 
-function clearPreviousScene() {
+export function clearPreviousScene() {
   // main scene
   document.getElementById("scene-description").innerText = "";
   document.getElementById("scene-image").src = "";
@@ -227,21 +229,3 @@ function clearPreviousScene() {
   document.getElementById("match-challenge").style.display = "none";
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ End-scene effects
-
-function triggerRelicGlow() {
-  const relics = document.querySelectorAll(".inventory-item");
-
-  relics.forEach((relic, index) => {
-    setTimeout(() => {
-      relic.classList.add("glow");
-    }, index * 1000); // delay each glow by 1 sec
-  });
-}
-
-function triggerEnergyWave() {
-  const inventory = document.getElementById("inventory");
-  setTimeout(() => {
-    inventory.classList.add("glow-wave");
-  }, 5000);
-}

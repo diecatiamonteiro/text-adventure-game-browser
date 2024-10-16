@@ -1,7 +1,11 @@
-let collectedRelics = [];
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Add relic to inventory
 
-// Function to add a relic to the inventory
+export let collectedRelics = [];
+
 export function addRelicToInventory(relic) {
+    console.log("Attempting to add relic:", relic);
+    console.log("Current collectedRelics before adding:", collectedRelics);
+
   if (
     collectedRelics.some((collectedRelic) => collectedRelic.name === relic.name)
   ) {
@@ -10,33 +14,18 @@ export function addRelicToInventory(relic) {
   }
 
   collectedRelics.push(relic);
+  console.log("Collected Relics after adding:", collectedRelics); // Debug log
 
   updateInventoryUI();
 
   playRelicEffect();
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Add relic image to inventory
 
-// Function to reset the inventory (e.g., on game restart)
-export function resetInventory() {
-  collectedRelics = []; // clear array
-
-  // Reset the visual inventory
-  const inventoryItems = document.querySelectorAll(".inventory-item");
-  inventoryItems.forEach((item) => {
-    item.style.backgroundImage = "none";
-    item.classList.remove("collected");
-  });
-}
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-// Function to update the inventory UI based on collected relics
 function updateInventoryUI() {
   const inventoryItems = document.querySelectorAll(".inventory-item");
 
-  // Loop through collected relics and update the UI
   collectedRelics.forEach((relic, index) => {
     if (inventoryItems[index]) {
       inventoryItems[index].style.backgroundImage = `url(${relic.image})`;
@@ -45,7 +34,7 @@ function updateInventoryUI() {
   });
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Effect on adding relic image
 
 function playRelicEffect() {
   const lastCollectedItem = collectedRelics[collectedRelics.length - 1];
@@ -63,3 +52,23 @@ function playRelicEffect() {
     }, 2000);
   }
 }
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ End scene effects on inventory
+
+export function triggerRelicGlow() {
+  const relics = document.querySelectorAll(".inventory-item");
+
+  relics.forEach((relic, index) => {
+    setTimeout(() => {
+      relic.classList.add("glow");
+    }, index * 1000); // delay each glow by 1 sec
+  });
+}
+
+export function triggerEnergyWave() {
+  const inventory = document.getElementById("inventory");
+  setTimeout(() => {
+    inventory.classList.add("glow-wave");
+  }, 5000);
+}
+

@@ -389,8 +389,12 @@ main #game-area aside#inventory #items-box .inventory-item {
   font-family: "IBM Plex Mono", monospace;
   font-size: 1.3rem;
   border: none;
-  color: green;
+  color: limegreen;
   caret-color: green;
+}
+
+#riddle-answer::placeholder {
+  color: green;
 }
 
 /* ++++++++++++++++++++++ Combat ++++++++++++++++++++++ */
