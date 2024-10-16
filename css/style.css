@@ -82,7 +82,7 @@ main #game-area #game-container #feedback #feedback-message,
   width: 100%;
 }
 
-/* Feedback pop-ups for damage or block effects */
+/* popup for combat */
 .popup-feedback {
   font-family: "IBM Plex Mono", monospace;
   position: absolute;
@@ -96,7 +96,7 @@ main #game-area #game-container #feedback #feedback-message,
 @keyframes fadeOut {
   0% {
     opacity: 1;
-    top: 60%;
+    top: 62%;
   }
   100% {
     opacity: 0;
@@ -104,6 +104,7 @@ main #game-area #game-container #feedback #feedback-message,
   }
 }
 
+/* pop up for match game */
 #popup-match-feedback {
   animation: matchFadeOut 5s forwards;
 }
@@ -175,7 +176,7 @@ header#start-screen #start-button:active {
   box-shadow: inset 0px 0px 10px #000;
 }
 
-/* ++++++++++++++++++++++ Main - Top controls ++++++++++++++++++++++ */
+/* ++++++++++++++++++++++ Top controls ++++++++++++++++++++++ */
 
 main #top-controls {
   width: 1300px;
@@ -210,7 +211,7 @@ main #top-controls #restart-button:hover {
   border: 2px solid darkgreen;
 }
 
-/* ++++++++++++++++++++++ Main - Game Area General Styling ++++++++++++++++++++++ */
+/* ++++++++++++++++++++++ Game Area General Styling ++++++++++++++++++++++ */
 
 main #game-area {
   width: 1300px;
@@ -230,7 +231,7 @@ main #game-area #game-container {
   /* background-color: red; */
 }
 
-/* ++++++++++++++++++++++ Main - Game Area - Scene ++++++++++++++++++++++ */
+/* ++++++++++++++++++++++ Scenes ++++++++++++++++++++++ */
 
 main #game-area #game-container #scene #scene-image {
   height: auto;
@@ -254,7 +255,7 @@ main #game-area #game-container #scene #scene-question {
   text-decoration: underline;
 }
 
-/* ++++++++++++++++++++++ Main - Game Area - Options ++++++++++++++++++++++ */
+/* ++++++++++++++++++++++ Button Options ++++++++++++++++++++++ */
 
 main #game-area #game-container #options-buttons {
   display: flex;
@@ -301,7 +302,7 @@ main #game-area #game-container #options-typing input {
   caret-color: green;
 }
 
-/* ++++++++++++++++++++++ Main - Game Area - Aside inventory ++++++++++++++++++++++ */
+/* ++++++++++++++++++++++ Relic Inventory ++++++++++++++++++++++ */
 
 main #game-area aside#inventory {
   background-color: rgba(10, 99, 10, 0.5);
@@ -382,6 +383,7 @@ main #game-area aside#inventory #items-box .inventory-item {
   color: darkgreen;
   border: 2px solid darkgreen;
 }
+
 /* ++++++++++++++++++++++ Riddle ++++++++++++++++++++++ */
 
 #riddle-question {
@@ -472,23 +474,22 @@ main #game-area aside#inventory #items-box .inventory-item {
 
 #combat-actions {
   display: flex;
-  justify-content: space-evenly; /* Spread buttons evenly */
+  justify-content: space-evenly; 
   margin: 40px 0;
 }
 
-/* Combat actions styled with icons */
 #combat-actions button {
   display: flex;
-  flex-direction: column; /* Stack icon and text vertically */
-  align-items: center; /* Center them horizontally */
-  justify-content: center; /* Center them vertically */
-  background: none; /* Remove default button styling */
-  border: none; /* Remove border */
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  background: none; 
+  border: none; 
   cursor: pointer;
 }
 
 #combat-actions img {
-  width: 80px;
+  width:110px;
   height: 110px;
 }
 
@@ -497,8 +498,6 @@ main #game-area aside#inventory #items-box .inventory-item {
   color: limegreen;
   padding-top: 5px;
 }
-
-
 
 /* ++++++++++++++++++++++ Puzzle ++++++++++++++++++++++ */
 
@@ -511,9 +510,9 @@ main #game-area aside#inventory #items-box .inventory-item {
 #puzzle-container {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* Enable wrapping to create multiple rows */
-  width: 600px; /* Adjust based on your image sizes (100px per piece + margin) */
-  margin: 40px auto 10px auto; /* Center the puzzle container */
+  flex-wrap: wrap;
+  width: 600px; 
+  margin: 40px auto 10px auto; 
 }
 
 .puzzle-slot {
@@ -538,7 +537,7 @@ main #game-area aside#inventory #items-box .inventory-item {
   cursor: grab;
 }
 
-/* ++++++++++++++++++++++ Align Challenge ++++++++++++++++++++++ */
+/* ++++++++++++++++++++++ Align Mirrors ++++++++++++++++++++++ */
 
 #align-challenge {
   width: 100%;
@@ -616,7 +615,7 @@ main #game-area aside#inventory #items-box .inventory-item {
   }
 }
 
-/* ++++++++++++++++++++++ Match Challenge ++++++++++++++++++++++ */
+/* ++++++++++++++++++++++ Match Powers to Relics ++++++++++++++++++++++ */
 
 #match-description {
   font-family: "IBM Plex Mono", monospace;
@@ -698,7 +697,7 @@ main #game-area aside#inventory #items-box .inventory-item {
   color: black;
 }
 
-/* ++++++++++++++++++++++ End scene ++++++++++++++++++++++ */
+/* ++++++++++++++++++++++ End Scene ++++++++++++++++++++++ */
 
 .inventory-item {
   transition: transform 1s ease, box-shadow 1.5s ease-in-out;
@@ -739,7 +738,7 @@ main #game-area aside#inventory #items-box .inventory-item {
   font-size: 3rem;
 }
 
-/* ++++++++++++++++++++++ Responsiveness ++++++++++++++++++++++ */
+/* ++++++++++++++++++++++ Responsiveness (not used further) ++++++++++++++++++++++ */
 
 @media (max-width: 1350px) {
   h1 {

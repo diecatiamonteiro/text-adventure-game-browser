@@ -1,5 +1,3 @@
-// Fetches and displays scenes based on game progression.
-
 import {
   handleRiddleChallenge,
   handleCombatChallenge,
@@ -10,9 +8,7 @@ import {
 
 import { triggerRelicGlow, triggerEnergyWave } from "./inventory.js";
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Load Scene
-
-// Fetch and load scene based on scene number
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Load Scene based on scene number (fetch and load)
 
 export async function loadScene(sceneNumber) {
   try {
@@ -26,9 +22,6 @@ export async function loadScene(sceneNumber) {
 
     const data = await response.json();
     const sceneData = data[String(sceneNumber)];
-
-    // Log the sceneData to ensure it's being retrieved correctly
-    console.log("Loaded Scene Data:", sceneData);
 
     if (sceneData) {
       // Update scene description, image, and question
@@ -50,9 +43,7 @@ export async function loadScene(sceneNumber) {
   }
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Buttons for scene entry
-
-// Handle buttons for button-based scenes
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Option buttons to move on to challenges
 
 function showButtonOptions(sceneData) {
   const button1 = document.getElementById("button1");
@@ -68,8 +59,6 @@ function showButtonOptions(sceneData) {
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Handle button choice
-
-// Handle player's choice for button-based scenes
 
 function handleButtonChoices(choice, sceneData) {
   const feedbackMessage = document.getElementById("feedback-message");
@@ -118,23 +107,21 @@ function handleButtonChoices(choice, sceneData) {
         loadScene(sceneData.nextScene);
         enableButtons();
       }
-    }, 3000);
+    }, 7000);
   } else {
     feedbackMessage.innerText = sceneData.feedback.wrong;
   }
 }
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next phase within scene
-
-// Handle nextPhase logic
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next phase (handles challenges and end scene within scene)
 
 function handleNextPhase(nextPhase, nextScene) {
   clearPreviousScene();
 
   // If this is a challenge, hide the scene and feedback elements
   if (nextPhase.challengeType || nextPhase.endWords) {
-    document.getElementById("scene").style.display = "none"; // Hide main scene container
-    document.getElementById("feedback").style.display = "none"; // Hide feedback container
+    document.getElementById("scene").style.display = "none";
+    document.getElementById("feedback").style.display = "none";
   }
 
   const nextPhaseSection = document.getElementById("next-phase");
@@ -142,7 +129,7 @@ function handleNextPhase(nextPhase, nextScene) {
   document.getElementById("next-phase-description").innerText =
     nextPhase.description;
 
-  // end scene
+  // handle end scene
   if (nextPhase.endImage) {
     setTimeout(() => {
       triggerRelicGlow();
@@ -228,4 +215,3 @@ export function clearPreviousScene() {
 
   document.getElementById("match-challenge").style.display = "none";
 }
-

@@ -3,9 +3,6 @@
 export let collectedRelics = [];
 
 export function addRelicToInventory(relic) {
-    console.log("Attempting to add relic:", relic);
-    console.log("Current collectedRelics before adding:", collectedRelics);
-
   if (
     collectedRelics.some((collectedRelic) => collectedRelic.name === relic.name)
   ) {
@@ -14,10 +11,7 @@ export function addRelicToInventory(relic) {
   }
 
   collectedRelics.push(relic);
-  console.log("Collected Relics after adding:", collectedRelics); // Debug log
-
   updateInventoryUI();
-
   playRelicEffect();
 }
 

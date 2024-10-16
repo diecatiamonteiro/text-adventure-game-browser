@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chronicles of a Forgotten Land</title>
+    <title>Chronicles of Forgotten Lands</title>
     <link rel="stylesheet" href="./css/style.css" />
 
     <!-- Fonts -->
@@ -15,7 +15,7 @@
     />
   </head>
   <body>
-    <!-- START SCREEN -->
+    <!-- ***************************** START SCREEN ***************************** -->
     <header id="start-screen">
       <h1>Chronicles of Forgotten Lands</h1>
       <p id="intro">
@@ -29,14 +29,13 @@
       <button id="start-button">Start Game</button>
     </header>
 
-    <!-- MAIN GAME AREA -->
+    <!-- ***************************** MAIN GAME AREA ***************************** -->
     <main id="main-game" style="display: none">
       <!-- A) TOP CONTROLS -->
       <section id="top-controls">
         <h2>Chronicles of Forgotten Lands</h2>
         <div id="control-buttons">
           <button id="quit-button">End Game</button>
-          <!-- <button id="restart-button">Restart Game</button> -->
         </div>
       </section>
 
@@ -98,7 +97,7 @@
 
           <!-- Challenges -->
           <section id="challenge">
-            <!-- For riddles -->
+            <!-- Riddle -->
             <div id="riddle-challenge" style="display: none">
               <p id="riddle-question"></p>
               <input
@@ -110,11 +109,11 @@
               <p id="riddle-feedback-message"></p>
             </div>
 
-            <!-- For combats -->
+            <!-- Combat -->
             <div id="combat-challenge" style="display: none">
               <p id="combat-description"></p>
 
-              <!-- Enemy stats with a visual health bar -->
+              <!-- Combat - Enemy -->
               <div id="enemy-stats">
                 <p id="enemy-name"></p>
                 <div id="enemy-health-bar" class="health-bar">
@@ -122,7 +121,7 @@
                 </div>
               </div>
 
-              <!-- Player stats with a visual health bar (optional) -->
+              <!-- Combat - Player -->
               <div id="player-stats">
                 <p>Health - Player</p>
                 <div id="player-health-bar" class="health-bar">
@@ -134,14 +133,17 @@
                 </div>
               </div>
 
-              <!-- Combat actions with icons -->
+              <!-- Combat - Combat Actions -->
               <div id="combat-actions">
                 <button id="attack-button">
                   <img src="./assets/combat-icons/sword.png" alt="Attack" />
                   <p id="icon-title">Attack</p>
                 </button>
                 <button id="aim-button">
-                  <img src="./assets/combat-icons/aim.png" alt="Aim for the joints" />
+                  <img
+                    src="./assets/combat-icons/aim.png"
+                    alt="Aim for the joints"
+                  />
                   <p id="icon-title">Aim for joints</p>
                 </button>
                 <button id="defend-button">
@@ -150,12 +152,12 @@
                 </button>
               </div>
 
-              <!-- Combat feedback and pop-up area -->
+              <!-- Combat - Feedback & pop-up -->
               <div id="combat-feedback"></div>
               <div id="popup-feedback" class="popup-feedback"></div>
             </div>
 
-            <!-- For puzzles -->
+            <!-- Puzzle -->
             <div id="puzzle-challenge" style="display: none">
               <p id="puzzle-description"></p>
               <div id="puzzle-container">
@@ -175,32 +177,31 @@
               <div id="popup-puzzle-feedback" class="popup-feedback"></div>
             </div>
 
-            <!-- For align game -->
+            <!-- Align -->
             <div id="align-challenge" style="display: none">
-              <!-- Top Section: Mirror 3 and Mirror 4 -->
+              <!-- Align - Top Section (3+4) -->
               <div class="top-section">
                 <div id="mirror3" class="mirror"></div>
                 <div id="mirror4" class="mirror"></div>
               </div>
 
-              <!-- Middle Section: Mirror 1, Ice Block, Mirror 2 -->
+              <!-- Align - Middle Section (1+2) -->
               <div class="middle-section">
                 <div id="mirror1" class="mirror"></div>
                 <div id="iceBlock"></div>
                 <div id="mirror2" class="mirror"></div>
               </div>
 
-              <!-- Bottom Section: Flame -->
+              <!-- Align - Bottom Section (flame) -->
               <div class="bottom-section">
                 <div id="flame"></div>
-                <div id="light-beam" class="beam"></div>
-                <!-- Light beam from flame to mirror -->
+                <!-- <div id="light-beam" class="beam"></div> -->
               </div>
-
+              <!-- Align - Feedback -->
               <div id="align-feedback"></div>
             </div>
 
-            <!-- For match game -->
+            <!-- Match -->
             <div id="match-challenge" style="display: none">
               <p id="match-description"></p>
               <div id="relics-container"></div>
