@@ -306,30 +306,48 @@ export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
       }
     }
   
-    // Enemy attack function
-    function handleEnemyAttack() {
-      if (combatOver) return; // Prevent enemy actions if combat is over
+// Enemy attack function with critical hits and health regeneration
+function handleEnemyAttack() {
+    if (combatOver) return; // Prevent enemy actions if combat is over
   
-      const enemyAttackType = Math.random() > 0.5 ? "Heavy Attack" : "Quick Strike";
-      let enemyAttackDamage;
+    // Randomly decide between heavy or light attack
+    const enemyAttackType = Math.random() > 0.4 ? "Heavy Attack" : "Quick Strike"; // Slightly increase heavy attack chance
+    let enemyAttackDamage;
   
-      if (enemyAttackType === "Heavy Attack") {
-        enemyAttackDamage = 25; // Heavy attack deals more damage
-        feedbackMessage.innerText += ` The Stone Guardian charges a heavy attack and deals ${enemyAttackDamage} damage!`;
-      } else {
-        enemyAttackDamage = Math.floor(Math.random() * 10) + 5; // Lighter, random attack
-        feedbackMessage.innerText += ` The Stone Guardian strikes swiftly and deals ${enemyAttackDamage} damage.`;
-      }
-  
-      playerHealth -= enemyAttackDamage;
-      updateHealthBar(playerHealthFill, playerHealth, 100);
-  
-      if (playerHealth <= 0) {
-        combatOver = true; // Mark combat as over
-        feedbackMessage.innerText = nextPhase.feedbackChallenge.defeat;
-        setTimeout(() => resetCombat(), 4000); // Reset after defeat
-      }
+    // Introduce enemy health regeneration after every few rounds
+    const enemyRegenChance = Math.random() > 0.8; // 20% chance to regenerate health
+    if (enemyRegenChance && enemyHealth < nextPhase.enemy.health) {
+      enemyHealth += 10; // Regenerate 10 health points
+      updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health);
+      feedbackMessage.innerText += ` The Stone Guardian regenerates 10 health!`;
+      showPopup(`+10 HP for Guardian`, "green");
     }
+  
+    if (enemyAttackType === "Heavy Attack") {
+      enemyAttackDamage = 30; // Increase heavy attack damage for more challenge
+      feedbackMessage.innerText += ` The Stone Guardian charges a heavy attack and deals ${enemyAttackDamage} damage!`;
+    } else {
+      enemyAttackDamage = Math.floor(Math.random() * 10) + 10; // Increase base light attack damage
+      feedbackMessage.innerText += ` The Stone Guardian strikes swiftly and deals ${enemyAttackDamage} damage.`;
+    }
+  
+    // Introduce a chance for enemy to land critical hits for extra damage
+    if (Math.random() > 0.7) { // 30% chance of critical hit
+      enemyAttackDamage += 15;
+      feedbackMessage.innerText += ` Critical hit! The Stone Guardian's attack is even more brutal!`;
+      showPopup(`Critical hit! +15 Damage`, "red");
+    }
+  
+    playerHealth -= enemyAttackDamage;
+    updateHealthBar(playerHealthFill, playerHealth, 100);
+  
+    if (playerHealth <= 0) {
+      combatOver = true; // Mark combat as over
+      feedbackMessage.innerText = nextPhase.feedbackChallenge.defeat;
+      setTimeout(() => resetCombat(), 4000); // Reset after defeat
+    }
+  }
+  
   
     // Reset combat for retry (optional for your game logic)
     function resetCombat() {
@@ -340,7 +358,9 @@ export function handleCombatChallenge(nextPhase, nextScene, loadScene) {
       updateHealthBar(playerHealthFill, playerHealth, 100);
       updateHealthBar(enemyHealthFill, enemyHealth, nextPhase.enemy.health);
       updateEnergyBar(playerEnergyBar, playerEnergy, 50);
-      feedbackMessage.innerText = "You've been given another chance!";
+      setTimeout(() => {
+        feedbackMessage.innerText = "You've been given another chance!";
+      }, 4000);
     }
   
     // Add event listeners for actions

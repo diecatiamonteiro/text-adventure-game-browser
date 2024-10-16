@@ -66,7 +66,7 @@
       "playerActions": ["Attack", "Aim for the joints", "Defend"],
       "feedbackChallenge": {
         "victory": "Victory! You successfully defeated the Stone Guardian, and you claim the Relic of Strength. With the new relic in hand, the ruins tremble and shift, revealing a hidden tunnel that leads you deeper into the Forgotten Land. You feel the relic's power grow stronger with each step as you enter a new area.",
-        "defeat": "The guardian proves too strong, and you were forced to retreat. After regaining your strength, you are now able to try again."
+        "defeat": "Oh no!!! The guardian proves too strong, and you were forced to retreat. After regaining your strength, you are now able to try again."
       },
       "relic": {
         "name": "relic_of_strength",
