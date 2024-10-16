@@ -128,7 +128,7 @@ function handleNextPhase(nextPhase, nextScene) {
 
     setTimeout(() => {
       triggerEnergyWave();
-    }, 6000);
+    },2000);
 
     setTimeout(() => {
       const sceneEndImage = document.getElementById("scene-end-image");

@@ -208,7 +208,7 @@
     "correctSceneAnswer": "Place relics on the pedestal",
     "feedback": {
       "wrong": "You attempt to restore balance, but the forgotten lands remain unchanged. It is not yet time. The relics must first be returned to their rightful places before balance can be restored.",
-      "right": "Off you go..."
+      "right": "You've been preparing yourself for this moment. Off you go now..."
     },
     "nextPhase": {
       "description": "One by one, you place the relics on their pedestals...  As each relic is set in place, a glow surrounds it, filling the temple with light. The Relic of Secrets, the Relic of Strength, the Relic of Wisdom, the Relic of Courage, and the Relic of Souls each take their place. As the final relic is placed, a wave of energy sweeps across the Forgotten Lands. The trees grow lush, the rivers run clear, and peace is restored. The Wise Elder appears once more, his voice calm but full of reverence: 'The Forgotten Lands are whole again... because of you. Your name will be remembered, hero, long after the echoes of time fade away.'",
