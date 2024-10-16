@@ -19,6 +19,7 @@ export function startGame() {
 
     mainGame.style.display = "block";
     mainGame.style.opacity = 0;
+
     setTimeout(() => {
       mainGame.style.opacity = 1; // fade in smoothly
       loadScene(1)

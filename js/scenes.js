@@ -72,8 +72,6 @@ function showButtonOptions(sceneData) {
 function handleButtonChoices(choice, sceneData) {
   const feedbackMessage = document.getElementById("feedback-message");
 
-  console.log("Scene Data:", sceneData);
-
   // Check if sceneData and correctSceneAnswer exist
   if (!sceneData || !sceneData.correctSceneAnswer) {
     console.error("Error: sceneData or correctSceneAnswer is undefined.");
@@ -88,13 +86,35 @@ function handleButtonChoices(choice, sceneData) {
     return; // Prevent further execution if there's an issue
   }
 
+  // Disable all buttons once correct answer is clicked
+  function disableButtons() {
+    const buttons = document.querySelectorAll(".button-for-option");
+    buttons.forEach((button) => {
+      button.disabled = true;
+    });
+  }
+
+  // Re-enable buttons for next scene
+  function enableButtons() {
+    const buttons = document.querySelectorAll(".button-for-option");
+    buttons.forEach((button) => {
+      button.disabled = false;
+    });
+  }
+
+  // Check if player chooses correct scene answer button
   if (choice === sceneData.correctSceneAnswer) {
     feedbackMessage.innerText = sceneData.feedback.right;
+
+    disableButtons();
+
     setTimeout(() => {
       if (sceneData.nextPhase) {
-        handleNextPhase(sceneData.nextPhase, sceneData.nextScene); // Handle the nextPhase first
+        handleNextPhase(sceneData.nextPhase, sceneData.nextScene);
+        enableButtons(); 
       } else {
-        loadScene(sceneData.nextScene); // Move directly to next scene
+        loadScene(sceneData.nextScene);
+        enableButtons(); 
       }
     }, 3000);
   } else {
@@ -128,7 +148,7 @@ function handleNextPhase(nextPhase, nextScene) {
 
     setTimeout(() => {
       triggerEnergyWave();
-    },2000);
+    }, 2000);
 
     setTimeout(() => {
       const sceneEndImage = document.getElementById("scene-end-image");
@@ -137,7 +157,7 @@ function handleNextPhase(nextPhase, nextScene) {
       setTimeout(() => {
         sceneEndImage.classList.add("show"); // animation to ensure `display` takes effect
       }, 100);
-    }, 10000);
+    }, 15000);
 
     setTimeout(() => {
       const endWords = document.getElementById("end-words");
@@ -146,7 +166,7 @@ function handleNextPhase(nextPhase, nextScene) {
       setTimeout(() => {
         endWords.classList.add("show"); // animations
       }, 100);
-    }, 12000);
+    }, 16000);
   } else {
     // handle challenges
     if (nextPhase.challengeType === "riddle") {

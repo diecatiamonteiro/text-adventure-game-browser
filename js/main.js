@@ -1,6 +1,6 @@
 // Manages the overall game flow.
 
-import { startGame, quitGame, restartGame } from "./controls.js";
+import { startGame, quitGame } from "./controls.js";
 
 // start game
 document.getElementById("start-button").addEventListener("click", startGame);
@@ -9,6 +9,6 @@ document.getElementById("start-button").addEventListener("click", startGame);
 document.getElementById("quit-button").addEventListener("click", quitGame);
 
 // restart game
-document
-  .getElementById("restart-button")
-  .addEventListener("click", restartGame);
+// document
+//   .getElementById("restart-button")
+//   .addEventListener("click", restartGame);

@@ -2,6 +2,13 @@ let collectedRelics = [];
 
 // Function to add a relic to the inventory
 export function addRelicToInventory(relic) {
+  if (
+    collectedRelics.some((collectedRelic) => collectedRelic.name === relic.name)
+  ) {
+    console.log(`Relic ${relic.name} already collected.`);
+    return;
+  }
+
   collectedRelics.push(relic);
 
   updateInventoryUI();

@@ -670,12 +670,12 @@ export function handleAlignChallenge(align, nextPhase, nextScene, loadScene) {
         iceBlock.style.backgroundImage = `url(${nextPhase.relic.image})`;
         iceBlock.classList.remove("show");
         iceBlock.classList.add("reveal"); // reveal relic
-      }, 3000);
+      }, 2000);
 
       setTimeout(() => {
         const feedbackMessage = document.getElementById("align-feedback");
         feedbackMessage.innerText = nextPhase.align.feedbackChallenge.right;
-      }, 4000);
+      }, 3000);
 
       setTimeout(() => {
         if (nextPhase.relic) {
