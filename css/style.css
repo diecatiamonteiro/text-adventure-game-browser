@@ -529,16 +529,16 @@ main #game-area aside#inventory #items-box .inventory-item {
 
 #puzzle-pieces {
   display: flex;
-  flex-wrap: wrap; /* Wrap images into rows */
+  flex-wrap: wrap; 
   justify-content: center;
   gap: 10px;
   width: 580px;
-  margin: 20px auto; /* Center the puzzle container */
+  margin: 20px auto; 
 }
 
 .puzzle-piece {
-  width: 130px; /* Adjust width as needed */
-  height: 130px; /* Adjust height as needed */
+  width: 130px; 
+  height: 130px; 
   cursor: grab;
 }
 
@@ -562,47 +562,61 @@ main #game-area aside#inventory #items-box .inventory-item {
 .mirror,
 #flame,
 #iceBlock {
-  background-size: cover;
+  background-size:cover;
 }
 
 .mirror {
   cursor: pointer;
-  width: 80px;
-  height: 100px;
-  transition: transform 0.5s ease-in-out; /* Apply smooth transition to rotation */
+  width: 130px;
+  height: 140px;
+  transition: transform 0.5s ease-in-out;
 }
 
 #iceBlock {
-  width: 120px;
-  height: 120px;
-  transition: background-image 2s ease-in-out, opacity 2s;
+  width: 160px;
+  height: 160px;
+  transition: background-image 2s ease-in-out, transform 2s ease-in-out, opacity 2s;
   opacity: 1;
+  transform: scale(1);  /* normal size */
 }
 
 #iceBlock.show {
   opacity: 0;
+  transform: scale(0); /* shrinks */
 }
 
 #iceBlock.reveal {
-  opacity: 1; /* This will make the relic image appear slowly */
+  opacity: 1; /* reveals relic  */
+  transform: scale(1); /* normal size for relic */
+  box-shadow: 0 0 20px 10px rgba(255, 255, 0, 0.6);
+    border-radius: 50%;
+  animation: pulseGlow 1.5s infinite alternate; 
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 10px 5px rgba(255, 255, 0, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 30px 15px rgba(255, 255, 0, 0.8);
+  }
 }
 
 #flame {
-  width: 40px;
-  height: 70px;
+  width: 80px;
+  height: 100px;
   margin: 0 auto;
   animation: burn 0.9s infinite alternate ease-in-out;
 }
 
-/* Burning animation */
 @keyframes burn {
   0% {
     transform: scale(1);
     filter: brightness(1);
   }
   100% {
-    transform: scale(1.1); /* Slight scaling */
-    filter: brightness(1.3); /* Increase brightness for flickering effect */
+    transform: scale(1.1); /* slight scaling up */
+    filter: brightness(1.3); /* increase brightness */
   }
 }
 
