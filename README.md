@@ -95,7 +95,7 @@ Just enough to offer you a glimpse, but not so much that it takes away the excit
 
 ![Combat Challenge](./assets/screenshots/combat-challenge.png)
 
-### Relic Inventory (almost completed)
+### Relic Inventory Nearly Complete
 
 ![Relic Inventory](./assets/screenshots/relic-inventory.png)
 
