@@ -1,6 +1,6 @@
 # Chronicles of Forgotten Lands - A Browser-Based Text Adventure Game
 
-**Chronicles of Forgotten Lands** is a modern take on classic text-based adventure games, blending storytelling, puzzle-solving, and dynamic gameplay. In the Forgotten Lands you'll face riddles, combat and puzzle challenges, while collecting relics to restore balance to a long-lost world.
+**Chronicles of Forgotten Lands** is a modern take on classic text-based adventure games, blending storytelling, puzzle-solving, and dynamic gameplay. In the Forgotten Lands you'll face riddles, combats and puzzle challenges, while collecting relics to restore balance to a long-lost world.
 
 **[Play the Game Now!](https://diecatiamonteiro.github.io/text-adventure-game-browser/)**
 
@@ -22,7 +22,7 @@
 
 This game is part of my **personal learning journey**, marking a significant step forward from my earlier terminal-based text adventure game (which you can also find in my repositories). It highlights my growing skills in vanilla JavaScript and web development.
 
-What I love most about this game is its **deliberately slow pace**. In a world that constantly demands fast interactions and quick rewards, this game is an invitation to slow down, read, reflect, and enjoy the journey—just like the classic text adventures of old. 
+What I love most about this game is its **deliberately slow pace**. In a world that constantly demands fast interactions and quick rewards, this game is an invitation to slow down, read, reflect, and enjoy the journey—just like the classic text adventures. 
 
 A quick note: the game is designed specifically for **desktop play only**, offering an experience best enjoyed on larger screens. For now, mobile support is not provided.
 
@@ -45,7 +45,7 @@ A quick note: the game is designed specifically for **desktop play only**, offer
 2. **Clone the repository and play it on your machine**:
 
    ```bash
-   git clone https://github.com/yourusername/chronicles-of-forgotten-lands.git
+   git clone git@github.com:diecatiamonteiro/text-adventure-game-browser.git
    ```
 
 
