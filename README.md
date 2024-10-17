@@ -2,7 +2,7 @@
 
 **Chronicles of Forgotten Lands** is a modern take on classic text-based adventure games, blending storytelling, puzzle-solving, and dynamic gameplay. In the Forgotten Lands you'll face riddles, combat and puzzle challenges, while collecting relics to restore balance to a long-lost world.
 
-**[Play the Game Now!](https://yourusername.github.io/chronicles-of-forgotten-lands)**
+**[Play the Game Now!](https://diecatiamonteiro.github.io/text-adventure-game-browser/)**
 
 ![Game Banner](./assets/screenshots/game-banner.png)
 
@@ -39,7 +39,7 @@ A quick note: the game is designed specifically for **desktop play only**, offer
 
 ## How to play
 
-1. **Play the game now [here](https://yourusername.github.io/chronicles-of-forgotten-lands)**.
+1. **Play the game now [here](https://diecatiamonteiro.github.io/text-adventure-game-browser/)**.
 
 
 2. **Clone the repository and play it on your machine**:
