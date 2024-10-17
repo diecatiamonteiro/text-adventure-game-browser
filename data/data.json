@@ -20,7 +20,7 @@
     "options": ["Head to ruins", "Explore forest a little more"],
     "correctSceneAnswer": "Head to ruins",
     "feedback": {
-      "wrong": "You wander deeper into the forest, the sounds of rustling leaves and distant whispers filling the air. Strange markings on the trees catch your eye, and a sense of being watched lingers. The forest seems to breathe with life. When you're ready, the path to the ruins awaits.",
+      "wrong": "You wander deeper into the forest, the rustling leaves and distant whispers growing louder. Strange markings on the trees catch your eye, and a sense of being watched lingers. When you're ready, the path to the ruins awaits.",
       "right": "You push through the dense underbrush, making your way toward the hidden ruins. Off you go to the ruins..."
     },
     "nextPhase": {

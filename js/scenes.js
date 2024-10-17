@@ -113,6 +113,7 @@ function handleButtonChoices(choice, sceneData) {
   }
 }
 
+
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Next phase (handles challenges and end scene within scene)
 
 function handleNextPhase(nextPhase, nextScene) {
@@ -183,6 +184,7 @@ function handleNextPhase(nextPhase, nextScene) {
     }
   }
 }
+
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ Clear previous scene
 
