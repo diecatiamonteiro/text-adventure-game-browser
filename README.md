@@ -1,4 +1,4 @@
-# Chronicles of Forgotten Lands
+# Chronicles of Forgotten Lands - A Browser-Based Text Adventure Game
 
 **Chronicles of Forgotten Lands** is a modern take on classic text-based adventure games, blending storytelling, puzzle-solving, and dynamic gameplay. In the Forgotten Lands you'll face riddles, combat and puzzle challenges, while collecting relics to restore balance to a long-lost world.
 
